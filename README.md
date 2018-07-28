@@ -129,10 +129,10 @@ Read the original [README.md](/README-orig.md)
 [deps-url]: https://david-dm.org/codesandcoffees/react-pkg
 
 <!-- Repo Details -->
-[issues-url]: https://github.com/<AUTHOR_NAME>/<REPO_NAME>/issues
-[issues-img]: https://img.shields.io/github/issues/<AUTHOR_NAME>/<REPO_NAME>.svg
-[pr-img]: https://img.shields.io/github/issues-pr/<AUTHOR_NAME>/<REPO_NAME>.svg
-[pr-url]: https://github.com/<AUTHOR_NAME>/<REPO_NAME>/pulls
-[contributor-img]: https://img.shields.io/github/contributors/<AUTHOR_NAME>/<REPO_NAME>.svg
-[contributor-url]: https://github.com/<AUTHOR_NAME>/<REPO_NAME>/graphs/contributors
-[code-size-img]: https://img.shields.io/github/languages/code-size/<AUTHOR_NAME>/<REPO_NAME>.svg
+[issues-url]: https://github.com/iamdevlinph/projects-tracker/issues
+[issues-img]: https://img.shields.io/github/issues/iamdevlinph/projects-tracker.svg
+[pr-img]: https://img.shields.io/github/issues-pr/iamdevlinph/projects-tracker.svg
+[pr-url]: https://github.com/iamdevlinph/projects-tracker/pulls
+[contributor-img]: https://img.shields.io/github/contributors/iamdevlinph/projects-tracker.svg
+[contributor-url]: https://github.com/iamdevlinph/projects-tracker/graphs/contributors
+[code-size-img]: https://img.shields.io/github/languages/code-size/iamdevlinph/projects-tracker.svg
