@@ -1,4 +1,5 @@
-# New Project Name
+# Projects Tracker
+Track multiple public github repositories in one place.
 
 #### Core Dependency Status
 
