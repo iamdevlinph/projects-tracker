@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { Navbar } from '../../components';
 
 const Layout = styled.div`
-  display: inherit;
-  text-align: center;
+  /* display: inherit;
+  text-align: center; */
 `;
 
 class HomeLayout extends React.Component {

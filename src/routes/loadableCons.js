@@ -7,8 +7,8 @@ const fakeDelay = ms => new Promise((resolve) => {
 });
 
 export default {
-  Counter: Loadable({
-    loader: () => fakeDelay(2000).then(() => import('../containers/Counter/Counter')),
+  Home: Loadable({
+    loader: () => fakeDelay(2000).then(() => import('../containers/Home/Home')),
     loading: Loading,
   }),
 
