@@ -2,12 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const LoadingComponent = (props) => {
-  if (props.isLoading) {
-    return <div>Loading...</div>;
-  } else if (props.error) {
-    return <div>Something went wrong...</div>;
-  } else if (props.timedOut) {
-    return <div>Request timed out... </div>;
+  const { isLoading, timedOut, error } = props;
+  if (isLoading) {
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  } if (error) {
+    return (
+      <div>
+        Something went wrong...
+      </div>
+    );
+  } if (timedOut) {
+    return (
+      <div>
+        Request timed out...
+        {' '}
+      </div>
+    );
   }
   return null;
 };

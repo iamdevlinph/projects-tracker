@@ -11,10 +11,11 @@ const Layout = styled.div`
 
 class HomeLayout extends React.Component {
   render() {
+    const { children } = this.props;
     return (
       <Layout>
         <Navbar />
-        {this.props.children}
+        {children}
       </Layout>
     );
   }

@@ -17,4 +17,3 @@ export default createStore(
 sagaMiddleware.run(mySaga);
 
 // render the application
-

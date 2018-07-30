@@ -17,9 +17,19 @@ class NavbarComponent extends React.Component {
     return (
       <div>
         <List>
-          <li><Link to="/">Home</Link></li>
-          <Divider>|</Divider>
-          <li><Link to="about">About</Link></li>
+          <li>
+            <Link to="/">
+              Home
+            </Link>
+          </li>
+          <Divider>
+            |
+          </Divider>
+          <li>
+            <Link to="about">
+              About
+            </Link>
+          </li>
         </List>
       </div>
     );

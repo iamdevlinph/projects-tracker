@@ -6,7 +6,7 @@ import Routes from './routes';
 import store from './store';
 
 export default () => (
-  <Provider store={store} >
+  <Provider store={store}>
     <Routes />
   </Provider>
 );
