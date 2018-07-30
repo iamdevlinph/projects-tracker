@@ -8,12 +8,12 @@ const fakeDelay = ms => new Promise((resolve) => {
 
 export default {
   Home: Loadable({
-    loader: () => fakeDelay(2000).then(() => import('../containers/Home/Home')),
+    loader: () => fakeDelay(500).then(() => import('../containers/Home/Home')),
     loading: Loading,
   }),
 
-  About: Loadable({
-    loader: () => fakeDelay(2000).then(() => import('../containers/About/About')),
+  Manage: Loadable({
+    loader: () => fakeDelay(500).then(() => import('../containers/Manage/Manage')),
     loading: Loading,
   }),
 };

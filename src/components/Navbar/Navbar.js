@@ -26,8 +26,8 @@ class NavbarComponent extends React.Component {
             |
           </Divider>
           <li>
-            <Link to="about">
-              About
+            <Link to="manage">
+              Manage
             </Link>
           </li>
         </List>

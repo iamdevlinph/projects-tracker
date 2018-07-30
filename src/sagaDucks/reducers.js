@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import counter from './counter/counter';
+import projects from './projects/projects';
 
 export default combineReducers({
-  counter,
+  projects,
 });

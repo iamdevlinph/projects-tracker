@@ -20,7 +20,7 @@ export default () => (
   <HashRouter>
     <Switch>
       <AppRoute exact path="/" layout={HomeLayout} component={loadableCons.Home} />
-      <AppRoute exact path="/about" layout={HomeLayout} component={loadableCons.About} />
+      <AppRoute exact path="/manage" layout={HomeLayout} component={loadableCons.Manage} />
     </Switch>
   </HashRouter>
 );
