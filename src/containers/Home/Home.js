@@ -8,21 +8,35 @@ import { actions as projectsActions } from '../../sagaDucks/projects/projects';
 import { Card } from '../../components';
 
 class HomeContainer extends React.Component {
-  render() {
+  componentWillMount() {
     const { requestList } = this.props;
+    requestList();
+  }
+
+  render() {
+    const { projects } = this.props;
+    const projectCards = projects.map((project) => {
+      let el = null;
+      el = (
+        <Card key={project.id}>
+          {project.repoName}
+        </Card>
+      );
+      return el;
+    });
     return (
       <div>
-        Home here
-        <button type="button" onClick={() => requestList()}>
-          Request List
-        </button>
-        <ProjectList>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </ProjectList>
+        {projectCards.length > 1
+          ? (
+            <ProjectList>
+              {projectCards}
+            </ProjectList>
+          ) : (
+            <ProjectEmptyList>
+              No projects
+            </ProjectEmptyList>
+          )
+        }
       </div>
     );
   }
@@ -30,6 +44,7 @@ class HomeContainer extends React.Component {
 
 HomeContainer.propTypes = {
   requestList: PropTypes.func.isRequired,
+  projects: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => (
@@ -52,3 +67,4 @@ const ProjectList = styled.div`
   column-gap: 20px;
   row-gap: 20px;
 `;
+const ProjectEmptyList = styled.div``;

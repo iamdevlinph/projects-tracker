@@ -1,6 +1,6 @@
-/**
- * General COMMON State
- */
+import githubApi from '../../services/githubApi';
+
+let mapProjectsObj;
 
 export const types = {
   FETCH_LIST_REQUEST: 'PROJECTS/FETCH_LIST_REQUEST',
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case types.FETCH_LIST_SUCCESS:
       return {
         ...state,
-        list: action.projects,
+        list: mapProjectsObj(action.projects),
       };
     default:
       return state;
@@ -26,4 +26,21 @@ export default (state = initialState, action) => {
 
 export const actions = {
   requestList: () => ({ type: types.FETCH_LIST_REQUEST }),
+};
+
+mapProjectsObj = (projects) => {
+  const mappedProjects = [];
+  Object.keys(projects).forEach((key) => {
+    const { authorName, authorType, repoName } = projects[key];
+    githubApi.getInfo(authorName, authorType).then((data) => {
+      const authorInfo = data;
+      mappedProjects.push({
+        ...projects[key],
+        id: key,
+        githubUrl: `https://github.com/${authorName}/${repoName}`,
+        authorAvatarUrl: authorInfo.avatar_url,
+      });
+    });
+  });
+  return mappedProjects;
 };
