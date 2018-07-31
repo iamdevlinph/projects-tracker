@@ -4,10 +4,16 @@ import rsf from '../rsf';
 import { types as projectsTypes } from './projects';
 
 function* willFetchList() {
-  console.info('yeah');
   try {
-    const snapshot = yield call(rsf.firestore.getCollection, 'projects');
-    yield put({ type: projectsTypes.FETCH_LIST_SUCCESS, snapshot });
+    const snapshot = yield call(rsf.firestore.getCollection, 'iamdevlinph-projects');
+    let projects;
+    snapshot.forEach((project) => {
+      projects = {
+        ...projects,
+        [project.id]: project.data(),
+      };
+    });
+    yield put({ type: projectsTypes.FETCH_LIST_SUCCESS, projects });
   } catch (e) {
     console.error(e);
   }

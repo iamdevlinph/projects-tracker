@@ -7,7 +7,8 @@ module.exports = {
     "import/no-extraneous-dependencies": 0, // to allow the convenience package
     "jsx-a11y/anchor-is-valid": 0,
     "react/forbid-prop-types": 0, // for object prop type,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "no-console": ["warn", { allow: ["error"] }]
   },
   "globals": {
     "document": true

@@ -4,10 +4,10 @@ import ReduxSagaFirebase from 'redux-saga-firebase';
 // import admin from 'firebase/auth';
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: 'xxx',
-  authDomain: 'x.firebaseapp.com',
-  databaseURL: 'https://x.firebaseio.com',
-  projectId: 'x',
+  apiKey: 'AIzaSyC-q9fnXTg-x-k7x-fdhxn8jBIcR0kyltc',
+  authDomain: 'projects-tracker-d372e.firebaseapp.com',
+  databaseURL: 'https://projects-tracker-d372e.firebaseio.com',
+  projectId: 'projects-tracker-d372e',
 });
 
 const rsf = new ReduxSagaFirebase(firebaseApp);

@@ -13,12 +13,12 @@ export const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.info('reducer');
-  console.info(action);
   switch (action.type) {
     case types.FETCH_LIST_SUCCESS:
-      console.info(action);
-      return state;
+      return {
+        ...state,
+        list: action.projects,
+      };
     default:
       return state;
   }

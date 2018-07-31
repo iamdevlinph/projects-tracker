@@ -18,3 +18,8 @@ injectGlobal`
     margin: 0;
   }
 `;
+
+// listen to store changes
+// store.subscribe(() => {
+//   console.log(store.getState());
+// });
