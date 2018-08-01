@@ -6,7 +6,7 @@ import { types as projectsTypes } from './projects';
 
 function* willFetchList() {
   try {
-    const snapshot = yield call(firebaseFuncs.helloWorld);
+    const snapshot = yield call(firebaseFuncs.getAuthors);
     console.log(snapshot);
     // let projects;
     // snapshot.forEach((project) => {
