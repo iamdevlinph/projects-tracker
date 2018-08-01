@@ -40,12 +40,12 @@ exports.getAuthors = functions.https.onRequest((req, res) => {
     //   res.status(500).send('not okay');
     //   // res.status(500).send(e);
     // });
-    return query.once('value', (snapshot) => {
-      // console.log('a2', snapshot.val());
-      const aaa = snapshot.val();
-      console.log('faz', JSON.stringify(aaa));
-      res.status(200).send('okayyyyyyy');
-    });
+    // return query.once('value', (snapshot) => {
+    //   // console.log('a2', snapshot.val());
+    //   const aaa = snapshot.val();
+    //   console.log('faz', JSON.stringify(aaa));
+    //   res.status(200).send('okayyyyyyy');
+    // });
     // return Promise
     //   .all([
     //     admin.database().ref('authors').once('value'),
@@ -67,6 +67,43 @@ exports.getAuthors = functions.https.onRequest((req, res) => {
     // }, (e) => {
     //   console.log('error', e);
     // });
+
+    // test the following
+    // return query.once('value').then((snap) => {
+    //   console.log('1st', snap.val());
+    //   res.send('ok');
+    // }).catch(() => {
+    //   res.status(500).send('not okay');
+    // });
+
+    // query.once('value').then((snap) => {
+    //   console.log('2nd', snap.val());
+    //   res.send('ok');
+    // }).catch(() => {
+    //   res.status(500).send('not okay');
+    // });
+
+    // return query.once('value', (snap) => {
+    //   console.log('3rd', snap.val());
+    //   res.send('ok');
+    // });
+
+    // query.once('value', (snap) => {
+    //   console.log('4th', snap.val());
+    //   res.send('ok');
+    // });
+
+    // return Promise
+    //   .all([
+    //     query.once('value'),
+    //   ])
+    //   .then((snap) => {
+    //     console.log('5th', snap[0].val());
+    //     res.send('ok');
+    //   })
+    //   .catch((e) => {
+    //     res.status(500).send(e);
+    //   });
   });
 });
 
