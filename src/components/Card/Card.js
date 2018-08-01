@@ -1,15 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 class CardComponent extends React.Component {
   render() {
+    const { children } = this.props;
     return (
       <CardChunk>
         <Avatar>
           <img src="https://avatars1.githubusercontent.com/u/19337229?s=460&v=4" alt="avatar" />
         </Avatar>
         <Description>
-          title. last updated. description
+          {children}
         </Description>
         <Status>
           Status of the project here
@@ -18,6 +20,10 @@ class CardComponent extends React.Component {
     );
   }
 }
+
+CardComponent.propTypes = {
+  children: PropTypes.string.isRequired,
+};
 
 export default CardComponent;
 

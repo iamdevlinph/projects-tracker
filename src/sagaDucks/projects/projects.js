@@ -1,5 +1,3 @@
-import githubApi from '../../services/githubApi';
-
 let mapProjectsObj;
 
 export const types = {
@@ -31,15 +29,11 @@ export const actions = {
 mapProjectsObj = (projects) => {
   const mappedProjects = [];
   Object.keys(projects).forEach((key) => {
-    const { authorName, authorType, repoName } = projects[key];
-    githubApi.getInfo(authorName, authorType).then((data) => {
-      const authorInfo = data;
-      mappedProjects.push({
-        ...projects[key],
-        id: key,
-        githubUrl: `https://github.com/${authorName}/${repoName}`,
-        authorAvatarUrl: authorInfo.avatar_url,
-      });
+    const { authorName, repoName } = projects[key];
+    mappedProjects.push({
+      ...projects[key],
+      id: key,
+      githubUrl: `https://github.com/${authorName}/${repoName}`,
     });
   });
   return mappedProjects;

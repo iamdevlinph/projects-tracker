@@ -26,7 +26,7 @@ class HomeContainer extends React.Component {
     });
     return (
       <div>
-        {projectCards.length > 1
+        {projectCards.length > 0
           ? (
             <ProjectList>
               {projectCards}
