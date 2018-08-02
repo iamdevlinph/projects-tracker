@@ -14,8 +14,9 @@
     "lint": "eslint .",
     "lint:functions": "eslint functions/",
     "build": "node scripts/build.js",
-    "precommit": "lint-staged && firebase deploy",
-    "precommit:init": "npm i lint-staged husky"
+    "precommit": "lint-staged",
+    "precommit:init": "npm i lint-staged husky",
+    "prepush": "firebase deploy"
   },
   "lint-staged": {
     "*.js": [

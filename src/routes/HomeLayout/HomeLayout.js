@@ -1,27 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Navbar, Filter } from '../../components';
 
-class HomeLayout extends Component {
-  render() {
-    const { children } = this.props;
-    return (
-      <Layout>
-        <NavbarArea>
-          <Navbar />
-        </NavbarArea>
-        <FilterArea>
-          <Filter />
-        </FilterArea>
-        <MainArea>
-          {children}
-        </MainArea>
-      </Layout>
-    );
-  }
-}
+const HomeLayout = (props) => {
+  const { children } = props;
+  return (
+    <Layout>
+      <NavbarArea>
+        <Navbar />
+      </NavbarArea>
+      <FilterArea>
+        <Filter />
+      </FilterArea>
+      <MainArea>
+        {children}
+      </MainArea>
+    </Layout>
+  );
+};
 
 HomeLayout.propTypes = {
   children: PropTypes.object.isRequired,
