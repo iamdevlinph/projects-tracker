@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { actions as projectsActions } from '../../sagaDucks/projects/projects';
 import { Card } from '../../components';
 
-class HomeContainer extends React.Component {
+class HomeContainer extends Component {
   componentWillMount() {
     const { requestList } = this.props;
     requestList();

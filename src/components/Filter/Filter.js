@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
-class FilterComponent extends React.Component {
+class FilterComponent extends Component {
   render() {
     return (
       <Filter>

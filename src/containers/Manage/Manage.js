@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class ManageContainer extends React.Component {
+class ManageContainer extends Component {
   render() {
     return (
       <div>

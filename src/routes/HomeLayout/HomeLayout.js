@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Navbar, Filter } from '../../components';
 
-class HomeLayout extends React.Component {
+class HomeLayout extends Component {
   render() {
     const { children } = this.props;
     return (

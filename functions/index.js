@@ -10,9 +10,6 @@ const COLLECTIONS = {
   PROJECTS: 'projects',
 };
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
 exports.helloWorld = functions.https.onRequest((req, res) => {
   cors(req, res, () => res.status(200).json({
     message: 'Hello!',
@@ -27,6 +24,7 @@ exports.getAuthors = functions.https.onRequest((req, res) => {
         snapshot.forEach((author) => {
           const authorObj = author.data();
           authorObj.key = author.id;
+          authorObj.githubUrl = `https://github.com/${authorObj.authorName}`;
           authors.push(authorObj);
         });
         res.status(200).json(authors);

@@ -3,6 +3,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import HomeLayout from './HomeLayout/HomeLayout';
+import NoSidebarLayout from './NoSidebarLayout/NoSidebarLayout';
 import loadableCons from './loadableCons';
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
@@ -20,7 +21,7 @@ export default () => (
   <HashRouter>
     <Switch>
       <AppRoute exact path="/" layout={HomeLayout} component={loadableCons.Home} />
-      <AppRoute exact path="/manage" layout={HomeLayout} component={loadableCons.Manage} />
+      <AppRoute exact path="/manage" layout={NoSidebarLayout} component={loadableCons.Manage} />
     </Switch>
   </HashRouter>
 );
