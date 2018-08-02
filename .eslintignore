@@ -2,3 +2,6 @@ scripts/*
 config/*
 build/*
 registerServiceWorker.js
+
+node_modules/*
+functions/node_modules/*

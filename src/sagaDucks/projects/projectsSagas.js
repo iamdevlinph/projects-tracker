@@ -6,16 +6,9 @@ import { types as projectsTypes } from './projects';
 
 function* willFetchList() {
   try {
-    const snapshot = yield call(firebaseFuncs.getAuthors);
-    console.log(snapshot);
-    // let projects;
-    // snapshot.forEach((project) => {
-    //   projects = {
-    //     ...projects,
-    //     [project.id]: project.data(),
-    //   };
-    // });
-    yield put({ type: projectsTypes.FETCH_LIST_SUCCESS, a: 'test' });
+    // const projects = yield call(rsf.functions.call, 'getProjects');
+    const projects = yield call(firebaseFuncs.getProjects);
+    yield put({ type: projectsTypes.FETCH_LIST_SUCCESS, projects });
   } catch (e) {
     console.error(e);
   }

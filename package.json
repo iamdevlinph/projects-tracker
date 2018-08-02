@@ -10,13 +10,12 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "deploy": "npm run build && gh-pages -d build && exit 0",
-    "lint:log": "eslint ./ > lint.log && exit 0",
-    "lint:test": "eslint ./ && exit 0",
-    "lint:fix": "eslint --fix ./ && exit 0",
+    "deploy": "npm run build && gh-pages -d build",
+    "lint": "eslint .",
+    "lint:functions": "eslint functions/",
     "build": "node scripts/build.js",
     "precommit": "lint-staged",
-    "precommit:init": "npm i lint-staged husky && exit 0"
+    "precommit:init": "npm i lint-staged husky"
   },
   "lint-staged": {
     "*.js": [

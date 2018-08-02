@@ -62,6 +62,12 @@ Install the packages
 npm run install
 ```
 
+Install `firebase-tools` and `eslint` globally
+
+```
+npm install -g firebase-tools eslint
+```
+
 # Note
 Currently, `package-lock.json` is added to `.gitignore`. It's safer to install a specific version of the npm package. You can also remove it from the `.gitignore` file if you prefer to have it committed.
 
@@ -87,6 +93,13 @@ npm run start
 And if you only want to build the files
 ```
 npm run build-only
+```
+
+## Deploy `firebase functions`
+
+```
+firebase login // if needed
+firebase deploy
 ```
 
 # Deployment

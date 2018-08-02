@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
-const db = admin.database();
+const db = admin.firestore();
 const cors = require('cors')({ origin: true });
 
 const COLLECTIONS = {
@@ -20,96 +20,37 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 });
 
 exports.getAuthors = functions.https.onRequest((req, res) => {
-  // cors(req, res, () => admin.database()
-  //   .ref('/authors')
-  //   .orderByChild('authorName')
-  //   .then((snapshot) => {
-  //     res.status(200).json(snapshot.val());
-  //   }));
   cors(req, res, () => {
-    // const authors = db.ref(COLLECTIONS.AUTHORS);
-    const query = db.ref(COLLECTIONS.AUTHORS);
-    // return query.once('value').then((snap) => {
-    //   console.log('ddd', snap); // datasnapshot
-    //   console.log('eee', snap.val()); // null
-    //   const test = snap.val();
-    //   console.log('zzz', JSON.stringify(test));
-    //   console.log('fff', snap.key); // authors
-    //   res.send('ok 23');
-    // }).catch(() => {
-    //   res.status(500).send('not okay');
-    //   // res.status(500).send(e);
-    // });
-    // return query.once('value', (snapshot) => {
-    //   // console.log('a2', snapshot.val());
-    //   const aaa = snapshot.val();
-    //   console.log('faz', JSON.stringify(aaa));
-    //   res.status(200).send('okayyyyyyy');
-    // });
-    // return Promise
-    //   .all([
-    //     admin.database().ref('authors').once('value'),
-    //   ])
-    //   .then((snap) => {
-    //     console.log(snap);
-    //     console.log(snap[0].val());
-    //     res.status(200).send(snap[0].val());
-    //   })
-    //   .catch((e) => {
-    //     res.status(500).send(e);
-    //   });
-    // admin.database().ref('authors').once('value').then((snap) => {
-    //   if (snap.val()) {
-    //     console.log('data', snap.val());
-    //   } else {
-    //     console.log('error');
-    //   }
-    // }, (e) => {
-    //   console.log('error', e);
-    // });
-
-    // test the following
-    // return query.once('value').then((snap) => {
-    //   console.log('1st', snap.val());
-    //   res.send('ok');
-    // }).catch(() => {
-    //   res.status(500).send('not okay');
-    // });
-
-    // query.once('value').then((snap) => {
-    //   console.log('2nd', snap.val());
-    //   res.send('ok');
-    // }).catch(() => {
-    //   res.status(500).send('not okay');
-    // });
-
-    // return query.once('value', (snap) => {
-    //   console.log('3rd', snap.val());
-    //   res.send('ok');
-    // });
-
-    // query.once('value', (snap) => {
-    //   console.log('4th', snap.val());
-    //   res.send('ok');
-    // });
-
-    // return Promise
-    //   .all([
-    //     query.once('value'),
-    //   ])
-    //   .then((snap) => {
-    //     console.log('5th', snap[0].val());
-    //     res.send('ok');
-    //   })
-    //   .catch((e) => {
-    //     res.status(500).send(e);
-    //   });
+    db.collection(COLLECTIONS.AUTHORS).get()
+      .then((snapshot) => {
+        const authors = [];
+        snapshot.forEach((author) => {
+          const authorObj = author.data();
+          authorObj.key = author.id;
+          authors.push(authorObj);
+        });
+        res.status(200).json(authors);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   });
 });
 
-// exports.getProjects = functions.https.onRequest((req, res) => {
-//   cors(req, res, () => {
-//     const projects = db.ref('projects');
-//     const query = projects.orderByChild('repoName');
-//   });
-// });
+exports.getProjects = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    db.collection(COLLECTIONS.PROJECTS).get()
+      .then((snapshot) => {
+        const projects = [];
+        snapshot.forEach((project) => {
+          const projectObj = project.data();
+          projectObj.key = project.id;
+          projects.push(projectObj);
+        });
+        res.status(200).json(projects);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  });
+});
