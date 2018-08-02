@@ -21,7 +21,7 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 
 exports.getAuthors = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
-    db.collection(COLLECTIONS.AUTHORS).get()
+    db.collection(COLLECTIONS.AUTHORS).orderBy('authorName').get()
       .then((snapshot) => {
         const authors = [];
         snapshot.forEach((author) => {
@@ -39,7 +39,7 @@ exports.getAuthors = functions.https.onRequest((req, res) => {
 
 exports.getProjects = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
-    db.collection(COLLECTIONS.PROJECTS).get()
+    db.collection(COLLECTIONS.PROJECTS).orderBy('repoName').get()
       .then((snapshot) => {
         const projects = [];
         snapshot.forEach((project) => {
