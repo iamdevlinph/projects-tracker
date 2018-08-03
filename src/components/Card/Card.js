@@ -5,6 +5,7 @@ import styled from 'styled-components';
 class CardComponent extends Component {
   render() {
     const { data } = this.props;
+    console.log(data);
     return (
       <CardChunk>
         <Avatar>
@@ -23,9 +24,12 @@ class CardComponent extends Component {
           {data.description}
         </Description>
         <Status>
-          <img src={data.stars} alt="stars" />
-          <img src={data.issues} alt="issues" />
-          <img src={data.prsOpen} alt="pr" />
+          {`Stars ${data.starsCount}`}
+          {`Issues ${data.issuesCount}`}
+          {`Pr ${data.prsCount}`}
+          {/* <img src={data.stars} alt="stars" />
+          <img src={data.issues} alt="issues" /> */}
+          {/* <img src={data.prsOpen} alt="pr" /> */}
         </Status>
       </CardChunk>
     );

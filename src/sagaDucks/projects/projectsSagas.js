@@ -29,12 +29,12 @@ function* willFetchProjects() {
 function* willFetchRepoInfo(action) {
   try {
     const repoInfoPromises = [];
-    // const prcountPromises = [];
+    const prcountPromises = [];
     const commitPromises = [];
     action.projects.forEach((project) => {
       repoInfoPromises.push(fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}`).then(res => res.json()));
       // the search APIs have limits
-      // prcountPromises.push(fetch(`https://api.github.com/search/issues?q=+type:pr+repo:${project.authorName}/${project.repoName}+state:open&sort=created&order=asc`).then(res => res.json()));
+      prcountPromises.push(fetch(`https://api.github.com/search/issues?q=+type:pr+repo:${project.authorName}/${project.repoName}+state:open&sort=created&order=asc`).then(res => res.json()));
       commitPromises.push(
         fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/git/refs/heads/master`)
           .then(refObj => Promise.resolve(refObj.json())
@@ -44,7 +44,7 @@ function* willFetchRepoInfo(action) {
       );
     });
     const resolveRepoInfo = yield all(repoInfoPromises);
-    // const resolveprCount = yield all(prcountPromises);
+    const resolveprCount = yield all(prcountPromises);
     const resolveCommits = yield all(commitPromises);
 
     const projects = [];
@@ -59,12 +59,13 @@ function* willFetchRepoInfo(action) {
         authorAvatar: repoInfo.owner.avatar_url,
         authorUrl: `https://github.com/${repoInfo.owner.login}`,
         repoUrl: `https://github.com/${repoInfo.owner.login}/${repoInfo.name}`,
-        issues: `https://img.shields.io/github/issues/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
-        // issues: repoInfo.open_issues_count,
-        stars: `https://img.shields.io/github/stars/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
-        // stars: repoInfo.stargazers_count,
-        prsOpen: `https://img.shields.io/github/issues-pr/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
-        // prsOpen: resolveprCount[i].total_count,
+        // issues: `https://img.shields.io/github/issues/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
+        issuesCount: repoInfo.open_issues_count,
+        // stars: `https://img.shields.io/github/stars/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
+        starsCount: repoInfo.stargazers_count,
+        // prsOpen: `https://img.shields.io/github/issues-pr/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
+        prsCount: resolveprCount[i].total_count,
+        lastCommitSha: commitInfo.sha,
         lastCommitMsg: commitInfo.commit.message,
         lastCommitAuthor: commitInfo.commit.committer.name,
         lastCommitDate: commitInfo.commit.committer.date,
