@@ -15,6 +15,7 @@ export default () => (
 // eslint-disable-next-line
 injectGlobal`
   body {
+    font-family: "Open Sans", sans-serif;
     margin: 0;
   }
 `;

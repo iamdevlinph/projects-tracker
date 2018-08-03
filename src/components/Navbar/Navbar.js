@@ -7,12 +7,15 @@ class NavbarComponent extends Component {
     return (
       <NavbarChunk>
         <BannerArea>
-          Banner Here or Logo
+          <h1>
+            Projects Tracker
+          </h1>
         </BannerArea>
         <LinksArea>
           <Link to="/">
             Home
           </Link>
+          {' | '}
           <Link to="manage">
             Manage
           </Link>
@@ -34,8 +37,18 @@ const NavbarChunk = styled.div`
 `;
 const BannerArea = styled.div`
   grid-area: banner;
+  h1 {
+    margin: 0;
+    font-size: 25px;
+  }
 `;
 const LinksArea = styled.div`
   grid-area: links;
   text-align: right;
+  font-size: 20px;
+  line-height: 35px;
+  a {
+    color: black;
+    text-decoration: none;
+  }
 `;

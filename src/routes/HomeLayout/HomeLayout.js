@@ -26,7 +26,7 @@ export default HomeLayout;
 
 const NoSidebarArea = styled.div`
   display: grid;
-  grid-template-rows: 5px 50px 1fr;
+  grid-template-rows: 5px 40px 1fr;
   grid-template-columns: 1fr;
   grid-template-areas:
     "pad"

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
 import { actions as projectsActions } from '../../sagaDucks/projects/projects';
-import { Card } from '../../components';
+import { Card, Filter } from '../../components';
 
 class HomeContainer extends Component {
   componentWillMount() {
@@ -23,19 +23,24 @@ class HomeContainer extends Component {
       return el;
     });
     return (
-      <div>
-        {projectCards.length > 0
-          ? (
-            <ProjectList>
-              {projectCards}
-            </ProjectList>
-          ) : (
-            <ProjectEmptyList>
-              No projects
-            </ProjectEmptyList>
-          )
-        }
-      </div>
+      <HomeArea>
+        <FilterArea>
+          <Filter />
+        </FilterArea>
+        <ProjectListArea>
+          {projectCards.length > 0
+            ? (
+              <ProjectList>
+                {projectCards}
+              </ProjectList>
+            ) : (
+              <ProjectEmptyList>
+                No projects
+              </ProjectEmptyList>
+            )
+          }
+        </ProjectListArea>
+      </HomeArea>
     );
   }
 }
@@ -59,6 +64,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
 
+const HomeArea = styled.div``;
 const ProjectList = styled.div`
   display: grid;
   grid-template-rows: repeat(50px);
@@ -66,3 +72,5 @@ const ProjectList = styled.div`
   row-gap: 20px;
 `;
 const ProjectEmptyList = styled.div``;
+const ProjectListArea = styled.div``;
+const FilterArea = styled.div``;

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+const githubUrl = authorName => `https://github.com/${authorName}`;
+const repoUrl = (authorName, repoName) => `${githubUrl(authorName)}/${repoName}`;
 class CardComponent extends Component {
   render() {
     const { data } = this.props;
@@ -11,10 +13,15 @@ class CardComponent extends Component {
           <img src={data.authorAvatar} alt="avatar" />
         </Avatar>
         <Description>
-          {data.authorName}
-          /
-          {data.repoName}
-          {' '}
+          <BlueUrl href={githubUrl(data.authorName)}>
+            {data.authorName}
+          </BlueUrl>
+          <BlueDivider>
+            /
+          </BlueDivider>
+          <BlueUrl href={repoUrl(data.authorName, data.repoName)} bold>
+            {data.repoName}
+          </BlueUrl>
           {data.description}
         </Description>
         <Status>
@@ -33,6 +40,7 @@ CardComponent.propTypes = {
 
 export default CardComponent;
 
+/* eslint-disable react/destructuring-assignment */
 const CardChunk = styled.div`
   display: grid;
   grid-template-columns: 50px 3fr 1fr;
@@ -52,3 +60,13 @@ const Description = styled.div`
 const Status = styled.div`
   grid-area: status;
 `;
+const BlueUrl = styled.a`
+  color: #00a0f0;
+  font-weight: ${props => (props.bold ? 'bold' : 'normal')};;
+  text-decoration: none;
+`;
+const BlueDivider = styled.span`
+  color: #00a0f0;
+  font-size: 20px;
+`;
+/* eslint-enable react/destructuring-assignment */

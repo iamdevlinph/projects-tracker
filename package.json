@@ -11,7 +11,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node scripts/start.js & firebase serve",
+    "start": "firebase serve & node scripts/start.js",
     "deploy": "firebase deploy && npm run build && gh-pages -d build",
     "lint": "eslint .",
     "lint:functions": "eslint functions/",
