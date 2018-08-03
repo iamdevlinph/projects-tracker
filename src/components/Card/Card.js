@@ -5,7 +5,6 @@ import styled from 'styled-components';
 class CardComponent extends Component {
   render() {
     const { data } = this.props;
-    console.log(data);
     return (
       <CardChunk>
         <Avatar>
