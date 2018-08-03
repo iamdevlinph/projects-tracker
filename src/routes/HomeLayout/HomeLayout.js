@@ -26,9 +26,10 @@ export default HomeLayout;
 
 const NoSidebarArea = styled.div`
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 5px 50px 1fr;
   grid-template-columns: 1fr;
   grid-template-areas:
+    "pad"
     "navbar"
     "main";
   height: 100vh;

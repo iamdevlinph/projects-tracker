@@ -135,18 +135,18 @@ This project was bootstrapped with [React Kit](https://github.com/codesandcoffee
 Read the original [README.md](/README-orig.md)
 
 <!-- React PKG Details -->
-[npm-img]: https://img.shields.io/npm/v/@codes-and-coffees/react-pkg.svg
+[npm-img]: https://img.shields.io/npm/v/@codes-and-coffees/react-pkg.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/@codes-and-coffees/react-pkg
-[node-img]: https://img.shields.io/node/v/@codes-and-coffees/react-pkg.svg
+[node-img]: https://img.shields.io/node/v/@codes-and-coffees/react-pkg.svg?style=flat-square
 [node-url]: https://nodejs.org/en/
-[deps-img]: https://img.shields.io/david/codesandcoffees/react-pkg.svg
+[deps-img]: https://img.shields.io/david/codesandcoffees/react-pkg.svg?style=flat-square
 [deps-url]: https://david-dm.org/codesandcoffees/react-pkg
 
 <!-- Repo Details -->
 [issues-url]: https://github.com/iamdevlinph/projects-tracker/issues
-[issues-img]: https://img.shields.io/github/issues/iamdevlinph/projects-tracker.svg
-[pr-img]: https://img.shields.io/github/issues-pr/iamdevlinph/projects-tracker.svg
+[issues-img]: https://img.shields.io/github/issues/iamdevlinph/projects-tracker.svg?style=flat-square
+[pr-img]: https://img.shields.io/github/issues-pr/iamdevlinph/projects-tracker.svg?style=flat-square
 [pr-url]: https://github.com/iamdevlinph/projects-tracker/pulls
-[contributor-img]: https://img.shields.io/github/contributors/iamdevlinph/projects-tracker.svg
+[contributor-img]: https://img.shields.io/github/contributors/iamdevlinph/projects-tracker.svg?style=flat-square
 [contributor-url]: https://github.com/iamdevlinph/projects-tracker/graphs/contributors
-[code-size-img]: https://img.shields.io/github/languages/code-size/iamdevlinph/projects-tracker.svg
+[code-size-img]: https://img.shields.io/github/languages/code-size/iamdevlinph/projects-tracker.svg?style=flat-square

@@ -28,9 +28,9 @@ const NavbarChunk = styled.div`
   background: #ADE9DD;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 50px;
+  grid-template-columns: 1fr 1fr 1fr 50px 100px;
   grid-template-areas:
-    "banner empty links account";
+    "banner empty links account ribbon";
 `;
 const BannerArea = styled.div`
   grid-area: banner;
