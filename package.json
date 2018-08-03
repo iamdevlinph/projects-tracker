@@ -9,8 +9,9 @@
     "lodash": "4.17.10",
     "redux-saga-firebase": "0.14.0"
   },
+  "devDependencies": {},
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node scripts/start.js & firebase serve",
     "deploy": "firebase deploy && npm run build && gh-pages -d build",
     "lint": "eslint .",
     "lint:functions": "eslint functions/",

@@ -75,12 +75,9 @@ If you want to lock the versions of your existing packages to the current instal
 
 # Commands
 Run with `npm run <command>` if necessary
-* **`start`** - Start the app. Access at [http://localhost:3000/](http://localhost:3000/)
-* **`deploy`** - Will deploy a production build to the `gh-pages` branch.
-* **`lint:log`** - Lint the app and save the results to `lint.log` file.
-* **`lint:test`** - Lint the app and display the results in the terminal.
-* **`lint:fix`** - Attempt to autofix linting issues.
-* **`build-only`** - Will create a production ready build to the `build` folder.
+* **`start`** - Start the app and serve firebase locally. Access at [http://localhost:3000/](http://localhost:3000/)
+* **`deploy`** - Deploy production build to `gh-pages` branch and deploy firebase functions.
+* **`build`** - Will create a production ready build to the `build` folder.
 * **`precommit`** - The precommit hook which runs lint-staged to lint staged files on commit.
 * **`precommit:init`** - Install precommit related tools independently if you cannot see a precommit hook when you do a commit.
 
@@ -135,18 +132,18 @@ This project was bootstrapped with [React Kit](https://github.com/codesandcoffee
 Read the original [README.md](/README-orig.md)
 
 <!-- React PKG Details -->
-[npm-img]: https://img.shields.io/npm/v/@codes-and-coffees/react-pkg.svg?style=flat-square
+[npm-img]: https://img.shields.io/npm/v/@codes-and-coffees/react-pkg.svg?style=flat-square&maxAge=3600
 [npm-url]: https://www.npmjs.com/package/@codes-and-coffees/react-pkg
-[node-img]: https://img.shields.io/node/v/@codes-and-coffees/react-pkg.svg?style=flat-square
+[node-img]: https://img.shields.io/node/v/@codes-and-coffees/react-pkg.svg?style=flat-square&maxAge=3600
 [node-url]: https://nodejs.org/en/
-[deps-img]: https://img.shields.io/david/codesandcoffees/react-pkg.svg?style=flat-square
+[deps-img]: https://img.shields.io/david/codesandcoffees/react-pkg.svg?style=flat-square&maxAge=3600
 [deps-url]: https://david-dm.org/codesandcoffees/react-pkg
 
 <!-- Repo Details -->
 [issues-url]: https://github.com/iamdevlinph/projects-tracker/issues
-[issues-img]: https://img.shields.io/github/issues/iamdevlinph/projects-tracker.svg?style=flat-square
-[pr-img]: https://img.shields.io/github/issues-pr/iamdevlinph/projects-tracker.svg?style=flat-square
+[issues-img]: https://img.shields.io/github/issues/iamdevlinph/projects-tracker.svg?style=flat-square&maxAge=3600
+[pr-img]: https://img.shields.io/github/issues-pr/iamdevlinph/projects-tracker.svg?style=flat-square&maxAge=3600
 [pr-url]: https://github.com/iamdevlinph/projects-tracker/pulls
-[contributor-img]: https://img.shields.io/github/contributors/iamdevlinph/projects-tracker.svg?style=flat-square
+[contributor-img]: https://img.shields.io/github/contributors/iamdevlinph/projects-tracker.svg?style=flat-square&maxAge=3600
 [contributor-url]: https://github.com/iamdevlinph/projects-tracker/graphs/contributors
-[code-size-img]: https://img.shields.io/github/languages/code-size/iamdevlinph/projects-tracker.svg?style=flat-square
+[code-size-img]: https://img.shields.io/github/languages/code-size/iamdevlinph/projects-tracker.svg?style=flat-square&maxAge=3600

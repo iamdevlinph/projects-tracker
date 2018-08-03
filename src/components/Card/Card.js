@@ -34,7 +34,6 @@ CardComponent.propTypes = {
 export default CardComponent;
 
 const CardChunk = styled.div`
-  background: grey;
   display: grid;
   grid-template-columns: 50px 3fr 1fr;
   grid-template-areas:
