@@ -11,13 +11,12 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "deploy": "npm run build && gh-pages -d build",
+    "deploy": "firebase deploy && npm run build && gh-pages -d build",
     "lint": "eslint .",
     "lint:functions": "eslint functions/",
     "build": "node scripts/build.js",
     "precommit": "lint-staged",
-    "precommit:init": "npm i lint-staged husky",
-    "prepush": "firebase deploy"
+    "precommit:init": "npm i lint-staged husky"
   },
   "lint-staged": {
     "*.js": [
