@@ -1,9 +1,10 @@
-let mapProjectsObj;
-
 export const types = {
-  FETCH_LIST_REQUEST: 'PROJECTS/FETCH_LIST_REQUEST',
-  FETCH_LIST_SUCCESS: 'PROJECTS/FETCH_LIST_SUCCESS',
-  FETCH_LIST_FAILED: 'PROJECTS/FETCH_LIST_FAILED',
+  FETCH_PROJECTS_REQUEST: 'PROJECTS/FETCH_PROJECTS_REQUEST',
+  FETCH_PROJECTS_SUCCESS: 'PROJECTS/FETCH_PROJECTS_SUCCESS',
+  FETCH_PROJECTS_FAILED: 'PROJECTS/FETCH_PROJECTS_FAILED',
+  FETCH_REPO_INFO_REQUEST: 'PROJECTS/FETCH_REPO_INFO_REQUEST',
+  FETCH_REPO_INFO_SUCCESS: 'PROJECTS/FETCH_REPO_INFO_SUCCESS',
+  FETCH_REPO_INFO_FAILED: 'PROJECTS/FETCH_REPO_INFO_FAILED',
 };
 
 export const initialState = {
@@ -12,10 +13,10 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.FETCH_LIST_SUCCESS:
+    case types.FETCH_REPO_INFO_SUCCESS:
       return {
         ...state,
-        list: mapProjectsObj(action.projects),
+        list: action.projects,
       };
     default:
       return state;
@@ -23,18 +24,5 @@ export default (state = initialState, action) => {
 };
 
 export const actions = {
-  requestList: () => ({ type: types.FETCH_LIST_REQUEST }),
-};
-
-mapProjectsObj = (projects) => {
-  const mappedProjects = [];
-  Object.keys(projects).forEach((key) => {
-    const { authorName, repoName } = projects[key];
-    mappedProjects.push({
-      ...projects[key],
-      id: key,
-      githubUrl: `https://github.com/${authorName}/${repoName}`,
-    });
-  });
-  return mappedProjects;
+  requestList: () => ({ type: types.FETCH_PROJECTS_REQUEST }),
 };

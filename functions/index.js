@@ -10,6 +10,8 @@ const COLLECTIONS = {
   PROJECTS: 'projects',
 };
 
+const githubUrl = (authorName, repoName) => `https://github.com/${authorName}${repoName}`;
+
 exports.helloWorld = functions.https.onRequest((req, res) => {
   cors(req, res, () => res.status(200).json({
     message: 'Hello!',
@@ -24,7 +26,7 @@ exports.getAuthors = functions.https.onRequest((req, res) => {
         snapshot.forEach((author) => {
           const authorObj = author.data();
           authorObj.key = author.id;
-          authorObj.githubUrl = `https://github.com/${authorObj.authorName}`;
+          authorObj.githubUrl = githubUrl(authorObj.authorName);
           authors.push(authorObj);
         });
         res.status(200).json(authors);
@@ -43,6 +45,7 @@ exports.getProjects = functions.https.onRequest((req, res) => {
         snapshot.forEach((project) => {
           const projectObj = project.data();
           projectObj.key = project.id;
+          projectObj.fullName = `${projectObj.authorName}/${projectObj.repoName}`;
           projects.push(projectObj);
         });
         res.status(200).json(projects);

@@ -4,17 +4,22 @@ import styled from 'styled-components';
 
 class CardComponent extends Component {
   render() {
-    const { children } = this.props;
+    const { data } = this.props;
     return (
       <CardChunk>
         <Avatar>
-          <img src="https://avatars1.githubusercontent.com/u/19337229?s=460&v=4" alt="avatar" />
+          <img src={data.authorAvatar} alt="avatar" />
         </Avatar>
         <Description>
-          {children}
+          {data.authorName}
+          /
+          {data.repoName}
+          {data.descriptiono}
         </Description>
         <Status>
-          Status of the project here
+          <img src={data.stars} alt="stars" />
+          <img src={data.issues} alt="issues" />
+          <img src={data.prsOpen} alt="pr" />
         </Status>
       </CardChunk>
     );
@@ -22,7 +27,7 @@ class CardComponent extends Component {
 }
 
 CardComponent.propTypes = {
-  children: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
 };
 
 export default CardComponent;

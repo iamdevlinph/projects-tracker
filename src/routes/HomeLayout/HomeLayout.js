@@ -2,22 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Navbar, Filter } from '../../components';
+import { Navbar } from '../../components';
 
 const HomeLayout = (props) => {
   const { children } = props;
   return (
-    <Layout>
+    <NoSidebarArea>
       <NavbarArea>
         <Navbar />
       </NavbarArea>
-      <FilterArea>
-        <Filter />
-      </FilterArea>
       <MainArea>
         {children}
       </MainArea>
-    </Layout>
+    </NoSidebarArea>
   );
 };
 
@@ -27,24 +24,18 @@ HomeLayout.propTypes = {
 
 export default HomeLayout;
 
-const Layout = styled.div`
+const NoSidebarArea = styled.div`
   display: grid;
   grid-template-rows: 50px 1fr;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr;
   grid-template-areas:
-    "navbar navbar"
-    "filter main";
+    "navbar"
+    "main";
   height: 100vh;
 `;
-
 const NavbarArea = styled.div`
   grid-area: navbar;
 `;
 const MainArea = styled.div`
   grid-area: main;
-  background: #D7E0B1;
-`;
-const FilterArea = styled.div`
-  grid-area: filter;
-  background: #C686AB;
 `;

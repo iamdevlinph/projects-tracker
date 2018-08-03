@@ -18,9 +18,7 @@ class HomeContainer extends Component {
     const projectCards = projects.map((project) => {
       let el = null;
       el = (
-        <Card key={project.id}>
-          {project.repoName}
-        </Card>
+        <Card key={project.key} data={project} />
       );
       return el;
     });
