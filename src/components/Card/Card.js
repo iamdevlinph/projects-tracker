@@ -14,7 +14,8 @@ class CardComponent extends Component {
           {data.authorName}
           /
           {data.repoName}
-          {data.descriptiono}
+          {' '}
+          {data.description}
         </Description>
         <Status>
           <img src={data.stars} alt="stars" />
@@ -35,17 +36,15 @@ export default CardComponent;
 const CardChunk = styled.div`
   background: grey;
   display: grid;
-  grid-template-rows: 1fr 2fr;
-  grid-template-columns: 50px 2fr;
+  grid-template-columns: 50px 3fr 1fr;
   grid-template-areas:
-    "img desc"
-    "status status";
+    "img desc status";
 `;
 const Avatar = styled.div`
   grid-area: img;
   img {
-    height: auto;
-    width: 100%;
+    height: 50px;
+    width: auto;
   }
 `;
 const Description = styled.div`

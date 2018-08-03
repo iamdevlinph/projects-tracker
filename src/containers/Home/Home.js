@@ -61,7 +61,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
 
 const ProjectList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill,200px);
+  grid-template-rows: repeat(50px);
   column-gap: 20px;
   row-gap: 20px;
 `;
