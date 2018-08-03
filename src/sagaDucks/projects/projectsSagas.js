@@ -30,18 +30,26 @@ function* willFetchRepoInfo(action) {
   try {
     const repoInfoPromises = [];
     // const prcountPromises = [];
-    // const commitPromises = [];
+    const commitPromises = [];
     action.projects.forEach((project) => {
       repoInfoPromises.push(fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}`).then(res => res.json()));
-      // these APIs have limits. going to use shield badges instead
+      // the search APIs have limits
       // prcountPromises.push(fetch(`https://api.github.com/search/issues?q=+type:pr+repo:${project.authorName}/${project.repoName}+state:open&sort=created&order=asc`).then(res => res.json()));
-      // commitPromises.push(fetch('https://api.github.com/search/commits?q=+repo:iamdevlinph/resume', { Accept: 'application/vnd.github.cloak-preview' }).then(res => res.json()));
+      commitPromises.push(
+        fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/git/refs/heads/master`)
+          .then(refObj => Promise.resolve(refObj.json())
+            .then(refObjResolve => fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/commits/${refObjResolve.object.sha}`)
+              .then(commitObj => Promise.resolve(commitObj.json())
+                .then(commitData => commitData)))),
+      );
     });
     const resolveRepoInfo = yield all(repoInfoPromises);
     // const resolveprCount = yield all(prcountPromises);
+    const resolveCommits = yield all(commitPromises);
 
     const projects = [];
-    resolveRepoInfo.forEach((repoInfo) => {
+    resolveRepoInfo.forEach((repoInfo, i) => {
+      const commitInfo = resolveCommits[i];
       // const repoInfo = resolveRepoInfo[key];
       projects.push({
         repoName: repoInfo.name,
@@ -49,16 +57,17 @@ function* willFetchRepoInfo(action) {
         fullName: repoInfo.full_name,
         authorName: repoInfo.owner.login,
         authorAvatar: repoInfo.owner.avatar_url,
-        authorUrl: '',
-        repoUrl: '',
+        authorUrl: `https://github.com/${repoInfo.owner.login}`,
+        repoUrl: `https://github.com/${repoInfo.owner.login}/${repoInfo.name}`,
         issues: `https://img.shields.io/github/issues/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
         // issues: repoInfo.open_issues_count,
         stars: `https://img.shields.io/github/stars/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
         // stars: repoInfo.stargazers_count,
         prsOpen: `https://img.shields.io/github/issues-pr/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
         // prsOpen: resolveprCount[i].total_count,
-        // lastCommit: '',
-        // lastCommitDate: '',
+        lastCommitMsg: commitInfo.commit.message,
+        lastCommitAuthor: commitInfo.commit.committer.name,
+        lastCommitDate: commitInfo.commit.committer.date,
         key: _.find(action.projects, { fullName: repoInfo.full_name }).key, // firestore key
       });
     });

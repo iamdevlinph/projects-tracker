@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const githubUrl = authorName => `https://github.com/${authorName}`;
-const repoUrl = (authorName, repoName) => `${githubUrl(authorName)}/${repoName}`;
 class CardComponent extends Component {
   render() {
     const { data } = this.props;
@@ -13,13 +11,13 @@ class CardComponent extends Component {
           <img src={data.authorAvatar} alt="avatar" />
         </Avatar>
         <Description>
-          <BlueUrl href={githubUrl(data.authorName)}>
+          <BlueUrl href={data.authorUrl}>
             {data.authorName}
           </BlueUrl>
           <BlueDivider>
             /
           </BlueDivider>
-          <BlueUrl href={repoUrl(data.authorName, data.repoName)} bold>
+          <BlueUrl href={data.repoUrl} bold>
             {data.repoName}
           </BlueUrl>
           {data.description}
