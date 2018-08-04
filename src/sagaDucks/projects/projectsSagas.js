@@ -14,10 +14,10 @@ const isDev = process.env.NODE_ENV === 'development';
 
 function* willFetchProjects() {
   try {
-    const isCached = localStorage.isCached('getProjects');
+    const isCache = localStorage.isCached('getProjects');
     let projects;
 
-    if (!isCached) {
+    if (!isCache) {
       if (isDev) {
         projects = yield call(firebaseFuncs.getProjects);
         localStorage.setItem('getProjects', projects);
@@ -26,7 +26,7 @@ function* willFetchProjects() {
         localStorage.setItem('getProjects', projects);
       }
     } else {
-      projects = isCached;
+      projects = isCache;
     }
 
     yield put({ type: projectsTypes.FETCH_PROJECTS_SUCCESS, projects });
@@ -37,20 +37,20 @@ function* willFetchProjects() {
 
 function* willFetchRepoInfo(action) {
   try {
-    const repoInfoCached = localStorage.isCached('repoInfoPromises');
+    const repoInfoCache = localStorage.isCached('repoInfoPromises');
     const repoInfoPromises = [];
-    const prcountCached = localStorage.isCached('prcountPromises');
+    const prcountCache = localStorage.isCached('prcountPromises');
     const prcountPromises = [];
-    const commitInfoCached = localStorage.isCached('commitPromises');
+    const commitInfoCache = localStorage.isCached('commitPromises');
     const commitPromises = [];
     action.projects.forEach((project) => {
-      if (!repoInfoCached) {
+      if (!repoInfoCache) {
         repoInfoPromises.push(fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}`).then(res => res.json()));
       }
-      if (!prcountCached) {
+      if (!prcountCache) {
         prcountPromises.push(fetch(`https://api.github.com/search/issues?q=+type:pr+repo:${project.authorName}/${project.repoName}+state:open&sort=created&order=asc`).then(res => res.json()));
       }
-      if (!commitInfoCached) {
+      if (!commitInfoCache) {
         commitPromises.push(
           fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/git/refs/heads/master`)
             .then(refObj => Promise.resolve(refObj.json())
@@ -61,25 +61,25 @@ function* willFetchRepoInfo(action) {
       }
     });
     let resolveRepoInfo;
-    if (!repoInfoCached) {
+    if (!repoInfoCache) {
       resolveRepoInfo = yield all(repoInfoPromises);
       localStorage.setItem('repoInfoPromises', resolveRepoInfo);
     } else {
-      resolveRepoInfo = repoInfoCached;
+      resolveRepoInfo = repoInfoCache;
     }
     let resolveprCount;
-    if (!prcountCached) {
+    if (!prcountCache) {
       resolveprCount = yield all(prcountPromises);
       localStorage.setItem('prcountPromises', resolveprCount);
     } else {
-      resolveprCount = prcountCached;
+      resolveprCount = prcountCache;
     }
     let resolveCommits;
-    if (!commitInfoCached) {
+    if (!commitInfoCache) {
       resolveCommits = yield all(commitPromises);
       localStorage.setItem('commitPromises', resolveCommits);
     } else {
-      resolveCommits = commitInfoCached;
+      resolveCommits = commitInfoCache;
     }
 
     const projects = [];
