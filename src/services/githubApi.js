@@ -1,13 +1,13 @@
-import getUserInfo from './githubApis/getUserInfo';
-import getRepoInfos from './githubApis/getRepoInfos';
-import getPrCounts from './githubApis/getPrCounts';
-import getCommitInfos from './githubApis/getCommitInfos';
+import getCommitInfos from './githubApiMethods/getCommitInfos';
+import getPrCounts from './githubApiMethods/getPrCounts';
+import getRepoInfos from './githubApiMethods/getRepoInfos';
+import getUserInfo from './githubApiMethods/getUserInfo';
 
 const githubApi = {
-  getUserInfo,
-  getRepoInfos,
-  getPrCounts,
   getCommitInfos,
+  getPrCounts,
+  getRepoInfos,
+  getUserInfo,
 };
 
 export default githubApi;
