@@ -13,6 +13,6 @@ export default () => (
 
 
 // listen to store changes
-store.subscribe(() => {
-  console.log(store.getState());
-});
+// store.subscribe(() => {
+//   console.log(store.getState());
+// });

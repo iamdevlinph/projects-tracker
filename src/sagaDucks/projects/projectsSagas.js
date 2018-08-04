@@ -1,5 +1,3 @@
-/* global fetch */
-
 import {
   put, takeLatest, call, all,
 } from 'redux-saga/effects';
@@ -7,6 +5,7 @@ import _ from 'lodash';
 import rsf from '../rsf';
 import firebaseFuncs from '../../services/firebase-functions';
 import localStorage from '../../services/localStorage';
+import githubApi from '../../services/githubApi';
 
 import { types as projectsTypes } from './projects';
 
@@ -45,19 +44,13 @@ function* willFetchRepoInfo(action) {
     const commitPromises = [];
     action.projects.forEach((project) => {
       if (!repoInfoCache) {
-        repoInfoPromises.push(fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}`).then(res => res.json()));
+        repoInfoPromises.push(githubApi.getRepoInfo(project.authorName, project.repoName));
       }
       if (!prcountCache) {
-        prcountPromises.push(fetch(`https://api.github.com/search/issues?q=+type:pr+repo:${project.authorName}/${project.repoName}+state:open&sort=created&order=asc`).then(res => res.json()));
+        prcountPromises.push(githubApi.getPrCount(project.authorName, project.repoName));
       }
       if (!commitInfoCache) {
-        commitPromises.push(
-          fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/git/refs/heads/master`)
-            .then(refObj => Promise.resolve(refObj.json())
-              .then(refObjResolve => fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/commits/${refObjResolve.object.sha}`)
-                .then(commitObj => Promise.resolve(commitObj.json())
-                  .then(commitData => commitData)))),
-        );
+        commitPromises.push(githubApi.getCommitInfo(project.authorName, project.repoName));
       }
     });
     let resolveRepoInfo;
@@ -94,11 +87,8 @@ function* willFetchRepoInfo(action) {
         authorAvatar: repoInfo.owner.avatar_url,
         authorUrl: `https://github.com/${repoInfo.owner.login}`,
         repoUrl: `https://github.com/${repoInfo.owner.login}/${repoInfo.name}`,
-        // issuesCount: `https://img.shields.io/github/issues/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
         issuesCount: repoInfo.open_issues_count,
-        // starsCount: `https://img.shields.io/github/stars/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
         starsCount: repoInfo.stargazers_count,
-        // prsCount: `https://img.shields.io/github/issues-pr/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
         prsCount: resolveprCount[i].total_count,
         lastCommitSha: commitInfo.sha,
         lastCommitMsg: commitInfo.commit.message,
