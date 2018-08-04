@@ -11,16 +11,16 @@ const isDev = process.env.NODE_ENV === 'development';
 
 function* willFetchSettings() {
   try {
-    const settingsCache = localStorage.isCached('settings');
+    const settingsCache = localStorage.isCached('settingsCache');
     let settings;
 
     if (!settingsCache) {
       if (isDev) {
         settings = yield call(firebaseFuncs.getSettings);
-        localStorage.setItem('settings', settings);
+        localStorage.setItem('settingsCache', settings);
       } else {
         settings = yield call(rsf.functions.call, 'getSettings');
-        localStorage.setItem('settings', settings);
+        localStorage.setItem('settingsCache', settings);
       }
     } else {
       settings = settingsCache;
