@@ -18,8 +18,10 @@ const NavbarComponent = () => (
         Manage
       </Link>
       {' | '}
-      <a href="https://github.com/iamdevlinph/projects-tracker" target="blank" className="bold underline">
+      <a href="https://github.com/iamdevlinph/projects-tracker" target="blank" className="bold">
         Github
+        {' '}
+        <i className="fas fa-external-link-alt" />
       </a>
     </LinksArea>
   </NavbarChunk>
