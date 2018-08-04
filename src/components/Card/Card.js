@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 
+import Badge from '../Badge/Badge';
+
 const CardComponent = (props) => {
   const { data } = props;
   return (
@@ -32,10 +34,10 @@ const CardComponent = (props) => {
         {moment(data.lastCommitDate).format('DD MMM YYYY')}
       </CommitArea>
       <IssuesArea>
-        {`Issues ${data.issuesCount}`}
+        <Badge label="issues" data={data.issuesCount} repoUrl={data.repoUrl} />
       </IssuesArea>
       <PullArea>
-        {`Pr ${data.prsCount}`}
+        <Badge label="pull requests" data={data.prsCount} repoUrl={data.repoUrl} />
       </PullArea>
     </CardChunk>
   );
@@ -54,7 +56,7 @@ const CardChunk = styled.div`
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0.24) 0px 1.5px 1px 0px;
   border-left: 3px solid blue;
   display: grid;
-  grid-template-columns: 40px 3fr 1fr 1fr 1fr;
+  grid-template-columns: 40px 3fr 1fr 70px 120px;
   column-gap: 10px;
   grid-template-areas:
     "avatar repo commit issues pull";
@@ -94,27 +96,17 @@ const RepoDesc = styled.div`
   font-size: 11px;
 `;
 const CommitArea = styled.div`
+  font-family: 'Roboto Mono', monospace;
   grid-area: commit;
 `;
 const IssuesArea = styled.div`
   grid-area: issues;
+  line-height: 40px;
 `;
 const PullArea = styled.div`
   grid-area: pull;
+  line-height: 40px;
 `;
-// const Avatar = styled.div`
-//   grid-area: img;
-//   img {
-//     height: 50px;
-//     width: auto;
-//   }
-// `;
-// const Description = styled.div`
-//   grid-area: desc;
-// `;
-// const Status = styled.div`
-//   grid-area: status;
-// `;
 const BlueUrl = styled.a`
   color: #00a0f0;
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};;

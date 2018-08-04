@@ -14,13 +14,16 @@ export default () => (
 // Global style
 // eslint-disable-next-line
 injectGlobal`
+  html {
+    overflow-y: scroll;
+  }
   body {
-    font-family: 'Space Mono', monospace;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
   }
 `;
 
 // listen to store changes
-// store.subscribe(() => {
-//   console.log(store.getState());
-// });
+store.subscribe(() => {
+  console.log(store.getState());
+});
