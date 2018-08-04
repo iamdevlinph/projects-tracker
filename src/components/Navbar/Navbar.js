@@ -17,6 +17,10 @@ const NavbarComponent = () => (
       <Link to="manage">
         Manage
       </Link>
+      {' | '}
+      <a href="https://github.com/iamdevlinph/projects-tracker" target="blank" className="bold underline">
+        Github
+      </a>
     </LinksArea>
   </NavbarChunk>
 );
@@ -27,9 +31,9 @@ const NavbarChunk = styled.div`
   background: #ADE9DD;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 50px 100px;
+  grid-template-columns: 1fr 1fr 1fr 20px;
   grid-template-areas:
-    "banner empty links account ribbon";
+    "banner empty links r-pad";
 `;
 const BannerArea = styled.div`
   grid-area: banner;
@@ -41,8 +45,8 @@ const BannerArea = styled.div`
 const LinksArea = styled.div`
   grid-area: links;
   text-align: right;
-  font-size: 20px;
-  line-height: 35px;
+  font-size: 14px;
+  line-height: 40px;
   a {
     color: black;
     text-decoration: none;
