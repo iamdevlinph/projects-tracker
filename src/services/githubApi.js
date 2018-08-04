@@ -5,11 +5,12 @@ import localStorage from './localStorage';
 const CACHE = {
   REPO_INFOS: 'repoInfosCache',
   PR_COUNTS: 'prCountsCache',
+  COMMIT_INFOS: 'commitInfosCache',
 };
 
 const getUserInfo = (authorName, authorType) => fetch(`https://api.github.com/${authorType}s/${authorName}`).then(res => res.json());
 
-async function getRepoInfos(projects) {
+const getRepoInfos = async (projects) => {
   const repoInfoPromises = [];
   let repoInfoCache = localStorage.isCached(CACHE.REPO_INFOS);
   if (!repoInfoCache) {
@@ -22,9 +23,9 @@ async function getRepoInfos(projects) {
     });
   }
   return repoInfoCache;
-}
+};
 
-async function getPrCounts(projects) {
+const getPrCounts = async (projects) => {
   const prCountPromises = [];
   let prCountCache = localStorage.isCached(CACHE.PR_COUNTS);
   if (!prCountCache) {
@@ -37,21 +38,34 @@ async function getPrCounts(projects) {
     });
   }
   return prCountCache;
-}
+};
 
 // https://stackoverflow.com/a/15933109/4110257
-const getCommitInfo = (authorName, repoName) => fetch(`https://api.github.com/repos/${authorName}/${repoName}/git/refs/heads/master`)
-  .then(refObj => refObj.json())
-  .then(refObjResolve => fetch(`https://api.github.com/repos/${authorName}/${repoName}/commits/${refObjResolve.object.sha}`))
-  .then(commitObj => commitObj.json())
-  .then(commitData => commitData);
+const getCommitInfos = async (projects) => {
+  const commitInfoPromises = [];
+  let commitInfoCache = localStorage.isCached(CACHE.COMMIT_INFOS);
+  if (!commitInfoCache) {
+    projects.forEach((project) => {
+      commitInfoPromises.push(fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/git/refs/heads/master`)
+        .then(refObj => refObj.json())
+        .then(refObjResolve => fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/commits/${refObjResolve.object.sha}`))
+        .then(commitObj => commitObj.json())
+        .then(commitData => commitData));
+    });
+    await Promise.all(commitInfoPromises).then((commitInfoResolve) => {
+      commitInfoCache = commitInfoResolve;
+      localStorage.setItem(CACHE.COMMIT_INFOS, commitInfoCache);
+    });
+  }
+  return commitInfoCache;
+};
 
 
 const githubApi = {
   getUserInfo,
   getRepoInfos,
   getPrCounts,
-  getCommitInfo,
+  getCommitInfos,
 };
 
 export default githubApi;

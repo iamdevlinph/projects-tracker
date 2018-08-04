@@ -1,5 +1,5 @@
 import {
-  put, takeLatest, call, all,
+  put, takeLatest, call,
 } from 'redux-saga/effects';
 import _ from 'lodash';
 import rsf from '../rsf';
@@ -36,26 +36,13 @@ function* willFetchProjects() {
 
 function* willFetchRepoInfo(action) {
   try {
-    const commitInfoCache = localStorage.isCached('commitPromises');
-    const commitPromises = [];
-    action.projects.forEach((project) => {
-      if (!commitInfoCache) {
-        commitPromises.push(githubApi.getCommitInfo(project.authorName, project.repoName));
-      }
-    });
     const repoInfos = yield (githubApi.getRepoInfos(action.projects));
     const prCounts = yield (githubApi.getPrCounts(action.projects));
-    let resolveCommits;
-    if (!commitInfoCache) {
-      resolveCommits = yield all(commitPromises);
-      localStorage.setItem('commitPromises', resolveCommits);
-    } else {
-      resolveCommits = commitInfoCache;
-    }
+    const commitInfos = yield (githubApi.getCommitInfos(action.projects));
 
     const projects = [];
     repoInfos.forEach((repoInfo, i) => {
-      const commitInfo = resolveCommits[i];
+      const commitInfo = commitInfos[i];
       projects.push({
         repoName: repoInfo.name,
         description: repoInfo.description,
