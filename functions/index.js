@@ -5,12 +5,10 @@ admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
 const cors = require('cors')({ origin: true });
 
-const COLLECTIONS = {
-  AUTHORS: 'authors',
-  PROJECTS: 'projects',
-};
-
 const githubUrl = (authorName, repoName) => `https://github.com/${authorName}${repoName}`;
+
+// https://us-central1-projects-tracker-d372e.cloudfunctions.net/${func}`
+// http://localhost:5000/projects-tracker-d372e/us-central1/${func}`
 
 exports.helloWorld = functions.https.onRequest((req, res) => {
   cors(req, res, () => res.status(200).json({
@@ -20,7 +18,7 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 
 exports.getAuthors = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
-    db.collection(COLLECTIONS.AUTHORS).orderBy('authorName').get()
+    db.collection('authors').orderBy('authorName').get()
       .then((snapshot) => {
         const authors = [];
         snapshot.forEach((author) => {
@@ -39,7 +37,7 @@ exports.getAuthors = functions.https.onRequest((req, res) => {
 
 exports.getProjects = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
-    db.collection(COLLECTIONS.PROJECTS).orderBy('repoName').get()
+    db.collection('projects').orderBy('repoName').get()
       .then((snapshot) => {
         const projects = [];
         snapshot.forEach((project) => {
@@ -53,5 +51,15 @@ exports.getProjects = functions.https.onRequest((req, res) => {
       .catch((err) => {
         res.status(500).send(err);
       });
+  });
+});
+
+exports.getSettings = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    db.collection('settings').doc('colors').get()
+      .then((doc) => {
+        res.status(200).json(doc.data());
+      })
+      .catch(err => res.status(500).send(err));
   });
 });
