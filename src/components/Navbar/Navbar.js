@@ -6,7 +6,9 @@ const NavbarComponent = () => (
   <NavbarChunk>
     <BannerArea>
       <h1>
-        Projects Tracker
+        <Link to="/">
+          Projects Tracker
+        </Link>
       </h1>
     </BannerArea>
     <LinksArea>
@@ -42,6 +44,10 @@ const BannerArea = styled.div`
   h1 {
     margin: 0;
     font-size: 25px;
+  }
+  a {
+    color: black;
+    text-decoration: none;
   }
 `;
 const LinksArea = styled.div`

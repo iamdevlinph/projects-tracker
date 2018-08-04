@@ -1,7 +1,7 @@
 # Projects Tracker
 Track multiple public github repositories in one place.
 
-#### Core Dependency Status
+#### React-Pkg Dependency Status
 
 [![npm version][npm-img]][npm-url]
 [![node version][node-img]][node-url]
@@ -9,11 +9,11 @@ Track multiple public github repositories in one place.
 
 #### Repository Status
 
+[![repo deps][repo-deps-img]][repo-deps-url]
 [![open issues][issues-img]][issues-url]
 [![open prs][pr-img]][pr-url]
 ![code size][code-size-img]
 [![contributors][contributor-img]][contributor-url]
-
 
 # Includes
 - [React](https://github.com/facebook/react)
@@ -25,6 +25,7 @@ Track multiple public github repositories in one place.
 - Ducks Pattern ["Official Proposal"](https://github.com/erikras/ducks-modular-redux)
 - [styled-components](https://github.com/styled-components/styled-components)
 - [lint-staged](https://github.com/okonet/lint-staged) for pre-commit hooks
+- [Firebase](https://firebase.google.com/) & [FireStore](https://firebase.google.com/docs/firestore/)
 
 More here on the [convenience package](https://github.com/codesandcoffees/react-pkg)
 
@@ -94,6 +95,14 @@ firebase login // if needed
 firebase deploy
 ```
 
+# Making it yours
+Update the following files:
+* [Firebase App Config](./src/sagaDucks/rsf.js)
+* [Firebase Function API Url](./src/services/firebase-functions.js)
+* [Homepage Field in package.json](./package.json). Read more [here](#deployment)
+* [README.md Variables](./README.md)
+* [Link to your Github repo in the navbar.js](./src/components/Navbar/Navbar.js)
+
 # Deployment
 The deployment process in this app only supports github pages using the `gh-pages` branch. To set it up:
 1. Make necessary changes to your repository's settings.
@@ -142,3 +151,5 @@ Read the original [README.md](/README-orig.md)
 [contributor-img]: https://img.shields.io/github/contributors/iamdevlinph/projects-tracker.svg?style=flat-square&maxAge=86400
 [contributor-url]: https://github.com/iamdevlinph/projects-tracker/graphs/contributors
 [code-size-img]: https://img.shields.io/github/languages/code-size/iamdevlinph/projects-tracker.svg?style=flat-square&maxAge=86400
+[repo-deps-img]: https://img.shields.io/david/iamdevlinph/projects-tracker.svg?style=flat-square&maxAge=86400
+[repo-deps-url]: https://david-dm.org/iamdevlinph/projects-tracker
