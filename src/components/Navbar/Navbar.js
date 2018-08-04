@@ -1,29 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-class NavbarComponent extends Component {
-  render() {
-    return (
-      <NavbarChunk>
-        <BannerArea>
-          <h1>
-            Projects Tracker
-          </h1>
-        </BannerArea>
-        <LinksArea>
-          <Link to="/">
-            Home
-          </Link>
-          {' | '}
-          <Link to="manage">
-            Manage
-          </Link>
-        </LinksArea>
-      </NavbarChunk>
-    );
-  }
-}
+const NavbarComponent = () => (
+  <NavbarChunk>
+    <BannerArea>
+      <h1>
+        Projects Tracker
+      </h1>
+    </BannerArea>
+    <LinksArea>
+      <Link to="/">
+        Home
+      </Link>
+      {' | '}
+      <Link to="manage">
+        Manage
+      </Link>
+    </LinksArea>
+  </NavbarChunk>
+);
 
 export default NavbarComponent;
 

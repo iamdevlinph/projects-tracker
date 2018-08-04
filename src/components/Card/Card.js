@@ -1,47 +1,45 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 
-class CardComponent extends Component {
-  render() {
-    const { data } = this.props;
-    return (
-      <CardChunk>
-        <AvatarArea>
-          <img src={data.authorAvatar} alt="avatar" />
-        </AvatarArea>
-        <RepoArea>
-          <RepoName>
-            <BlueUrl href={data.authorUrl} target="blank">
-              {data.authorName}
-            </BlueUrl>
-            <BlueDivider>
-              /
-            </BlueDivider>
-            <BlueUrl href={data.repoUrl} bold target="blank">
-              {data.repoName}
-            </BlueUrl>
-          </RepoName>
-          <RepoDesc>
-            <span>
-              {data.description}
-            </span>
-          </RepoDesc>
-        </RepoArea>
-        <CommitArea>
-          {moment(data.lastCommitDate).format('DD MMM YYYY')}
-        </CommitArea>
-        <IssuesArea>
-          {`Issues ${data.issuesCount}`}
-        </IssuesArea>
-        <PullArea>
-          {`Pr ${data.prsCount}`}
-        </PullArea>
-      </CardChunk>
-    );
-  }
-}
+const CardComponent = (props) => {
+  const { data } = props;
+  return (
+    <CardChunk>
+      <AvatarArea>
+        <img src={data.authorAvatar} alt="avatar" />
+      </AvatarArea>
+      <RepoArea>
+        <RepoName>
+          <BlueUrl href={data.authorUrl} target="blank">
+            {data.authorName}
+          </BlueUrl>
+          <BlueDivider>
+            /
+          </BlueDivider>
+          <BlueUrl href={data.repoUrl} bold target="blank">
+            {data.repoName}
+          </BlueUrl>
+        </RepoName>
+        <RepoDesc>
+          <span>
+            {data.description}
+          </span>
+        </RepoDesc>
+      </RepoArea>
+      <CommitArea>
+        {moment(data.lastCommitDate).format('DD MMM YYYY')}
+      </CommitArea>
+      <IssuesArea>
+        {`Issues ${data.issuesCount}`}
+      </IssuesArea>
+      <PullArea>
+        {`Pr ${data.prsCount}`}
+      </PullArea>
+    </CardChunk>
+  );
+};
 
 CardComponent.propTypes = {
   data: PropTypes.object.isRequired,
