@@ -6,9 +6,9 @@ const NavbarComponent = () => (
   <NavbarChunk>
     <BannerArea>
       <h1>
-        <NavLink to="/track" activeClassName="active-link">
+        <a href="/track">
           Projects Tracker
-        </NavLink>
+        </a>
       </h1>
     </BannerArea>
     <LinksArea>
@@ -38,9 +38,6 @@ const NavbarChunk = styled.div`
   grid-template-columns: 1fr 1fr 1fr 20px;
   grid-template-areas:
     "banner empty links r-pad";
-  .active-link {
-    text-decoration: underline;
-  }
 `;
 const BannerArea = styled.div`
   grid-area: banner;
@@ -61,5 +58,8 @@ const LinksArea = styled.div`
   a {
     color: black;
     text-decoration: none;
+    &.active-link {
+      text-decoration: underline;
+    }
   }
 `;
