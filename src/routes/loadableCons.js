@@ -16,4 +16,9 @@ export default {
     loader: () => fakeDelay(500).then(() => import('../containers/Manage/Manage')),
     loading: Loading,
   }),
+
+  NotFound: Loadable({
+    loader: () => fakeDelay(500).then(() => import('../containers/NotFound/NotFound')),
+    loading: Loading,
+  }),
 };

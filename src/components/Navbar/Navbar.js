@@ -1,24 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavbarComponent = () => (
   <NavbarChunk>
     <BannerArea>
       <h1>
-        <Link to="/">
+        <NavLink to="/track" activeClassName="active-link">
           Projects Tracker
-        </Link>
+        </NavLink>
       </h1>
     </BannerArea>
     <LinksArea>
-      <Link to="/">
+      <NavLink to="/track" activeClassName="active-link">
         Home
-      </Link>
+      </NavLink>
       {' | '}
-      <Link to="manage">
+      <NavLink to="/manage" activeClassName="active-link">
         Manage
-      </Link>
+      </NavLink>
       {' | '}
       <a href="https://github.com/iamdevlinph/projects-tracker" target="blank" className="bold">
         Github
@@ -38,6 +38,9 @@ const NavbarChunk = styled.div`
   grid-template-columns: 1fr 1fr 1fr 20px;
   grid-template-areas:
     "banner empty links r-pad";
+  .active-link {
+    text-decoration: underline;
+  }
 `;
 const BannerArea = styled.div`
   grid-area: banner;

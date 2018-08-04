@@ -72,7 +72,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
 
 const HomeArea = styled.div`
   display: grid;
-  margin: 0 10px;
   grid-template-rows: 40px min-content;
   grid-template-areas:
     "filter"
