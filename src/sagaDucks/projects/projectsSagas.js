@@ -14,10 +14,10 @@ const isDev = process.env.NODE_ENV === 'development';
 
 function* willFetchProjects() {
   try {
-    const isCache = localStorage.isCached('getProjects');
+    const projectsCache = localStorage.isCached('getProjects');
     let projects;
 
-    if (!isCache) {
+    if (!projectsCache) {
       if (isDev) {
         projects = yield call(firebaseFuncs.getProjects);
         localStorage.setItem('getProjects', projects);
@@ -26,7 +26,7 @@ function* willFetchProjects() {
         localStorage.setItem('getProjects', projects);
       }
     } else {
-      projects = isCache;
+      projects = projectsCache;
     }
 
     yield put({ type: projectsTypes.FETCH_PROJECTS_SUCCESS, projects });
