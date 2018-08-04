@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import moment from 'moment';
 
 import Badge from '../Badge/Badge';
+import CardUtil from './CardUtil';
 
 const CardComponent = (props) => {
-  const { data } = props;
+  const { data, settings } = props;
+  const statusColor = CardUtil.getStatusColor(data, settings);
   return (
-    <CardChunk>
+    <CardChunk status={statusColor}>
       <AvatarArea>
         <img src={data.authorAvatar} alt="avatar" />
       </AvatarArea>
@@ -45,6 +47,7 @@ const CardComponent = (props) => {
 
 CardComponent.propTypes = {
   data: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
 };
 
 export default CardComponent;
@@ -54,7 +57,7 @@ const CardChunk = styled.div`
   font-size: 13px;
   background: white;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0.24) 0px 1.5px 1px 0px;
-  border-left: 4px solid blue;
+  border-left: ${props => `4px solid ${props.status}`};
   display: grid;
   grid-template-columns: 40px 3fr 1fr 70px 120px;
   column-gap: 10px;
@@ -109,7 +112,7 @@ const PullArea = styled.div`
 `;
 const BlueUrl = styled.a`
   color: #00a0f0;
-  font-weight: ${props => (props.bold ? 'bold' : 'normal')};;
+  font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   text-decoration: none;
 `;
 const BlueDivider = styled.span`
