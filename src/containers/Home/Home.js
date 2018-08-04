@@ -64,13 +64,26 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
 
-const HomeArea = styled.div``;
+const HomeArea = styled.div`
+  display: grid;
+  margin: 0 5px;
+  grid-template-rows: 40px min-content;
+  grid-template-areas:
+    "filter"
+    "list";
+`;
 const ProjectList = styled.div`
   display: grid;
-  grid-template-rows: repeat(50px);
+  grid-template-rows: 1fr;
   column-gap: 20px;
-  row-gap: 20px;
+  row-gap: 10px;
 `;
-const ProjectEmptyList = styled.div``;
-const ProjectListArea = styled.div``;
-const FilterArea = styled.div``;
+const ProjectEmptyList = styled.div`
+  grid-area: list;
+`;
+const ProjectListArea = styled.div`
+  grid-area: list;
+`;
+const FilterArea = styled.div`
+  grid-area: filter;
+`;

@@ -39,4 +39,5 @@ const NavbarArea = styled.div`
 `;
 const MainArea = styled.div`
   grid-area: main;
+  background: #F5F5F5;
 `;
