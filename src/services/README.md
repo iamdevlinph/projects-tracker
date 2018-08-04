@@ -5,7 +5,12 @@ This will hold APIs and other common services.
 ## List of services
 
 * [githubApi](./githubApi.js)
-  * [getCommitInfos](./githubApis/getCommitInfos.js)
-  * [getPrCounts](./githubApis/getPrCounts.js)
-  * [getRepoInfos](./githubApis/getRepoInfos.js)
-  * [getUserInfo](./githubApis/getUserInfo.js)
+  * [getCommitInfos](./githubApiMethods/getCommitInfos.js)
+  * [getPrCounts](./githubApiMethods/getPrCounts.js)
+  * [getRepoInfos](./githubApiMethods/getRepoInfos.js)
+  * [getUserInfo](./githubApiMethods/getUserInfo.js)
+* [localStorage](./localStorage.js)
+  * [getItem](./localStorageMethods/getItem.js)
+  * [isCached](./localStorageMethods/isCached.js)
+  * [removeItem](./localStorageMethods/removeItem.js)
+  * [setItem](./localStorageMethods/setItem.js)
