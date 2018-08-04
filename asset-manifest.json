@@ -1,11 +1,11 @@
 {
-  "static/js/0.4c06d4bf.chunk.js": "/projects-tracker/static/js/0.4c06d4bf.chunk.js",
-  "static/js/0.4c06d4bf.chunk.js.map": "/projects-tracker/static/js/0.4c06d4bf.chunk.js.map",
-  "static/js/1.9469afa5.chunk.js": "/projects-tracker/static/js/1.9469afa5.chunk.js",
-  "static/js/1.9469afa5.chunk.js.map": "/projects-tracker/static/js/1.9469afa5.chunk.js.map",
-  "main.js": "/projects-tracker/static/js/main.620184ca.js",
-  "main.css": "/projects-tracker/static/css/main.2acd165d.css",
-  "main.js.map": "/projects-tracker/static/js/main.620184ca.js.map",
-  "main.css.map": "/projects-tracker/static/css/main.2acd165d.css.map",
-  "index.html": "/projects-tracker/index.html"
+  "static/js/0.4c06d4bf.chunk.js": "/static/js/0.4c06d4bf.chunk.js",
+  "static/js/0.4c06d4bf.chunk.js.map": "/static/js/0.4c06d4bf.chunk.js.map",
+  "static/js/1.9469afa5.chunk.js": "/static/js/1.9469afa5.chunk.js",
+  "static/js/1.9469afa5.chunk.js.map": "/static/js/1.9469afa5.chunk.js.map",
+  "main.js": "/static/js/main.06d034e0.js",
+  "main.css": "/static/css/main.2acd165d.css",
+  "main.js.map": "/static/js/main.06d034e0.js.map",
+  "main.css.map": "/static/css/main.2acd165d.css.map",
+  "index.html": "/index.html"
 }
