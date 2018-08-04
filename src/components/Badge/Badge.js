@@ -28,7 +28,7 @@ export default BadgeComponent;
 
 const Badge = styled.a`
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 25px;
   grid-template-areas:
     "label number";
   text-decoration: none;
@@ -45,4 +45,5 @@ const Number = styled.div`
   text-align: center;
   background: #44CC12;
   color: white;
+  padding: 0 5px;
 `;

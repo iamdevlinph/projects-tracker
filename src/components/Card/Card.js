@@ -57,7 +57,7 @@ const CardChunk = styled.div`
   font-size: 13px;
   background: white;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0.24) 0px 1.5px 1px 0px;
-  border-left: ${props => `4px solid ${props.status}`};
+  border-left: ${props => `5px solid ${props.status}`};
   display: grid;
   grid-template-columns: 40px 3fr 1fr 70px 120px;
   column-gap: 10px;
