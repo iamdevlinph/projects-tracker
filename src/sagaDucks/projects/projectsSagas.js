@@ -36,26 +36,15 @@ function* willFetchProjects() {
 
 function* willFetchRepoInfo(action) {
   try {
-    const prcountCache = localStorage.isCached('prcountPromises');
-    const prcountPromises = [];
     const commitInfoCache = localStorage.isCached('commitPromises');
     const commitPromises = [];
     action.projects.forEach((project) => {
-      if (!prcountCache) {
-        prcountPromises.push(githubApi.getPrCount(project.authorName, project.repoName));
-      }
       if (!commitInfoCache) {
         commitPromises.push(githubApi.getCommitInfo(project.authorName, project.repoName));
       }
     });
-    const resolveRepoInfo = yield (githubApi.getRepoInfo(action.projects));
-    let resolveprCount;
-    if (!prcountCache) {
-      resolveprCount = yield all(prcountPromises);
-      localStorage.setItem('prcountPromises', resolveprCount);
-    } else {
-      resolveprCount = prcountCache;
-    }
+    const repoInfos = yield (githubApi.getRepoInfos(action.projects));
+    const prCounts = yield (githubApi.getPrCounts(action.projects));
     let resolveCommits;
     if (!commitInfoCache) {
       resolveCommits = yield all(commitPromises);
@@ -65,9 +54,8 @@ function* willFetchRepoInfo(action) {
     }
 
     const projects = [];
-    resolveRepoInfo.forEach((repoInfo, i) => {
+    repoInfos.forEach((repoInfo, i) => {
       const commitInfo = resolveCommits[i];
-      // const repoInfo = resolveRepoInfo[key];
       projects.push({
         repoName: repoInfo.name,
         description: repoInfo.description,
@@ -78,7 +66,7 @@ function* willFetchRepoInfo(action) {
         repoUrl: `https://github.com/${repoInfo.owner.login}/${repoInfo.name}`,
         issuesCount: repoInfo.open_issues_count,
         starsCount: repoInfo.stargazers_count,
-        prsCount: resolveprCount[i].total_count,
+        prsCount: prCounts[i].total_count,
         lastCommitSha: commitInfo.sha,
         lastCommitMsg: commitInfo.commit.message,
         lastCommitAuthor: commitInfo.commit.committer.name,
