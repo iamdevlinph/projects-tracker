@@ -68,11 +68,6 @@ Install `firebase-tools` and `eslint` globally
 npm install -g firebase-tools eslint
 ```
 
-# Note
-Currently, `package-lock.json` is added to `.gitignore`. It's safer to install a specific version of the npm package. You can also remove it from the `.gitignore` file if you prefer to have it committed.
-
-If you want to lock the versions of your existing packages to the current installed version you can use this [node script](https://gist.github.com/iamdevlinph/bacca84cca51af7c5cb060d59eea18b5) that removes `~` and `^` from npm version numbers. Just run it by `node lock-pkg-versions.js`.
-
 # Commands
 Run with `npm run <command>` if necessary
 * **`start`** - Start the app and serve firebase locally. Access at [http://localhost:3000/](http://localhost:3000/)

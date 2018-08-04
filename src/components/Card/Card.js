@@ -26,9 +26,9 @@ class CardComponent extends Component {
           {`Stars ${data.starsCount}`}
           {`Issues ${data.issuesCount}`}
           {`Pr ${data.prsCount}`}
-          {/* <img src={data.stars} alt="stars" />
-          <img src={data.issues} alt="issues" /> */}
-          {/* <img src={data.prsOpen} alt="pr" /> */}
+          {/* <img src={data.starsCount} alt="stars" />
+          <img src={data.issuesCount} alt="issues" />
+          <img src={data.prsCount} alt="pr" /> */}
         </Status>
       </CardChunk>
     );

@@ -6,6 +6,7 @@ import {
 import _ from 'lodash';
 import rsf from '../rsf';
 import firebaseFuncs from '../../services/firebase-functions';
+import localStorage from '../../services/localStorage';
 
 import { types as projectsTypes } from './projects';
 
@@ -13,11 +14,19 @@ const isDev = process.env.NODE_ENV === 'development';
 
 function* willFetchProjects() {
   try {
+    const isCached = localStorage.isCached('getProjects');
     let projects;
-    if (isDev) {
-      projects = yield call(firebaseFuncs.getProjects);
+
+    if (!isCached) {
+      if (isDev) {
+        projects = yield call(firebaseFuncs.getProjects);
+        localStorage.setItem('getProjects', projects);
+      } else {
+        projects = yield call(rsf.functions.call, 'getProjects');
+        localStorage.setItem('getProjects', projects);
+      }
     } else {
-      projects = yield call(rsf.functions.call, 'getProjects');
+      projects = isCached;
     }
 
     yield put({ type: projectsTypes.FETCH_PROJECTS_SUCCESS, projects });
@@ -28,24 +37,50 @@ function* willFetchProjects() {
 
 function* willFetchRepoInfo(action) {
   try {
+    const repoInfoCached = localStorage.isCached('repoInfoPromises');
     const repoInfoPromises = [];
+    const prcountCached = localStorage.isCached('prcountPromises');
     const prcountPromises = [];
+    const commitInfoCached = localStorage.isCached('commitPromises');
     const commitPromises = [];
     action.projects.forEach((project) => {
-      repoInfoPromises.push(fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}`).then(res => res.json()));
-      // the search APIs have limits
-      prcountPromises.push(fetch(`https://api.github.com/search/issues?q=+type:pr+repo:${project.authorName}/${project.repoName}+state:open&sort=created&order=asc`).then(res => res.json()));
-      commitPromises.push(
-        fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/git/refs/heads/master`)
-          .then(refObj => Promise.resolve(refObj.json())
-            .then(refObjResolve => fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/commits/${refObjResolve.object.sha}`)
-              .then(commitObj => Promise.resolve(commitObj.json())
-                .then(commitData => commitData)))),
-      );
+      if (!repoInfoCached) {
+        repoInfoPromises.push(fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}`).then(res => res.json()));
+      }
+      if (!prcountCached) {
+        prcountPromises.push(fetch(`https://api.github.com/search/issues?q=+type:pr+repo:${project.authorName}/${project.repoName}+state:open&sort=created&order=asc`).then(res => res.json()));
+      }
+      if (!commitInfoCached) {
+        commitPromises.push(
+          fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/git/refs/heads/master`)
+            .then(refObj => Promise.resolve(refObj.json())
+              .then(refObjResolve => fetch(`https://api.github.com/repos/${project.authorName}/${project.repoName}/commits/${refObjResolve.object.sha}`)
+                .then(commitObj => Promise.resolve(commitObj.json())
+                  .then(commitData => commitData)))),
+        );
+      }
     });
-    const resolveRepoInfo = yield all(repoInfoPromises);
-    const resolveprCount = yield all(prcountPromises);
-    const resolveCommits = yield all(commitPromises);
+    let resolveRepoInfo;
+    if (!repoInfoCached) {
+      resolveRepoInfo = yield all(repoInfoPromises);
+      localStorage.setItem('repoInfoPromises', resolveRepoInfo);
+    } else {
+      resolveRepoInfo = repoInfoCached;
+    }
+    let resolveprCount;
+    if (!prcountCached) {
+      resolveprCount = yield all(prcountPromises);
+      localStorage.setItem('prcountPromises', resolveprCount);
+    } else {
+      resolveprCount = prcountCached;
+    }
+    let resolveCommits;
+    if (!commitInfoCached) {
+      resolveCommits = yield all(commitPromises);
+      localStorage.setItem('commitPromises', resolveCommits);
+    } else {
+      resolveCommits = commitInfoCached;
+    }
 
     const projects = [];
     resolveRepoInfo.forEach((repoInfo, i) => {
@@ -59,11 +94,11 @@ function* willFetchRepoInfo(action) {
         authorAvatar: repoInfo.owner.avatar_url,
         authorUrl: `https://github.com/${repoInfo.owner.login}`,
         repoUrl: `https://github.com/${repoInfo.owner.login}/${repoInfo.name}`,
-        // issues: `https://img.shields.io/github/issues/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
+        // issuesCount: `https://img.shields.io/github/issues/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
         issuesCount: repoInfo.open_issues_count,
-        // stars: `https://img.shields.io/github/stars/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
+        // starsCount: `https://img.shields.io/github/stars/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
         starsCount: repoInfo.stargazers_count,
-        // prsOpen: `https://img.shields.io/github/issues-pr/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
+        // prsCount: `https://img.shields.io/github/issues-pr/${repoInfo.owner.login}/${repoInfo.name}.svg?style=flat-square&maxAge=3600`,
         prsCount: resolveprCount[i].total_count,
         lastCommitSha: commitInfo.sha,
         lastCommitMsg: commitInfo.commit.message,
