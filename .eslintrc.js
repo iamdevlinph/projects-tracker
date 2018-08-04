@@ -11,7 +11,9 @@ module.exports = {
     "no-console": ["warn", { allow: ["error"] }]
   },
   "globals": {
-    "document": true
+    "document": true,
+    "fetch": true,
+    "window": true
   },
   "parser": "babel-eslint"
 };

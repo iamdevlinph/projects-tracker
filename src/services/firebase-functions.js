@@ -1,5 +1,3 @@
-/* global fetch */
-
 // const apiUrl = func => `https://us-central1-projects-tracker-d372e.cloudfunctions.net/${func}`;
 const apiUrl = func => `http://localhost:5000/projects-tracker-d372e/us-central1/${func}`;
 

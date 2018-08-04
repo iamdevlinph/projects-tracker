@@ -1,4 +1,3 @@
-/* global window */
 import moment from 'moment';
 
 const currentDate = moment().format('X');
