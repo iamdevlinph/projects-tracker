@@ -36,32 +36,42 @@ function* willFetchProjects() {
 
 function* willFetchRepoInfo(action) {
   try {
-    const repoInfos = yield (githubApi.getRepoInfos(action.projects));
-    const prCounts = yield (githubApi.getPrCounts(action.projects));
-    const commitInfos = yield (githubApi.getCommitInfos(action.projects));
-
-    const projects = [];
-    repoInfos.forEach((repoInfo, i) => {
-      const commitInfo = commitInfos[i];
-      projects.push({
-        repoName: repoInfo.name,
-        description: repoInfo.description,
-        fullName: repoInfo.full_name,
-        authorName: repoInfo.owner.login,
-        authorAvatar: repoInfo.owner.avatar_url,
-        authorUrl: `https://github.com/${repoInfo.owner.login}`,
-        repoUrl: `https://github.com/${repoInfo.owner.login}/${repoInfo.name}`,
-        issuesCount: repoInfo.open_issues_count,
-        starsCount: repoInfo.stargazers_count,
-        prsCount: prCounts[i].total_count,
-        lastCommitSha: commitInfo.sha,
-        lastCommitMsg: commitInfo.commit.message,
-        lastCommitAuthor: commitInfo.commit.committer.name,
-        lastCommitDate: commitInfo.commit.committer.date,
-        key: _.find(action.projects, { fullName: repoInfo.full_name }).key, // firestore key
+    const repoCache = localStorage.isCached('repoCache');
+    let repoInfoData;
+    if (!repoCache) {
+      const repoInfo = yield (githubApi.getRepoInfo(action.projects));
+      const repositories = [];
+      repoInfo.forEach((repo) => {
+        const { owner } = repo.data.repository;
+        const issueCount = repo.data.repository.issues.totalCount;
+        const prCount = repo.data.repository.pullRequests.totalCount;
+        const commitInfo = repo.data.repository.defaultBranchRef.target.history.nodes[0];
+        const repoInfoObj = repo.data.repository;
+        repositories.push({
+          repoName: repoInfoObj.name,
+          description: repoInfoObj.description,
+          fullName: repoInfoObj.nameWithOwner,
+          repoUrl: repoInfoObj.url,
+          authorName: owner.login,
+          authorAvatar: owner.avatarUrl,
+          authorUrl: owner.url,
+          issuesCount: issueCount,
+          prsCount: prCount,
+          lastCommitSha: commitInfo.oid,
+          lastCommitMsg: commitInfo.message,
+          lastCommitAuthor: commitInfo.committer.name,
+          lastCommitDate: commitInfo.committedDate,
+          lastCommitUrl: commitInfo.commitUrl,
+          // firebase key
+          key: _.find(action.projects, { fullName: repoInfoObj.nameWithOwner }).key,
+        });
       });
-    });
-    yield put({ type: projectsTypes.FETCH_REPO_INFO_SUCCESS, projects });
+      repoInfoData = repositories;
+      localStorage.setItem('repoCache', repositories);
+    } else {
+      repoInfoData = repoCache;
+    }
+    yield put({ type: projectsTypes.FETCH_REPO_INFO_SUCCESS, repositories: repoInfoData });
   } catch (e) {
     console.error(e);
   }

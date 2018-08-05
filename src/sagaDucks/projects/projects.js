@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
     case types.FETCH_REPO_INFO_SUCCESS:
       return {
         ...state,
-        list: action.projects,
+        list: action.repositories,
       };
     default:
       return state;
