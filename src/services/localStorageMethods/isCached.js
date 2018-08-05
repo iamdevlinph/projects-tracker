@@ -3,11 +3,11 @@ import getItem from './getItem';
 
 const currentDate = moment().format('X');
 
-// cache for 1 hour
+// cache for 30 minutes
 const isCached = (key) => {
   let flag = false;
   const retrieved = getItem(key);
-  if (retrieved && (currentDate - retrieved.cachedTime < 3601)) {
+  if (retrieved && (currentDate - retrieved.cachedTime < 1801)) {
     flag = retrieved.data;
   }
   return flag;
