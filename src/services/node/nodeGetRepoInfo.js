@@ -1,10 +1,10 @@
 // const isDev = process.env.NODE_ENV === 'development';
-// const apiUrl = !isDev ? 'http://localhost:3001/repoInfo' : 'http://projects-tracker-api.us.openode.io/repoInfo';
+// const apiUrl = !isDev ? 'http://localhost:3001/repoInfo' : 'https://projects-tracker-api.us.openode.io/repoInfo';
 const postBody = body => JSON.stringify({
   ...body,
 });
 
-const nodeGetRepoInfo = (authorName, repoName) => fetch('http://projects-tracker-api.us.openode.io/repoInfo', {
+const nodeGetRepoInfo = (authorName, repoName) => fetch('https://projects-tracker-api.us.openode.io/repoInfo', {
   method: 'post',
   headers: {
     'Content-Type': 'application/json',
