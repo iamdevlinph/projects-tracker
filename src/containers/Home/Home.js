@@ -17,30 +17,41 @@ class HomeContainer extends Component {
 
   render() {
     const { projects, settings } = this.props;
-    const projectCards = projects.map((project) => {
+    const projectCards = projects && projects.map((project) => {
       let el = null;
       el = (
         <Card key={project.key} data={project} settings={settings} />
       );
       return el;
     });
+    let projectAreaDisplay;
+    if (projects) {
+      projectAreaDisplay = projectCards.length > 0
+        ? (
+          <ProjectList>
+            {projectCards}
+          </ProjectList>
+        )
+        : (
+          <ProjectEmptyList>
+            No projects
+          </ProjectEmptyList>
+        );
+    } else {
+      projectAreaDisplay = (
+        <div>
+          Fetching projects
+        </div>
+      );
+    }
+
     return (
       <HomeArea>
         <FilterArea>
           <Filter />
         </FilterArea>
         <ProjectListArea>
-          {projectCards.length > 0
-            ? (
-              <ProjectList>
-                {projectCards}
-              </ProjectList>
-            ) : (
-              <ProjectEmptyList>
-                No projects
-              </ProjectEmptyList>
-            )
-          }
+          {projectAreaDisplay}
         </ProjectListArea>
       </HomeArea>
     );
@@ -50,8 +61,12 @@ class HomeContainer extends Component {
 HomeContainer.propTypes = {
   requestList: PropTypes.func.isRequired,
   requestSettings: PropTypes.func.isRequired,
-  projects: PropTypes.array.isRequired,
+  projects: PropTypes.array,
   settings: PropTypes.object.isRequired,
+};
+
+HomeContainer.defaultProps = {
+  projects: null,
 };
 
 const mapStateToProps = state => (
