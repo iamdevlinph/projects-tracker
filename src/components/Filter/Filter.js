@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import FilterButton from '../FilterButton/FilterButton';
+import FilterSearch from '../FilterSearch/FilterSearch';
 
 const FilterComponent = () => (
   <Filter>
@@ -10,9 +11,7 @@ const FilterComponent = () => (
     <FilterButton label="Commit Date" />
     <FilterButton label="Issues" />
     <FilterButton label="Pull Requests" />
-    <TestButton>
-      <input type="text" placeholder="Search keyword" />
-    </TestButton>
+    <FilterSearch text="Search keyword" />
   </Filter>
 );
 
@@ -31,5 +30,4 @@ const Filter = styled.div`
     /* "repo commit issues pull"; */
   /* height: 30px; */
 `;
-const TestButton = styled.div``;
 /* eslint-enable react/destructuring-assignment */
