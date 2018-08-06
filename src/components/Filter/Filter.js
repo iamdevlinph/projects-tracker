@@ -1,10 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import FilterButton from '../FilterButton/FilterButton';
+
 const FilterComponent = () => (
   <Filter>
+    <FilterButton label="Authors" />
+    <FilterButton label="Repositories" />
+    <FilterButton label="Commit Date" />
+    <FilterButton label="Issues" />
+    <FilterButton label="Pull Requests" />
     <TestButton>
-      Authors
+      <input type="text" placeholder="Search keyword" />
     </TestButton>
   </Filter>
 );
@@ -14,15 +21,15 @@ export default FilterComponent;
 /* eslint-disable react/destructuring-assignment */
 const Filter = styled.div`
   font-size: 13px;
-  background: white;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0.24) 0px 1.5px 1px 0px;
-  border-left: ${props => `5px solid ${props.status}`};
+  /* background: #F5F5F5; */
+  /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0.24) 0px 1.5px 1px 0px; */
   display: grid;
-  grid-template-columns: 3fr 1fr 70px 120px;
-  column-gap: 10px;
-  grid-template-areas:
-    "repo commit issues pull";
-  height: 30px;
+  /* grid-template-columns: 1fr 1fr; */
+  grid-template-columns: repeat(6, max-content) 1fr;
+  /* column-gap: 10px; */
+  /* grid-template-areas: */
+    /* "repo commit issues pull"; */
+  /* height: 30px; */
 `;
 const TestButton = styled.div``;
 /* eslint-enable react/destructuring-assignment */

@@ -87,9 +87,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
 
 const HomeArea = styled.div`
   display: grid;
-  grid-template-rows: 2px 30px min-content;
+  grid-template-rows: 2px 35px min-content;
   grid-template-areas:
-    "home-tap-pad"
+    "home-top-pad"
     "filter"
     "list";
   row-gap: 10px;
