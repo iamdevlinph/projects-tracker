@@ -21,4 +21,9 @@ export default {
     loader: () => fakeDelay(500).then(() => import('../containers/NotFound/NotFound')),
     loading: Loading,
   }),
+
+  Settings: Loadable({
+    loader: () => fakeDelay(500).then(() => import('../containers/Settings/Settings')),
+    loading: Loading,
+  }),
 };

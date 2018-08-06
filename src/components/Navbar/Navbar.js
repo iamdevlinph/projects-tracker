@@ -20,6 +20,10 @@ const NavbarComponent = () => (
         Manage
       </NavLink>
       {' | '}
+      <NavLink to="/settings" activeClassName="active-link">
+        Settings
+      </NavLink>
+      {' | '}
       <a href="https://github.com/iamdevlinph/projects-tracker" target="blank" className="bold">
         Github
         {' '}

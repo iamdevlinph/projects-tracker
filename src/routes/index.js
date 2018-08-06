@@ -26,6 +26,7 @@ export default () => (
       </Route>
       <AppRoute exact path="/track" layout={HomeLayout} container={loadableCons.Home} />
       <AppRoute exact path="/manage" layout={HomeLayout} container={loadableCons.Manage} />
+      <AppRoute exact path="/settings" layout={HomeLayout} container={loadableCons.Settings} />
       <AppRoute exact path="/*" layout={HomeLayout} container={loadableCons.NotFound} />
     </Switch>
   </HashRouter>
