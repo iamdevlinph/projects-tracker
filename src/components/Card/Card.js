@@ -52,14 +52,13 @@ CardComponent.propTypes = {
 
 export default CardComponent;
 
-/* eslint-disable react/destructuring-assignment */
 const CardChunk = styled.div`
   font-size: 13px;
   background: white;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0.24) 0px 1.5px 1px 0px;
-  border-left: ${props => `5px solid ${props.status}`};
+  border-left: ${({ status }) => `5px solid ${status}`};
   display: grid;
-  grid-template-columns: 40px 3fr 1fr 70px 120px;
+  grid-template-columns: 40px 3fr 1fr 120px 120px;
   column-gap: 10px;
   grid-template-areas:
     "avatar repo commit issues pull";
@@ -112,11 +111,10 @@ const PullArea = styled.div`
 `;
 const BlueUrl = styled.a`
   color: #00a0f0;
-  font-weight: ${props => (props.bold ? 'bold' : 'normal')};
+  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
   text-decoration: none;
 `;
 const BlueDivider = styled.span`
   color: #00a0f0;
   font-size: 15px;
 `;
-/* eslint-enable react/destructuring-assignment */

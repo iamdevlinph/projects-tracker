@@ -25,7 +25,7 @@ class HomeContainer extends Component {
       return el;
     });
     let projectAreaDisplay;
-    if (projects) {
+    if (projects && settings) {
       projectAreaDisplay = projectCards.length > 0
         ? (
           <ProjectList>
@@ -62,11 +62,12 @@ HomeContainer.propTypes = {
   requestList: PropTypes.func.isRequired,
   requestSettings: PropTypes.func.isRequired,
   projects: PropTypes.array,
-  settings: PropTypes.object.isRequired,
+  settings: PropTypes.object,
 };
 
 HomeContainer.defaultProps = {
   projects: null,
+  settings: null,
 };
 
 const mapStateToProps = state => (

@@ -5,7 +5,7 @@ export const types = {
 };
 
 export const initialState = {
-  settings: {},
+  settings: null,
 };
 
 export default (state = initialState, action) => {

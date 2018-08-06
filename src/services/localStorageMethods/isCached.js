@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const isCached = (key) => {
   let flag = false;
   const retrieved = getItem(key);
-  if (retrieved && ((currentDate - retrieved.cachedTime < 1801) || isDev)) {
+  if (retrieved && ((currentDate - retrieved.cachedTime <= 1800) || isDev)) {
     flag = retrieved.data;
   }
   return flag;
