@@ -52,6 +52,7 @@ function* willFetchRepoInfo(action) {
           description: repoInfoObj.description,
           fullName: repoInfoObj.nameWithOwner,
           repoUrl: repoInfoObj.url,
+          homepageUrl: repoInfoObj.homepageUrl,
           authorName: owner.login,
           authorAvatar: owner.avatarUrl,
           authorUrl: owner.url,
