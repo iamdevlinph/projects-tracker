@@ -35,9 +35,9 @@ const NavbarChunk = styled.div`
   background: #ADE9DD;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 20px;
+  grid-template-columns: 1fr 1fr 20px;
   grid-template-areas:
-    "banner empty links r-pad";
+    "banner links r-pad";
 `;
 const BannerArea = styled.div`
   grid-area: banner;

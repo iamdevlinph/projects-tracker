@@ -72,10 +72,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
 
 const HomeArea = styled.div`
   display: grid;
-  grid-template-rows: 40px min-content;
+  grid-template-rows: 2px 30px min-content;
   grid-template-areas:
+    "home-tap-pad"
     "filter"
     "list";
+  row-gap: 10px;
 `;
 const ProjectList = styled.div`
   display: grid;
