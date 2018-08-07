@@ -113,6 +113,9 @@ const BlueUrl = styled.a`
   color: #00a0f0;
   font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
   text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 const BlueDivider = styled.span`
   color: #00a0f0;

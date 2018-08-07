@@ -48,7 +48,7 @@ class HomeContainer extends Component {
     return (
       <HomeArea>
         <FilterArea>
-          <Filter />
+          <Filter disabled={!(projects && settings)} />
         </FilterArea>
         <ProjectListArea>
           {projectAreaDisplay}
