@@ -1,19 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import FilterButton from '../FilterButton/FilterButton';
 import FilterSearch from '../FilterSearch/FilterSearch';
 
-const FilterComponent = () => (
-  <Filter>
-    <FilterButton label="Authors" />
-    <FilterButton label="Repositories" />
-    <FilterButton label="Commit Date" />
-    <FilterButton label="Issues" />
-    <FilterButton label="Pull Requests" />
-    <FilterSearch text="Search keyword" />
-  </Filter>
-);
+const FilterComponent = (props) => {
+  const { disabled } = props;
+  return (
+    <Filter>
+      <FilterButton label="Authors" disabled={disabled} />
+      <FilterButton label="Repositories" disabled={disabled} />
+      <FilterButton label="Commit Date" disabled={disabled} />
+      <FilterButton label="Issues" disabled={disabled} />
+      <FilterButton label="Pull Requests" disabled={disabled} />
+      <FilterSearch text="Search keyword" />
+    </Filter>
+  );
+};
+
+FilterComponent.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+};
 
 export default FilterComponent;
 
