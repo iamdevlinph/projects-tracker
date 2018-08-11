@@ -22,7 +22,11 @@ ButtonComponent.propTypes = {
   label: PropTypes.string.isRequired,
   icon: PropTypes.object,
   onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
+};
+
+ButtonComponent.defaultProps = {
+  disabled: false,
 };
 
 ButtonComponent.defaultProps = {

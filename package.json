@@ -13,10 +13,12 @@
   "devDependencies": {},
   "scripts": {
     "start": "firebase serve & node scripts/start.js",
-    "deploy": "firebase deploy && npm run build && gh-pages -d build",
-    "lint": "eslint .",
+    "deploy": "npm run deploy:firebase && npm run deploy:gh",
+    "deploy:gh": "npm run build && gh-pages -d build",
+    "deploy:firebase": "npm run lint:functions && firebase deploy",
+    "lint": "eslint --ignore-pattern functions/index.js .",
     "lint:functions": "eslint functions/",
-    "build": "node scripts/build.js",
+    "build": "npm run lint && node scripts/build.js",
     "precommit": "lint-staged",
     "precommit:init": "npm i lint-staged husky"
   },
