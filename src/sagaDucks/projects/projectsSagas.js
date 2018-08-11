@@ -2,14 +2,12 @@ import {
   put, takeLatest, call,
 } from 'redux-saga/effects';
 import _ from 'lodash';
-import rsf from '../rsf';
 import firebaseFuncs from '../../services/firebase-functions';
 import localStorage from '../../services/localStorage';
 import githubApi from '../../services/githubApi';
 
 import { types as projectsTypes } from './projects';
 
-const isDev = process.env.NODE_ENV === 'development';
 
 function* willFetchProjects() {
   try {
@@ -17,13 +15,8 @@ function* willFetchProjects() {
     let projects;
 
     if (!projectsCache) {
-      if (isDev) {
-        projects = yield call(firebaseFuncs.getProjects);
-        localStorage.setItem('projectsCache', projects);
-      } else {
-        projects = yield call(rsf.functions.call, 'getProjects');
-        localStorage.setItem('projectsCache', projects);
-      }
+      projects = yield call(firebaseFuncs.getProjects);
+      localStorage.setItem('projectsCache', projects);
     } else {
       projects = projectsCache;
     }

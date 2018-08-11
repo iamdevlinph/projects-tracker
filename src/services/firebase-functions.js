@@ -1,10 +1,21 @@
-// const apiUrl = func => `https://us-central1-projects-tracker-d372e.cloudfunctions.net/${func}`;
-const apiUrl = func => `http://localhost:5000/projects-tracker-d372e/us-central1/${func}`;
+const isDev = process.env.NODE_ENV === 'development';
+const makeApiUrl = (func) => {
+  let apiUrl;
+  if (isDev) {
+    // localhost firebase functions
+    apiUrl = `http://localhost:5000/projects-tracker-d372e/us-central1/${func}`;
+  } else {
+    // live firebase functions
+    apiUrl = `https://us-central1-projects-tracker-d372e.cloudfunctions.net/${func}`;
+  }
 
-const helloWorld = () => fetch(apiUrl('helloWorld')).then(res => res.json());
-const getAuthors = () => fetch(apiUrl('getAuthors')).then(res => res.json());
-const getProjects = () => fetch(apiUrl('getProjects')).then(res => res.json());
-const getSettings = () => fetch(apiUrl('getSettings')).then(res => res.json());
+  return apiUrl;
+};
+
+const helloWorld = () => fetch(makeApiUrl('helloWorld')).then(res => res.json());
+const getAuthors = () => fetch(makeApiUrl('getAuthors')).then(res => res.json());
+const getProjects = () => fetch(makeApiUrl('getProjects')).then(res => res.json());
+const getSettings = () => fetch(makeApiUrl('getSettings')).then(res => res.json());
 
 const firebaseFuncs = {
   helloWorld,
