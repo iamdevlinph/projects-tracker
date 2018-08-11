@@ -17,7 +17,7 @@ class HomeContainer extends Component {
 
   render() {
     const { projects, settings } = this.props;
-    const projectCards = projects && projects.map((project) => {
+    const projectCards = (projects && settings) && projects.map((project) => {
       let el = null;
       el = (
         <Card key={project.key} data={project} settings={settings} />
