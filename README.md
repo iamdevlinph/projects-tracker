@@ -9,6 +9,7 @@ Track multiple public github repositories in one place.
 
 #### Repository Status
 
+[![build][travis-img]][travis-url]
 [![repo deps][repo-deps-img]][repo-deps-url]
 [![open issues][issues-img]][issues-url]
 [![open prs][pr-img]][pr-url]
@@ -153,3 +154,5 @@ Read the original [README.md](/README-orig.md)
 [code-size-img]: https://img.shields.io/github/languages/code-size/iamdevlinph/projects-tracker.svg?style=flat-square&maxAge=86400
 [repo-deps-img]: https://img.shields.io/david/iamdevlinph/projects-tracker.svg?style=flat-square&maxAge=86400
 [repo-deps-url]: https://david-dm.org/iamdevlinph/projects-tracker
+[travis-img]: https://img.shields.io/travis/iamdevlinph/projects-tracker/master.svg?style=flat-square&maxAge=86400
+[travis-url]: https://travis-ci.com/iamdevlinph/projects-tracker
