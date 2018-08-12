@@ -23,7 +23,7 @@ function* willFetchProjects() {
 
     yield put({ type: projectsTypes.FETCH_PROJECTS_SUCCESS, projects });
   } catch (e) {
-    console.error(e);
+    console.error(`${projectsTypes.FETCH_PROJECTS_FAILED} ${e}`);
   }
 }
 
@@ -67,7 +67,7 @@ function* willFetchRepoInfo(action) {
     }
     yield put({ type: projectsTypes.FETCH_REPO_INFO_SUCCESS, repositories: repoInfoData });
   } catch (e) {
-    console.error(e);
+    console.error(`${projectsTypes.FETCH_REPO_INFO_FAILED} ${e}`);
   }
 }
 

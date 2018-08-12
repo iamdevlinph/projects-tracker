@@ -1,29 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
-import { actions as settingsActions } from '../../sagaDucks/settings/settings';
 import { Button } from '../../components';
 import localStorage from '../../services/localStorage';
+import LoginBanner from '../LoginBanner/LoginBanner';
 
 class SettingsContainer extends Component {
-  componentWillMount() {
-    const { requestSettings, settings } = this.props;
-    if (!settings) {
-      requestSettings();
-    }
-  }
-
   clearCache = (cacheName) => {
     localStorage.removeItem(cacheName);
   }
 
   render() {
-    const { settings } = this.props;
+    const {
+      settings, requestLogin, requestLogOut, loggedIn, user,
+    } = this.props;
     return (
       <div>
+        <LoginBanner
+          requestLogin={requestLogin}
+          requestLogOut={requestLogOut}
+          loggedIn={loggedIn}
+          user={user}
+        />
         <pre>
           {JSON.stringify(settings, null, 4)}
         </pre>
@@ -39,27 +38,20 @@ class SettingsContainer extends Component {
 }
 
 SettingsContainer.propTypes = {
-  requestSettings: PropTypes.func.isRequired,
   settings: PropTypes.object,
+  requestLogin: PropTypes.func.isRequired,
+  requestLogOut: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool,
+  user: PropTypes.object,
 };
 
 SettingsContainer.defaultProps = {
   settings: null,
+  loggedIn: false,
+  user: null,
 };
 
-const mapStateToProps = state => (
-  {
-    settings: state.settings.settings,
-  }
-);
-
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({
-    ...settingsActions,
-  }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer);
+export default SettingsContainer;
 
 const ButtonArea = styled.div`
   button {

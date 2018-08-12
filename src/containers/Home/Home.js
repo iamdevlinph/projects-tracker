@@ -1,20 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
-import { actions as projectsActions } from '../../sagaDucks/projects/projects';
-import { actions as settingsActions } from '../../sagaDucks/settings/settings';
 import { Card, Filter } from '../../components';
 
 class HomeContainer extends Component {
-  componentWillMount() {
-    const { requestList, requestSettings } = this.props;
-    requestList();
-    requestSettings();
-  }
-
   render() {
     const { projects, settings } = this.props;
     const projectCards = (projects && settings) && projects.map((project) => {
@@ -59,8 +49,6 @@ class HomeContainer extends Component {
 }
 
 HomeContainer.propTypes = {
-  requestList: PropTypes.func.isRequired,
-  requestSettings: PropTypes.func.isRequired,
   projects: PropTypes.array,
   settings: PropTypes.object,
 };
@@ -70,21 +58,7 @@ HomeContainer.defaultProps = {
   settings: null,
 };
 
-const mapStateToProps = state => (
-  {
-    projects: state.projects.list,
-    settings: state.settings.settings,
-  }
-);
-
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({
-    ...projectsActions,
-    ...settingsActions,
-  }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+export default HomeContainer;
 
 const HomeArea = styled.div`
   display: grid;

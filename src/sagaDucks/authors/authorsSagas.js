@@ -28,7 +28,7 @@ function* willFetchAuthors() {
 
     yield put({ type: authorsTypes.FETCH_AUTHORS_SUCCESS, authors });
   } catch (e) {
-    console.error(e);
+    console.error(`${authorsTypes.FETCH_AUTHORS_FAILED} ${e}`);
   }
 }
 

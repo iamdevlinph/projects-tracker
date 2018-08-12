@@ -1,28 +1,91 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import swal from 'sweetalert2';
+import { actions as settingsActions } from '../../sagaDucks/settings/settings';
+import { actions as authActions } from '../../sagaDucks/auth/auth';
+import { actions as projectsActions } from '../../sagaDucks/projects/projects';
 import { Navbar } from '../../components';
+import localStorage from '../../services/localStorage';
 
-const HomeLayout = (props) => {
-  const { children } = props;
-  return (
-    <NoSidebarArea>
-      <NavbarArea>
-        <Navbar />
-      </NavbarArea>
-      <MainArea>
-        {children}
-      </MainArea>
-    </NoSidebarArea>
-  );
-};
+class HomeLayout extends Component {
+  componentWillMount() {
+    const { requestList, requestSettings, initAuth } = this.props;
+    requestList();
+    requestSettings();
+    initAuth();
+  }
+
+  render() {
+    const {
+      children, projects, settings, user, loggedIn, requestLogin, requestLogOut,
+    } = this.props;
+    const informedUserCache = localStorage.isCached('informedUserCache');
+    if (user && user.email !== 'iamdevlinph@gmail.com' && (!informedUserCache || !informedUserCache.flag)) {
+      swal({
+        title: 'You are not Devlin',
+        text: 'Other users currently don\'t have any functions right now',
+        type: 'info',
+        footer: '<a href="https://github.com/iamdevlinph/projects-tracker/issues/13" target="blank">Read more</a>',
+      });
+      localStorage.setItem('informedUserCache', { flag: true });
+    }
+    return (
+      <NoSidebarArea>
+        <NavbarArea>
+          <Navbar />
+        </NavbarArea>
+        <MainArea>
+          {React.Children.map(children, child => React.cloneElement(child, {
+            projects, settings, user, loggedIn, requestLogin, requestLogOut,
+          }))}
+        </MainArea>
+      </NoSidebarArea>
+    );
+  }
+}
 
 HomeLayout.propTypes = {
+  requestList: PropTypes.func.isRequired,
+  requestSettings: PropTypes.func.isRequired,
+  initAuth: PropTypes.func.isRequired,
   children: PropTypes.object.isRequired,
+  requestLogin: PropTypes.func.isRequired,
+  requestLogOut: PropTypes.func.isRequired,
+  projects: PropTypes.array,
+  settings: PropTypes.object,
+  user: PropTypes.object,
+  loggedIn: PropTypes.bool,
 };
 
-export default HomeLayout;
+HomeLayout.defaultProps = {
+  projects: null,
+  settings: null,
+  loggedIn: false,
+  user: null,
+};
+
+const mapStateToProps = state => (
+  {
+    projects: state.projects.list,
+    settings: state.settings.settings,
+    user: state.auth.user,
+    loggedIn: state.auth.loggedIn,
+  }
+);
+
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({
+    ...authActions,
+    ...settingsActions,
+    ...projectsActions,
+  }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeLayout);
 
 const NoSidebarArea = styled.div`
   display: grid;
