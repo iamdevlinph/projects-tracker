@@ -20,7 +20,7 @@ function* willFetchSettings() {
 
     yield put({ type: settingsTypes.FETCH_SETTINGS_SUCCESS, settings });
   } catch (e) {
-    console.error(e);
+    console.error(`${settingsTypes.FETCH_SETTINGS_FAILED} ${e}`);
   }
 }
 
