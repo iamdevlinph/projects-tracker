@@ -10,7 +10,7 @@ const githubUrl = (authorName, repoName) => `https://github.com/${authorName}${r
 // https://us-central1-projects-tracker-d372e.cloudfunctions.net/${func}`
 // http://localhost:5000/projects-tracker-d372e/us-central1/${func}`
 
-exports.helloWorld = functions.https.onRequest((req, res) => {
+exports.helloWorld1 = functions.https.onRequest((req, res) => {
   cors(req, res, () => res.status(200).json({
     message: 'Hello!',
   }));
