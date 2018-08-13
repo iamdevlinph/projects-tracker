@@ -4,7 +4,7 @@ const postBody = body => JSON.stringify({
   ...body,
 });
 
-const nodeGetUserInfo = (authorName, authorType) => fetch('https://projects-tracker-api.us.openode.io/authorInfo', {
+const nodeGetUserInfo = (authorName, authorType) => fetch('https://projects-tracker.herokuapp.com/authorInfo', {
   method: 'post',
   headers: {
     'Content-Type': 'application/json',
