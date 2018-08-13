@@ -12,10 +12,15 @@ class FilterButtonComponent extends Component {
       const orderByAsc = sort.field === value ? !sort.isAsc : true;
       sortFunc(value, orderByAsc);
     };
-    const asc = sort.isAsc ? 'up' : 'down';
+    const asc = sort.isAsc ? 'fas fa-caret-up' : 'fas fa-caret-down';
     const caretDirection = sort.field === value ? asc : 'down';
     return (
-      <Button onClick={click} label={label} icon={<i className={`fas fa-caret-${caretDirection}`} />} disabled={disabled} />
+      <Button
+        onClick={click}
+        label={label}
+        icon={<i className={caretDirection} />}
+        disabled={disabled}
+      />
     );
   }
 }
