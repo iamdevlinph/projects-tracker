@@ -6,7 +6,9 @@ import { Card, Filter } from '../../components';
 
 class HomeContainer extends Component {
   render() {
-    const { projects, settings } = this.props;
+    const {
+      projects, settings, sortList, sort, searchList,
+    } = this.props;
     const projectCards = (projects && settings) && projects.map((project) => {
       let el = null;
       el = (
@@ -38,7 +40,12 @@ class HomeContainer extends Component {
     return (
       <HomeArea>
         <FilterArea>
-          <Filter disabled={!(projects && settings)} />
+          <Filter
+            disabled={!(projects && settings)}
+            sortFunc={sortList}
+            sort={sort}
+            searchList={searchList}
+          />
         </FilterArea>
         <ProjectListArea>
           {projectAreaDisplay}
@@ -51,6 +58,9 @@ class HomeContainer extends Component {
 HomeContainer.propTypes = {
   projects: PropTypes.array,
   settings: PropTypes.object,
+  sortList: PropTypes.func.isRequired,
+  sort: PropTypes.object.isRequired,
+  searchList: PropTypes.func.isRequired,
 };
 
 HomeContainer.defaultProps = {

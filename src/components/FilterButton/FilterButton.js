@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 
-const FilterButtonComponent = (props) => {
-  const { label, disabled } = props;
-  const click = () => {
-    console.error('This doesn\'t work right now.');
-  };
-  return (
-    <Button onClick={click} label={label} icon={<i className="fas fa-caret-down" />} disabled={disabled} />
-  );
-};
+class FilterButtonComponent extends Component {
+  render() {
+    const {
+      label, disabled, sortFunc, value, sort,
+    } = this.props;
+    const click = () => {
+      const orderByAsc = sort.field === value ? !sort.isAsc : true;
+      sortFunc(value, orderByAsc);
+    };
+    const asc = sort.isAsc ? 'up' : 'down';
+    const caretDirection = sort.field === value ? asc : 'down';
+    return (
+      <Button onClick={click} label={label} icon={<i className={`fas fa-caret-${caretDirection}`} />} disabled={disabled} />
+    );
+  }
+}
 
 FilterButtonComponent.propTypes = {
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
+  sortFunc: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  sort: PropTypes.object.isRequired,
 };
 
 export default FilterButtonComponent;

@@ -13,7 +13,9 @@ import localStorage from '../../services/localStorage';
 
 class HomeLayout extends Component {
   componentWillMount() {
-    const { requestList, requestSettings, initAuth } = this.props;
+    const {
+      requestList, requestSettings, initAuth,
+    } = this.props;
     requestList();
     requestSettings();
     initAuth();
@@ -22,6 +24,7 @@ class HomeLayout extends Component {
   render() {
     const {
       children, projects, settings, user, loggedIn, requestLogin, requestLogOut,
+      sortList, sort, searchList,
     } = this.props;
     const informedUserCache = localStorage.isCached('informedUserCache');
     if (user && user.email !== 'iamdevlinph@gmail.com' && (!informedUserCache || !informedUserCache.flag)) {
@@ -40,7 +43,15 @@ class HomeLayout extends Component {
         </NavbarArea>
         <MainArea>
           {React.Children.map(children, child => React.cloneElement(child, {
-            projects, settings, user, loggedIn, requestLogin, requestLogOut,
+            projects,
+            settings,
+            user,
+            loggedIn,
+            requestLogin,
+            requestLogOut,
+            sortList,
+            sort,
+            searchList,
           }))}
         </MainArea>
       </NoSidebarArea>
@@ -59,6 +70,9 @@ HomeLayout.propTypes = {
   settings: PropTypes.object,
   user: PropTypes.object,
   loggedIn: PropTypes.bool,
+  sortList: PropTypes.func.isRequired,
+  sort: PropTypes.object.isRequired,
+  searchList: PropTypes.func.isRequired,
 };
 
 HomeLayout.defaultProps = {
@@ -71,6 +85,7 @@ HomeLayout.defaultProps = {
 const mapStateToProps = state => (
   {
     projects: state.projects.list,
+    sort: state.projects.sort,
     settings: state.settings.settings,
     user: state.auth.user,
     loggedIn: state.auth.loggedIn,

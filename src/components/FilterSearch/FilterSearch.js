@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const FilterSearchComponent = (props) => {
-  const { text } = props;
+  const { text, searchList } = props;
   return (
-    <FilterSearch type="text" placeholder={text} />
+    <FilterSearch type="text" placeholder={text} onKeyUp={e => searchList(e)} />
   );
 };
 
 FilterSearchComponent.propTypes = {
   text: PropTypes.string.isRequired,
+  searchList: PropTypes.func.isRequired,
 };
 
 export default FilterSearchComponent;
