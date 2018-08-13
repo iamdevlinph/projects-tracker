@@ -6,26 +6,30 @@ import FilterButton from '../FilterButton/FilterButton';
 import FilterSearch from '../FilterSearch/FilterSearch';
 
 const FilterComponent = (props) => {
-  const { disabled } = props;
+  const {
+    disabled, sortFunc, sort, searchList,
+  } = props;
   return (
     <Filter>
-      <FilterButton label="Authors" disabled={disabled} />
-      <FilterButton label="Repositories" disabled={disabled} />
-      <FilterButton label="Commit Date" disabled={disabled} />
-      <FilterButton label="Issues" disabled={disabled} />
-      <FilterButton label="Pull Requests" disabled={disabled} />
-      <FilterSearch text="Search keyword" />
+      <FilterButton label="Authors" value="authorName" disabled={disabled} sortFunc={sortFunc} sort={sort} />
+      <FilterButton label="Repositories" value="repoName" disabled={disabled} sortFunc={sortFunc} sort={sort} />
+      <FilterButton label="Commit Date" value="lastCommitDate" disabled={disabled} sortFunc={sortFunc} sort={sort} />
+      <FilterButton label="Issues" value="issuesCount" disabled={disabled} sortFunc={sortFunc} sort={sort} />
+      <FilterButton label="Pull Requests" value="prsCount" disabled={disabled} sortFunc={sortFunc} sort={sort} />
+      <FilterSearch text="Search keyword" searchList={searchList} />
     </Filter>
   );
 };
 
 FilterComponent.propTypes = {
   disabled: PropTypes.bool.isRequired,
+  sortFunc: PropTypes.func.isRequired,
+  sort: PropTypes.object.isRequired,
+  searchList: PropTypes.func.isRequired,
 };
 
 export default FilterComponent;
 
-/* eslint-disable react/destructuring-assignment */
 const Filter = styled.div`
   font-size: 13px;
   /* background: #F5F5F5; */
@@ -38,4 +42,3 @@ const Filter = styled.div`
     /* "repo commit issues pull"; */
   /* height: 30px; */
 `;
-/* eslint-enable react/destructuring-assignment */
