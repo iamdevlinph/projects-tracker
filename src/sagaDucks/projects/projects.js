@@ -23,10 +23,13 @@ const sortProjects = (projects, action) => {
   return _.orderBy(projects, [field], [order]);
 };
 
-const searchProjects = (projects, keyword) => _.filter(projects,
-  val => val.authorName.includes(keyword)
-    || val.repoName.includes(keyword)
-    || val.description.includes(keyword));
+const searchProjects = (projects, keyword) => {
+  const keywordSearch = keyword.toLowerCase();
+  return _.filter(projects,
+    val => val.authorName.toLowerCase().includes(keywordSearch)
+      || val.repoName.toLowerCase().includes(keywordSearch)
+      || val.description.toLowerCase().includes(keywordSearch));
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
