@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import localStorage from '../../services/localStorage';
 
 export const types = {
   FETCH_PROJECTS_REQUEST: 'PROJECTS/FETCH_PROJECTS_REQUEST',
@@ -12,18 +13,22 @@ export const types = {
 };
 
 export const initialState = {
-  originalList: null, // keep original list
-  list: null, // for searching
+  list: null,
   sort: { field: 'repoName', isAsc: true },
 };
 
 const sortProjects = (projects, action) => {
+  // if no repo was found in the search
+  if (projects.length === 0) {
+    return [];
+  }
   const order = action.isAsc ? 'asc' : 'desc';
   const field = typeof projects[0][action.field] === 'string' ? project => project[action.field].toLowerCase() : action.field;
   return _.orderBy(projects, [field], [order]);
 };
 
-const searchProjects = (projects, keyword) => {
+const searchProjects = (keyword) => {
+  const projects = localStorage.getItem('repoCache').data;
   const keywordSearch = keyword.toLowerCase();
   return _.filter(projects,
     val => val.authorName.toLowerCase().includes(keywordSearch)
@@ -37,7 +42,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         list: action.repositories,
-        originalList: action.repositories,
       };
     case types.SORT_PROJECTS:
       return {
@@ -47,12 +51,11 @@ export default (state = initialState, action) => {
           isAsc: action.isAsc,
         },
         list: sortProjects(state.list, action),
-        originalList: sortProjects(state.list, action),
       };
     case types.SEARCH_PROJECTS:
       return {
         ...state,
-        list: searchProjects(state.originalList, action.keyword.target.value),
+        list: sortProjects(searchProjects(action.keyword.target.value), state.sort),
       };
     default:
       return state;
