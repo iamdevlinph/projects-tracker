@@ -63,7 +63,6 @@ const Button = styled.button`
     }
   `}
 `;
-
 const ButtonContent = styled.div`
     display: block;
     line-height: 6px;

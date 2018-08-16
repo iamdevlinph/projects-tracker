@@ -54,7 +54,6 @@ const ManageArea = styled.div`
     "manage";
   row-gap: 10px;
 `;
-
 const LoginBannerArea = styled.div`
   grid-area: login-banner;
 `;
