@@ -8,6 +8,9 @@ const localStorage = {
   isCached,
   removeItem,
   setItem,
+  clearAll: () => {
+    window.localStorage.clear();
+  },
 };
 
 export default localStorage;

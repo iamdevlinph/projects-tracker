@@ -38,6 +38,10 @@ function getServedPath(appPackageJson) {
   return ensureSlash(servedUrl, true);
 }
 
+function getVersionNumber(appPackageJson) {
+  return require(appPackageJson).version;
+};
+
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
@@ -52,4 +56,5 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
+  version: getVersionNumber(resolveApp('package.json'))
 };

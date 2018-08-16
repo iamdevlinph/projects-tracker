@@ -1,3 +1,5 @@
+/* global VERSION */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -19,6 +21,12 @@ class HomeLayout extends Component {
     requestList();
     requestSettings();
     initAuth();
+    // clear cache if local version doesn't match published version
+    const versionCache = localStorage.getItem('VERSION');
+    if (!versionCache || VERSION !== versionCache.data) {
+      localStorage.clearAll();
+      localStorage.setItem('VERSION', VERSION);
+    }
   }
 
   render() {
