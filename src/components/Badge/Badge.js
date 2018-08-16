@@ -2,16 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import BadgeUtil from './BadgeUtil';
+
 const BadgeComponent = (props) => {
-  const { label, data, repoUrl } = props;
+  const {
+    label, data, repoUrl, settings,
+  } = props;
   let url = repoUrl;
   url += label === 'pull requests' ? '/pulls' : '/issues';
+  const type = label === 'pull requests' ? 'pulls' : 'issues';
+  const badgeColor = BadgeUtil.getBadgeColor(data, settings, type);
   return (
     <Badge href={url} target="blank">
       <Label>
         {label}
       </Label>
-      <Number>
+      <Number color={badgeColor}>
         {data}
       </Number>
     </Badge>
@@ -22,6 +28,7 @@ BadgeComponent.propTypes = {
   data: PropTypes.number.isRequired,
   label: PropTypes.string.isRequired,
   repoUrl: PropTypes.string.isRequired,
+  settings: PropTypes.object.isRequired,
 };
 
 export default BadgeComponent;
@@ -43,6 +50,6 @@ const Label = styled.div`
 const Number = styled.div`
   grid-area: number;
   text-align: center;
-  background: #44CC12;
+  background: ${({ color }) => `${color}`};
   color: white;
 `;

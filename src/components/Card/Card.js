@@ -36,10 +36,10 @@ const CardComponent = (props) => {
         {moment(data.lastCommitDate).format('DD MMM YYYY')}
       </CommitArea>
       <IssuesArea>
-        <Badge label="issues" data={data.issuesCount} repoUrl={data.repoUrl} />
+        <Badge label="issues" data={data.issuesCount} repoUrl={data.repoUrl} settings={settings} />
       </IssuesArea>
       <PullArea>
-        <Badge label="pull requests" data={data.prsCount} repoUrl={data.repoUrl} />
+        <Badge label="pull requests" data={data.prsCount} repoUrl={data.repoUrl} settings={settings} />
       </PullArea>
     </CardChunk>
   );
