@@ -9,6 +9,7 @@ import CardUtil from './CardUtil';
 const CardComponent = (props) => {
   const { data, settings } = props;
   const statusColor = CardUtil.getStatusColor(data, settings);
+  const allowUrlClick = url => url !== '#';
   return (
     <CardChunk status={statusColor}>
       <AvatarArea>
@@ -16,13 +17,13 @@ const CardComponent = (props) => {
       </AvatarArea>
       <RepoArea>
         <RepoName>
-          <BlueUrl href={data.authorUrl} target="blank">
+          <BlueUrl href={data.authorUrl} target="blank" allowClick={allowUrlClick(data.authorUrl)}>
             {data.authorName}
           </BlueUrl>
           <BlueDivider>
             /
           </BlueDivider>
-          <BlueUrl href={data.repoUrl} bold target="blank">
+          <BlueUrl href={data.repoUrl} bold target="blank" allowClick={allowUrlClick(data.repoUrl)}>
             {data.repoName}
           </BlueUrl>
         </RepoName>
@@ -33,7 +34,7 @@ const CardComponent = (props) => {
         </RepoDesc>
       </RepoArea>
       <CommitArea>
-        {moment(data.lastCommitDate).format('DD MMM YYYY')}
+        {data.lastCommitMsgPlaceholder ? data.lastCommitMsgPlaceholder : moment(data.lastCommitDate).format('DD MMM YYYY')}
       </CommitArea>
       <IssuesArea>
         <Badge label="issues" data={data.issuesCount} repoUrl={data.repoUrl} settings={settings} />
@@ -113,6 +114,7 @@ const BlueUrl = styled.a`
   color: #00a0f0;
   font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
   text-decoration: none;
+  pointer-events: ${({ allowClick }) => (allowClick ? 'auto' : 'none')};
   &:hover {
     text-decoration: underline;
   }

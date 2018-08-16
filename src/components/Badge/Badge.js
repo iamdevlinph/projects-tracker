@@ -39,6 +39,7 @@ const Badge = styled.a`
   grid-template-areas:
     "label number";
   text-decoration: none;
+  pointer-events: ${({ href }) => (href.includes('#') ? 'none' : 'auto')}
 `;
 const Label = styled.div`
   grid-area: label;

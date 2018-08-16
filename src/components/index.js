@@ -6,3 +6,4 @@ export { default as Badge } from './Badge/Badge';
 export { default as FilterButton } from './FilterButton/FilterButton';
 export { default as FitlerSearch } from './FilterSearch/FilterSearch';
 export { default as Button } from './Button/Button';
+export { default as SettingsCard } from './SettingsCard/SettingsCard';

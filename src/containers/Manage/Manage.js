@@ -20,7 +20,9 @@ class ManageContainer extends Component {
           />
         </LoginBannerArea>
         <ManageSection>
-          Manage Page here
+          <h3>
+            Manage
+          </h3>
           {console.error('Manage Page')}
           {console.error(settings)}
         </ManageSection>
