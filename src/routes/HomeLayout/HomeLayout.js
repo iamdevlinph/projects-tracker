@@ -18,15 +18,15 @@ class HomeLayout extends Component {
     const {
       requestList, requestSettings, initAuth,
     } = this.props;
-    requestList();
-    requestSettings();
-    initAuth();
     // clear cache if local version doesn't match published version
     const versionCache = localStorage.getItem('VERSION');
     if (!versionCache || VERSION !== versionCache.data) {
       localStorage.clearAll();
       localStorage.setItem('VERSION', VERSION);
     }
+    requestList();
+    requestSettings();
+    initAuth();
   }
 
   render() {
