@@ -5,8 +5,8 @@ const getBadgeColor = (data, settings, type) => {
       case (data >= settings.issueDangerCount):
         color = settings.issueDanger;
         break;
-      case (data >= settings.issueModerateCount):
-        color = settings.issueModerate;
+      case (data >= settings.issueWarningCount):
+        color = settings.issueWarning;
         break;
       default:
         color = settings.issueSafe;
@@ -18,8 +18,8 @@ const getBadgeColor = (data, settings, type) => {
       case (data >= settings.prDangerCount):
         color = settings.prDanger;
         break;
-      case (data >= settings.prModerateCount):
-        color = settings.prModerate;
+      case (data >= settings.prWarningCount):
+        color = settings.prWarning;
         break;
       default:
         color = settings.prSafe;

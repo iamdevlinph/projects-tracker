@@ -8,8 +8,8 @@ const getStatusColor = (data, settings) => {
     case (repoLastUpdateDays >= settings.updateDangerDays):
       repoUpdateStatusColor = settings.updateDanger;
       break;
-    case (repoLastUpdateDays >= settings.updateModerateDays):
-      repoUpdateStatusColor = settings.updateModerate;
+    case (repoLastUpdateDays >= settings.updateWarningDays):
+      repoUpdateStatusColor = settings.updateWarning;
       break;
     default:
       repoUpdateStatusColor = settings.updateSafe;
