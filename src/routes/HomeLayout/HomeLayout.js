@@ -23,8 +23,7 @@ class HomeLayout extends Component {
 
   render() {
     const {
-      children, projects, settings, user, loggedIn, requestLogin, requestLogOut,
-      sortList, sort, searchList,
+      children, user,
     } = this.props;
     const informedUserCache = localStorage.isCached('informedUserCache');
     if (user && user.email !== 'iamdevlinph@gmail.com' && (!informedUserCache || !informedUserCache.flag)) {
@@ -44,15 +43,7 @@ class HomeLayout extends Component {
         </NavbarArea>
         <MainArea>
           {React.Children.map(children, child => React.cloneElement(child, {
-            projects,
-            settings,
-            user,
-            loggedIn,
-            requestLogin,
-            requestLogOut,
-            sortList,
-            sort,
-            searchList,
+            ...this.props,
           }))}
         </MainArea>
       </NoSidebarArea>
@@ -65,21 +56,10 @@ HomeLayout.propTypes = {
   requestSettings: PropTypes.func.isRequired,
   initAuth: PropTypes.func.isRequired,
   children: PropTypes.object.isRequired,
-  requestLogin: PropTypes.func.isRequired,
-  requestLogOut: PropTypes.func.isRequired,
-  projects: PropTypes.array,
-  settings: PropTypes.object,
   user: PropTypes.object,
-  loggedIn: PropTypes.bool,
-  sortList: PropTypes.func.isRequired,
-  sort: PropTypes.object.isRequired,
-  searchList: PropTypes.func.isRequired,
 };
 
 HomeLayout.defaultProps = {
-  projects: null,
-  settings: null,
-  loggedIn: false,
   user: null,
 };
 
