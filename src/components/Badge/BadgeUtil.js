@@ -1,29 +1,14 @@
-const getBadgeColor = (data, settings, type) => {
+const getBadgeColor = (data, settings) => {
   let color;
-  if (type === 'issues') {
-    switch (true) {
-      case (data >= settings.issueDangerCount):
-        color = settings.issueDanger;
-        break;
-      case (data >= settings.issueWarningCount):
-        color = settings.issueWarning;
-        break;
-      default:
-        color = settings.issueSafe;
-    }
-  }
-
-  if (type === 'pulls') {
-    switch (true) {
-      case (data >= settings.prDangerCount):
-        color = settings.prDanger;
-        break;
-      case (data >= settings.prWarningCount):
-        color = settings.prWarning;
-        break;
-      default:
-        color = settings.prSafe;
-    }
+  switch (true) {
+    case (data >= settings.dangerCount):
+      color = settings.dangerColor;
+      break;
+    case (data >= settings.warningCount):
+      color = settings.warningColor;
+      break;
+    default:
+      color = settings.safeColor;
   }
   return color;
 };

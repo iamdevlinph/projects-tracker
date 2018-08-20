@@ -4,15 +4,16 @@ const getStatusColor = (data, settings) => {
   const repoLastUpdateSeconds = moment().format('X') - moment(data.lastCommitDate).format('X');
   const repoLastUpdateDays = (repoLastUpdateSeconds / 86400).toFixed(0);
   let repoUpdateStatusColor;
+  const { update } = settings;
   switch (true) {
-    case (repoLastUpdateDays >= settings.updateDangerDays):
-      repoUpdateStatusColor = settings.updateDanger;
+    case (repoLastUpdateDays >= update.dangerCount):
+      repoUpdateStatusColor = update.dangerColor;
       break;
-    case (repoLastUpdateDays >= settings.updateWarningDays):
-      repoUpdateStatusColor = settings.updateWarning;
+    case (repoLastUpdateDays >= update.warningCount):
+      repoUpdateStatusColor = update.warningColor;
       break;
     default:
-      repoUpdateStatusColor = settings.updateSafe;
+      repoUpdateStatusColor = update.safeColor;
       break;
   }
   return repoUpdateStatusColor;

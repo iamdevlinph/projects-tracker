@@ -28,7 +28,7 @@ const LoadingComponent = (props) => {
 
 LoadingComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.bool,
+  error: PropTypes.object,
   timedOut: PropTypes.bool.isRequired,
 };
 
