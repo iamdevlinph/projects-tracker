@@ -10,8 +10,7 @@ const BadgeComponent = (props) => {
   } = props;
   let url = repoUrl;
   url += label === 'pull requests' ? '/pulls' : '/issues';
-  const type = label === 'pull requests' ? 'pulls' : 'issues';
-  const badgeColor = BadgeUtil.getBadgeColor(data, settings, type);
+  const badgeColor = BadgeUtil.getBadgeColor(data, settings);
   return (
     <Badge href={url} target="blank">
       <Label>

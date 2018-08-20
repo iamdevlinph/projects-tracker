@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const SettingsCardComponent = (props) => {
-  const { label } = props;
+  const { label, settings } = props;
+  const counterLabel = label.toLowerCase() !== 'repo update' ? 'Counts' : 'Days';
   return (
     <SettingsCardArea>
       <h4>
@@ -13,21 +14,27 @@ const SettingsCardComponent = (props) => {
         <div className="bold">
           Safe
         </div>
-        <div>
-          Color
-        </div>
+        <OptionsArea>
+          <ColorPreview color={settings.safeColor} />
+        </OptionsArea>
         <div className="bold">
           Warning
         </div>
-        <div>
-          Color
-        </div>
+        <OptionsArea>
+          <ColorPreview color={settings.warningColor} />
+          <div>
+            {`${counterLabel}: ${settings.warningCount}`}
+          </div>
+        </OptionsArea>
         <div className="bold">
           Danger
         </div>
-        <div>
-          Color
-        </div>
+        <OptionsArea>
+          <ColorPreview color={settings.dangerColor} />
+          <div>
+            {`${counterLabel}: ${settings.dangerCount}`}
+          </div>
+        </OptionsArea>
       </SettingsListArea>
     </SettingsCardArea>
   );
@@ -35,6 +42,7 @@ const SettingsCardComponent = (props) => {
 
 SettingsCardComponent.propTypes = {
   label: PropTypes.string.isRequired,
+  settings: PropTypes.object.isRequired,
 };
 
 export default SettingsCardComponent;
@@ -52,4 +60,24 @@ const SettingsListArea = styled.div`
   .bold {
     font-weight: bold;
   }
+`;
+const OptionsArea = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+`;
+// const ColorPicker = styled.span`
+//   margin-left: 10px;
+//   & > .color-preview {
+//     background: red;
+//     height: 10px;
+//     width: 10px;
+//     display: inline-block;
+//   }
+// `;
+const ColorPreview = styled.div`
+  display: inline-block;
+  background: ${({ color }) => `${color}`};
+  height: 12px;
+  width: 30px;
+  margin-top: 4px;
 `;

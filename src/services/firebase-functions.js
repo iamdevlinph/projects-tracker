@@ -13,13 +13,11 @@ const makeApiUrl = (func) => {
 };
 
 const helloWorld = () => fetch(makeApiUrl('helloWorld')).then(res => res.json());
-const getAuthors = () => fetch(makeApiUrl('getAuthors')).then(res => res.json());
 const getProjects = () => fetch(makeApiUrl('getProjects')).then(res => res.json());
 const getSettings = () => fetch(makeApiUrl('getSettings')).then(res => res.json());
 
 const firebaseFuncs = {
   helloWorld,
-  getAuthors,
   getProjects,
   getSettings,
 };
