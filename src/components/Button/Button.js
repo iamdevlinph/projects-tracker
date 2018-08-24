@@ -47,7 +47,7 @@ const Button = styled.button`
   color: white;
   font-weight: 400;
   font-size: 15px;
-  box-shadow: ${({ disabled }) => (disabled ? '0 5px 0px #676767' : '0 5px 0px #487787')}
+  box-shadow: ${({ disabled }) => (disabled ? '0 5px 0px #676767' : '0 5px 0px #487787')};
   border-bottom: ${({ disabled }) => (disabled ? '1px solid grey' : '1px solid #30809b')};
   ${({ disabled }) => !disabled && `
     &:hover{

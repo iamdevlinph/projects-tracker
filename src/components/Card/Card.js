@@ -111,7 +111,7 @@ const PullArea = styled.div`
   line-height: 40px;
 `;
 const BlueUrl = styled.a`
-  color: #00a0f0;
+  color: #00A0F0;
   font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
   text-decoration: none;
   pointer-events: ${({ allowClick }) => (allowClick ? 'auto' : 'none')};
@@ -120,6 +120,6 @@ const BlueUrl = styled.a`
   }
 `;
 const BlueDivider = styled.span`
-  color: #00a0f0;
+  color: #00A0F0;
   font-size: 15px;
 `;
