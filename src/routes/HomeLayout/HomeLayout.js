@@ -6,12 +6,12 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import swal from 'sweetalert2';
 import { actions as settingsActions } from '../../sagaDucks/settings/settings';
 import { actions as authActions } from '../../sagaDucks/auth/auth';
 import { actions as projectsActions } from '../../sagaDucks/projects/projects';
 import { Navbar } from '../../components';
 import localStorage from '../../services/localStorage';
+import swalService from '../../services/swalService';
 
 class HomeLayout extends Component {
   componentWillMount() {
@@ -35,19 +35,13 @@ class HomeLayout extends Component {
     } = this.props;
     const informedUserCache = localStorage.isCached('informedUserCache');
     if (user && user.email !== 'iamdevlinph@gmail.com' && (!informedUserCache || !informedUserCache.flag)) {
-      swal({
-        title: 'You are not Devlin',
-        text: 'Other users currently don\'t have any functions right now',
-        type: 'info',
-        footer: '<a href="https://github.com/iamdevlinph/projects-tracker/issues/13" target="blank">Read more</a>',
-        allowOutsideClick: false,
-      });
+      swalService.notExpectedUser();
       localStorage.setItem('informedUserCache', { flag: true });
     }
     return (
       <NoSidebarArea>
         <NavbarArea>
-          <Navbar />
+          <Navbar {...this.props} />
         </NavbarArea>
         <MainArea>
           {React.Children.map(children, child => React.cloneElement(child, {

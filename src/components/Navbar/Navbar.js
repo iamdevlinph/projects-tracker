@@ -2,7 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-const NavbarComponent = () => (
+import AccountDropdown from '../AccountDropdown/AccountDropdown';
+
+const NavbarComponent = props => (
   <NavbarChunk>
     <BannerArea>
       <h1>
@@ -23,6 +25,8 @@ const NavbarComponent = () => (
       <NavLink to="/settings" activeClassName="active-link">
         Settings
       </NavLink>
+      {' | '}
+      <AccountDropdown {...props} />
       {' | '}
       <a href="https://github.com/iamdevlinph/projects-tracker" target="blank" className="bold">
         Github
