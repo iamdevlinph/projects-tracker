@@ -7,8 +7,11 @@ const getBadgeColor = (data, settings) => {
     case (data >= settings.warningCount):
       color = settings.warningColor;
       break;
-    default:
+    case (data > 0):
       color = settings.safeColor;
+      break;
+    default:
+      color = '#555555';
   }
   return color;
 };

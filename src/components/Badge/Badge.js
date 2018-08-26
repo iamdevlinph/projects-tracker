@@ -16,7 +16,7 @@ const BadgeComponent = (props) => {
       <Label>
         {label}
       </Label>
-      <Number color={badgeColor}>
+      <Number color={badgeColor} noData={data === 0}>
         {data}
       </Number>
     </Badge>
@@ -52,4 +52,5 @@ const Number = styled.div`
   text-align: center;
   background: ${({ color }) => `${color}`};
   color: white;
+  border-left: ${({ noData }) => (noData ? '1px solid white' : '0px solid white')};
 `;

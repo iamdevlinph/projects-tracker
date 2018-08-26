@@ -9,6 +9,14 @@ const commonData = {
   description: 'Description',
 };
 
+const generateDefaultData = () => ({
+  ...commonData,
+  lastCommitDate: moment().format(),
+  lastCommitMsgPlaceholder: 'Up to date',
+  issuesCount: 0,
+  prsCount: 0,
+});
+
 const generateSafeData = () => ({
   ...commonData,
   lastCommitDate: moment().format(),
@@ -34,6 +42,7 @@ const generateDangerData = settings => ({
 });
 
 const SettingsUtil = {
+  generateDefaultData,
   generateSafeData,
   generateWarningData,
   generateDangerData,
