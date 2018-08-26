@@ -22,6 +22,10 @@ class SettingsContainer extends Component {
             </h3>
             <PreviewArea>
               <span>
+                Default
+              </span>
+              <Card data={SettingsUtil.generateDefaultData()} settings={settings} />
+              <span>
                 Safe
               </span>
               <Card data={SettingsUtil.generateSafeData()} settings={settings} />
