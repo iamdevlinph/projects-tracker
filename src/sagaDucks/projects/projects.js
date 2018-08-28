@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import localStorage from '../../services/localStorage';
+import { localStorage } from '../../services';
 
 export const types = {
   FETCH_PROJECTS_REQUEST: 'PROJECTS/FETCH_PROJECTS_REQUEST',

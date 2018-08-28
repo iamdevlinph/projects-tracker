@@ -2,9 +2,7 @@ import {
   put, takeLatest, call,
 } from 'redux-saga/effects';
 import _ from 'lodash';
-import firebaseFuncs from '../../services/firebase-functions';
-import localStorage from '../../services/localStorage';
-import githubApi from '../../services/githubApi';
+import { firebaseFuncs, localStorage, githubApi } from '../../services';
 
 import { types as projectsTypes } from './projects';
 

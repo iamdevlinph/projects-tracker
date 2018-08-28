@@ -1,8 +1,7 @@
 import {
   put, takeLatest, call,
 } from 'redux-saga/effects';
-import firebaseFuncs from '../../services/firebase-functions';
-import localStorage from '../../services/localStorage';
+import { firebaseFuncs, localStorage } from '../../services';
 
 import { types as settingsTypes } from './settings';
 
