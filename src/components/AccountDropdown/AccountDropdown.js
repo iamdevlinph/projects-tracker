@@ -59,12 +59,13 @@ const DropdownMenu = styled.div`
   z-index: 1;
   & * {
     color: black;
-    padding: 5px 16px;
+    padding: 0px 16px;
     text-decoration: none;
     display: block;
-    &:hover {
-      background-color: #F1F1F1;
-    }
+  }
+  & span {
+    background: #555555;
+    color: #ADE9DC;
   }
 `;
 const AccountActionButton = styled.button`
