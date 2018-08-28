@@ -1,4 +1,4 @@
-import getRepoInfo from './githubApiMethods/getRepoInfo';
+import getRepoInfo from './getRepoInfo';
 
 const githubApi = {
   getRepoInfo,
