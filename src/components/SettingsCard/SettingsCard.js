@@ -80,4 +80,5 @@ const ColorPreview = styled.div`
   height: 12px;
   width: 30px;
   margin-top: 4px;
+  cursor: pointer;
 `;
