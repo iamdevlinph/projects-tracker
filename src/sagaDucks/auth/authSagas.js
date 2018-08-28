@@ -3,7 +3,7 @@ import 'firebase/auth';
 import { put, takeLatest, call } from 'redux-saga/effects';
 import rsf from '../rsf';
 import { types as authTypes } from './auth';
-import localStorage from '../../services/localStorage';
+import { localStorage } from '../../services';
 
 const authProvider = new firebase.auth.GoogleAuthProvider();
 

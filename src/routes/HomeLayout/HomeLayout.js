@@ -10,8 +10,7 @@ import { actions as settingsActions } from '../../sagaDucks/settings/settings';
 import { actions as authActions } from '../../sagaDucks/auth/auth';
 import { actions as projectsActions } from '../../sagaDucks/projects/projects';
 import { Navbar } from '../../components';
-import localStorage from '../../services/localStorage';
-import swalService from '../../services/swalService';
+import { localStorage, swalService } from '../../services';
 
 class HomeLayout extends Component {
   componentWillMount() {
