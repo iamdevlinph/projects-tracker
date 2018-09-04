@@ -1,28 +1,19 @@
-import React, { Component, Fragment } from 'react';
-import { PhotoshopPicker } from 'react-color';
+import React, { Fragment } from 'react';
+import { ChromePicker } from 'react-color';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { StringUtil } from 'common-utils-pkg';
 
 const PHOTOSHOP_PICKER_WIDTH = 515;
 
-class ColorPickerComponent extends Component {
-  state = {
-    pickerX: null,
-    pickerY: null,
-    selectedColor: null,
-    originalColor: null,
-  }
+const state = {
+  pickerX: null,
+  pickerY: null,
+  selectedColor: null,
+  originalColor: null,
+};
 
-  componentWillMount() {
-    const { color } = this.props;
-    this.setState({
-      selectedColor: color,
-      originalColor: color,
-    });
-  }
-
-  getKeyValue = (id) => {
+const ColorPickerComponent = (props) => {
+  const getKeyValue = (id) => {
     const lowerCaseId = id.toLowerCase();
     const type = id.split('-')[1];
     switch (true) {
@@ -33,102 +24,74 @@ class ColorPickerComponent extends Component {
       default:
         return `update-${type}`;
     }
-  }
+  };
 
-  triggerColorPicker = (e, key, type) => {
-    const { showColorPicker, previewColor } = this.props;
-    showColorPicker(key);
+  const triggerColorPicker = (e, key, type) => {
+    const { showColorPicker, previewColor } = props;
 
     switch (type) {
       case 'cancel':
       {
-        const { originalColor } = this.state;
-        this.setState({
-          selectedColor: originalColor,
-        });
-        previewColor(key, originalColor);
-        // this.setColor(e, key, true);
+        const { originalColor } = state;
+        state.selectedColor = originalColor;
+        previewColor(key, props.color);
         break;
       }
       case 'accept':
       {
-        const { selectedColor } = this.state;
-        this.setState({ originalColor: selectedColor });
+        const { selectedColor } = state;
+        state.originalColor = selectedColor;
+        if (e.target.classList.contains('hide-picker')) {
+          showColorPicker(key);
+        }
         break;
       }
       default: {
+        showColorPicker(key);
         const widthAvailable = window.innerWidth - e.clientX;
         const newX = (widthAvailable < PHOTOSHOP_PICKER_WIDTH)
           ? e.clientX - PHOTOSHOP_PICKER_WIDTH / 2
           : e.clientX;
+        // console.log(newX);
         if (e) {
-          this.setState({
-            pickerX: newX,
-            pickerY: e.clientY + 10,
-          });
+          state.pickerX = newX;
+          state.pickerY = e.clientY + 10;
         }
       }
     }
-  }
-
-  colorChange = (color, key) => {
-    this.setState({
-      selectedColor: color.hex,
-    });
-    const { previewColor } = this.props;
-    previewColor(key, color.hex);
-  }
-
-  setColor = (e, key, fromCancel) => {
-    // const { selectedColor, originalColor } = this.state;
-    // const { previewColor } = this.props;
-    console.log(fromCancel);
-    this.triggerColorPicker(e, key);
-    // if (fromCancel) {
-    //   this.triggerColorPicker(e, key);
-    //   this.setState({ selectedColor: originalColor });
-    //   previewColor(key, originalColor);
-    // } else {
-    //   this.setState({ originalColor: selectedColor });
-    //   previewColor(key, selectedColor);
-    // }
-  }
-
-  setHeader = (id) => {
-    const split = id.split('-');
-    const type = StringUtil.toSentenceCase(split[1]);
-    return `${split[0]} (${type})`;
   };
 
-  render() {
-    const {
-      id, activeColorPicker,
-    } = this.props;
-    const { selectedColor } = this.state;
-    const { pickerX, pickerY } = this.state;
-    const key = this.getKeyValue(id);
-    const colorPickerDisplay = key === activeColorPicker;
-    return (
-      <Fragment>
-        <ColorPreview color={selectedColor} onClick={e => this.triggerColorPicker(e, key)} />
-        <ReadInput type="text" value={selectedColor} readOnly />
-        {colorPickerDisplay && (
-          <ColorPickerArea>
-            <ColorPicker left={pickerX} top={pickerY}>
-              <PhotoshopPicker
-                header={this.setHeader(id)}
-                color={selectedColor}
-                onChangeComplete={e => this.colorChange(e, key)}
-                onAccept={e => this.triggerColorPicker(e, key, 'accept')}
-                onCancel={e => this.triggerColorPicker(e, key, 'cancel')}
-              />
-            </ColorPicker>
-          </ColorPickerArea>
-        )}
-      </Fragment>
-    );
-  }
-}
+  const colorChange = (color, key) => {
+    state.selectedColor = color.hex;
+    const { previewColor } = props;
+    previewColor(key, color.hex);
+  };
+
+  const {
+    id, activeColorPicker, color,
+  } = props;
+  state.selectedColor = color;
+  state.originalColor = color;
+  const key = getKeyValue(id);
+  const colorPickerDisplay = key === activeColorPicker;
+  return (
+    <Fragment>
+      <ColorPreview color={state.selectedColor} onClick={e => triggerColorPicker(e, key)} />
+      <ReadInput type="text" value={state.selectedColor} readOnly />
+      {colorPickerDisplay && (
+        <ColorPickerArea className="hide-picker" onClick={e => triggerColorPicker(e, key, 'accept')}>
+          <ColorPicker left={state.pickerX} top={state.pickerY}>
+            <ChromePicker
+              color={state.selectedColor}
+              onChange={e => colorChange(e, key)}
+              disableAlpha
+            />
+          </ColorPicker>
+        </ColorPickerArea>
+      )}
+    </Fragment>
+  );
+};
 
 ColorPickerComponent.propTypes = {
   color: PropTypes.string.isRequired,
