@@ -6,8 +6,20 @@ import { ColorUtil } from 'common-utils-pkg';
 
 const ButtonComponent = (props) => {
   const {
-    label, icon, onClick, disabled, color = '#348AA7',
+    label, icon, onClick, disabled,
   } = props;
+  const validHexColor = (color) => {
+    let returnColor = '#348AA7'; // default
+    if (color !== '' && !/^#/g.test(color)) { // no hash
+      returnColor = `#${color}`;
+    } else if (color !== '' && color) { // use passed value
+      returnColor = color;
+    }
+
+    return returnColor;
+  };
+  let { color } = props;
+  color = validHexColor(color);
   const shadow = ColorUtil.brightness(color, -50);
   return (
     <Button onClick={() => onClick()} disabled={disabled} color={color} shadow={shadow}>
