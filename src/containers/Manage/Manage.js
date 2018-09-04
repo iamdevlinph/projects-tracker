@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-class ManageContainer extends Component {
-  render() {
-    const { settings } = this.props;
-    return (
-      <ManageArea>
-        <ManageSection>
-          <h3>
-            Manage
-          </h3>
-          {console.error('Manage Page')}
-          {console.error(settings)}
-        </ManageSection>
-      </ManageArea>
-    );
-  }
-}
+const ManageContainer = (props) => {
+  const { settings } = props;
+  return (
+    <ManageArea>
+      <ManageSection>
+        <h3>
+          Manage
+        </h3>
+        {console.error('Manage Page')}
+        {console.error(settings)}
+      </ManageSection>
+    </ManageArea>
+  );
+};
 
 ManageContainer.propTypes = {
   settings: PropTypes.object,
