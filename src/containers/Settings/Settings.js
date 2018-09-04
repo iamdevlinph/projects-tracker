@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Card, SettingsCard } from '../../components';
+import { Card, SettingsCard, Button } from '../../components';
 import SettingsUtil from './SettingsUtil';
-
 
 class SettingsContainer extends Component {
   componentWillUnmount() {
@@ -14,7 +13,7 @@ class SettingsContainer extends Component {
 
   render() {
     const {
-      settings, showColorPicker, activeColorPicker, previewColor, previewCount,
+      settings, showColorPicker, activeColorPicker, previewColor, previewCount, resetSettings,
     } = this.props;
     const display = !settings
       ? (
@@ -71,6 +70,10 @@ class SettingsContainer extends Component {
                 previewCount={previewCount}
               />
             </OptionsArea>
+            <SettingsButtonsArea>
+              <Button label="Reset" onClick={() => resetSettings()} color="#f96616" />
+              <Button label="Save" onClick={() => (console.log('test'))} color="0de61f" />
+            </SettingsButtonsArea>
           </SettingsSection>
         </SettingsArea>
       );
@@ -121,4 +124,12 @@ const OptionsArea = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 10px;
+`;
+const SettingsButtonsArea = styled.div`
+  display: flex;
+  margin-top: 10px;
+  float: right;
+  & button {
+    margin: 0 2px;
+  }
 `;
