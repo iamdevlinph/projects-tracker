@@ -29,7 +29,7 @@ const sortProjects = (projects, action) => {
 
 const searchProjects = (keyword) => {
   const projects = localStorage.getItem('repoCache').data;
-  const keywordSearch = keyword.toLowerCase();
+  const keywordSearch = keyword.toLowerCase().trim();
   return _.filter(projects,
     val => val.authorName.toLowerCase().includes(keywordSearch)
       || val.repoName.toLowerCase().includes(keywordSearch)
