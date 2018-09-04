@@ -52,7 +52,6 @@ const ColorPickerComponent = (props) => {
         const newX = (widthAvailable < PHOTOSHOP_PICKER_WIDTH)
           ? e.clientX - PHOTOSHOP_PICKER_WIDTH / 2
           : e.clientX;
-        // console.log(newX);
         if (e) {
           state.pickerX = newX;
           state.pickerY = e.clientY + 10;

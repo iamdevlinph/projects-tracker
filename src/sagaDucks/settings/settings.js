@@ -8,6 +8,9 @@ export const types = {
   PREVIEW_COLOR: 'SETTINGS/PREVIEW_COLOR',
   PREVIEW_COUNT: 'SETTINGS/PREVIEW_COUNT',
   RESET_SETTINGS: 'SETTINGS/RESET_SETTINGS',
+  SAVE_SETTINGS_REQUEST: 'SETTINGS/SAVE_SETTINGS_REQUEST',
+  SAVE_SETTINGS_SUCCESS: 'SETTINGS/SAVE_SETTINGS_SUCCESS',
+  SAVE_SETTINGS_FAILED: 'SETTINGS/SAVE_SETTINGS_FAILED',
 };
 
 export const initialState = {
@@ -109,4 +112,5 @@ export const actions = {
   previewColor: (target, color) => ({ type: types.PREVIEW_COLOR, target, color }),
   previewCount: (target, count) => ({ type: types.PREVIEW_COUNT, target, count }),
   resetSettings: () => ({ type: types.RESET_SETTINGS }),
+  saveSettings: settings => ({ type: types.SAVE_SETTINGS_REQUEST, settings }),
 };

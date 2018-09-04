@@ -13,7 +13,8 @@ class SettingsContainer extends Component {
 
   render() {
     const {
-      settings, showColorPicker, activeColorPicker, previewColor, previewCount, resetSettings,
+      settings, showColorPicker, activeColorPicker, loggedIn,
+      previewColor, previewCount, resetSettings, saveSettings,
     } = this.props;
     const display = !settings
       ? (
@@ -70,10 +71,14 @@ class SettingsContainer extends Component {
                 previewCount={previewCount}
               />
             </OptionsArea>
-            <SettingsButtonsArea>
-              <Button label="Reset" onClick={() => resetSettings()} color="#f96616" />
-              <Button label="Save" onClick={() => (console.log('test'))} color="0de61f" />
-            </SettingsButtonsArea>
+            {loggedIn
+              ? (
+                <SettingsButtonsArea>
+                  <Button label="Reset" onClick={() => resetSettings()} color="#f96616" />
+                  <Button label="Save" onClick={() => saveSettings(settings)} color="0de61f" />
+                </SettingsButtonsArea>
+              )
+              : null}
           </SettingsSection>
         </SettingsArea>
       );
@@ -88,6 +93,8 @@ SettingsContainer.propTypes = {
   activeColorPicker: PropTypes.string,
   previewCount: PropTypes.func.isRequired,
   resetSettings: PropTypes.func.isRequired,
+  saveSettings: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
 };
 
 SettingsContainer.defaultProps = {
