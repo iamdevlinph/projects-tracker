@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import ColorPicker from '../ColorPicker/ColorPicker';
+
 const SettingsCardComponent = (props) => {
-  const { label, settings } = props;
+  const { label, settings, previewCount } = props;
   const counterLabel = label.toLowerCase() !== 'repo update' ? 'Counts' : 'Days';
   return (
     <SettingsCardArea>
@@ -15,24 +17,26 @@ const SettingsCardComponent = (props) => {
           Safe
         </div>
         <OptionsArea>
-          <ColorPreview color={settings.safeColor} />
+          <ColorPicker color={settings.safeColor} id={`${label}-safe`} {...props} />
         </OptionsArea>
         <div className="bold">
           Warning
         </div>
         <OptionsArea>
-          <ColorPreview color={settings.warningColor} />
+          <ColorPicker color={settings.warningColor} id={`${label}-warning`} {...props} />
           <div>
-            {`${counterLabel}: ${settings.warningCount}`}
+            {`${counterLabel}: `}
+            <CountInput type="number" value={settings.warningCount} onChange={e => previewCount(`${label}-warning`, e.target.value)} min="2" />
           </div>
         </OptionsArea>
         <div className="bold">
           Danger
         </div>
         <OptionsArea>
-          <ColorPreview color={settings.dangerColor} />
+          <ColorPicker color={settings.dangerColor} id={`${label}-danger`} {...props} />
           <div>
-            {`${counterLabel}: ${settings.dangerCount}`}
+            {`${counterLabel}: `}
+            <CountInput type="number" value={settings.dangerCount} onChange={e => previewCount(`${label}-danger`, e.target.value)} min={settings.warningCount + 1} />
           </div>
         </OptionsArea>
       </SettingsListArea>
@@ -63,21 +67,9 @@ const SettingsListArea = styled.div`
 `;
 const OptionsArea = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 40px 100px 1fr;
 `;
-// const ColorPicker = styled.span`
-//   margin-left: 10px;
-//   & > .color-preview {
-//     background: red;
-//     height: 10px;
-//     width: 10px;
-//     display: inline-block;
-//   }
-// `;
-const ColorPreview = styled.div`
-  display: inline-block;
-  background: ${({ color }) => `${color}`};
-  height: 12px;
-  width: 30px;
-  margin-top: 4px;
+const CountInput = styled.input`
+  width: 60px;
+  text-align: center;
 `;

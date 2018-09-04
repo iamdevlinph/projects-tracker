@@ -72,7 +72,7 @@ export default HomeContainer;
 
 const HomeArea = styled.div`
   display: grid;
-  grid-template-rows: 2px 35px min-content;
+  grid-template-rows: 2px 35px min-content 5px;
   grid-template-areas:
     "home-top-pad"
     "filter"

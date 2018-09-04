@@ -2,12 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { ColorUtil } from 'common-utils-pkg';
+
 const ButtonComponent = (props) => {
   const {
     label, icon, onClick, disabled,
   } = props;
+  const validHexColor = (color) => {
+    let returnColor = '#348AA7'; // default
+    if (color !== '' && !/^#/g.test(color)) { // no hash
+      returnColor = `#${color}`;
+    } else if (color !== '' && color) { // use passed value
+      returnColor = color;
+    }
+
+    return returnColor;
+  };
+  let { color } = props;
+  color = validHexColor(color);
+  const shadow = ColorUtil.brightness(color, -50);
   return (
-    <Button onClick={() => onClick()} disabled={disabled}>
+    <Button onClick={() => onClick()} disabled={disabled} color={color} shadow={shadow}>
       <ButtonContent>
         <span>
           {label}
@@ -23,13 +38,12 @@ ButtonComponent.propTypes = {
   icon: PropTypes.object,
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  color: PropTypes.string,
 };
 
 ButtonComponent.defaultProps = {
   disabled: false,
-};
-
-ButtonComponent.defaultProps = {
+  color: '#348AA7',
   icon: null,
 };
 
@@ -41,19 +55,19 @@ const Button = styled.button`
   display: block;
   padding: 15px;
   height: 30px;
-  background: ${({ disabled }) => (disabled ? 'grey' : '#348AA7')};
+  background: ${({ disabled, color }) => (disabled ? 'grey' : color)};
   border: none;
   outline: none;
   color: white;
   font-weight: 400;
   font-size: 15px;
-  box-shadow: ${({ disabled }) => (disabled ? '0 5px 0px #676767' : '0 5px 0px #487787')};
-  border-bottom: ${({ disabled }) => (disabled ? '1px solid grey' : '1px solid #30809b')};
-  ${({ disabled }) => !disabled && `
+  box-shadow: ${({ disabled, shadow }) => (disabled ? '0 5px 0px #676767' : `0 5px 0px ${shadow}`)};
+  border-bottom: ${({ disabled, color }) => (disabled ? '1px solid #676767' : `1px solid ${color}`)};
+  ${({ disabled, shadow }) => !disabled && `
     &:hover{
-      background: #2E7A94;
-      box-shadow: 0 4px 1px #487787;
-      border-bottom: 2px solid #2a7088;
+      background: ${shadow};
+      box-shadow: 0 4px 1px ${shadow};
+      border-bottom: 1px solid ${shadow};
       transition: all 0.1s ease-in;
     }
     &:active{

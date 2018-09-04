@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Card, SettingsCard } from '../../components';
+import { Card, SettingsCard, Button } from '../../components';
 import SettingsUtil from './SettingsUtil';
 
-
 class SettingsContainer extends Component {
+  componentWillUnmount() {
+    const { resetSettings } = this.props;
+    resetSettings();
+  }
+
   render() {
-    const { settings } = this.props;
+    const {
+      settings, showColorPicker, activeColorPicker, loggedIn,
+      previewColor, previewCount, resetSettings, saveSettings,
+    } = this.props;
     const display = !settings
       ? (
         <div>
@@ -39,10 +46,39 @@ class SettingsContainer extends Component {
               <Card data={SettingsUtil.generateDangerData(settings)} settings={settings} />
             </PreviewArea>
             <OptionsArea>
-              <SettingsCard label="Repo Update" settings={settings.update} />
-              <SettingsCard label="Issues" settings={settings.issues} />
-              <SettingsCard label="Pull Requests" settings={settings.pulls} />
+              <SettingsCard
+                label="Repo Update"
+                settings={settings.update}
+                showColorPicker={showColorPicker}
+                activeColorPicker={activeColorPicker}
+                previewColor={previewColor}
+                previewCount={previewCount}
+              />
+              <SettingsCard
+                label="Issues"
+                settings={settings.issues}
+                showColorPicker={showColorPicker}
+                activeColorPicker={activeColorPicker}
+                previewColor={previewColor}
+                previewCount={previewCount}
+              />
+              <SettingsCard
+                label="Pull Requests"
+                settings={settings.pulls}
+                showColorPicker={showColorPicker}
+                activeColorPicker={activeColorPicker}
+                previewColor={previewColor}
+                previewCount={previewCount}
+              />
             </OptionsArea>
+            {loggedIn
+              ? (
+                <SettingsButtonsArea>
+                  <Button label="Reset" onClick={() => resetSettings()} color="#f96616" />
+                  <Button label="Save" onClick={() => saveSettings(settings)} color="0de61f" />
+                </SettingsButtonsArea>
+              )
+              : null}
           </SettingsSection>
         </SettingsArea>
       );
@@ -52,10 +88,18 @@ class SettingsContainer extends Component {
 
 SettingsContainer.propTypes = {
   settings: PropTypes.object,
+  showColorPicker: PropTypes.func.isRequired,
+  previewColor: PropTypes.func.isRequired,
+  activeColorPicker: PropTypes.string,
+  previewCount: PropTypes.func.isRequired,
+  resetSettings: PropTypes.func.isRequired,
+  saveSettings: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
 };
 
 SettingsContainer.defaultProps = {
   settings: null,
+  activeColorPicker: '',
 };
 
 export default SettingsContainer;
@@ -87,4 +131,12 @@ const OptionsArea = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 10px;
+`;
+const SettingsButtonsArea = styled.div`
+  display: flex;
+  margin-top: 10px;
+  float: right;
+  & button {
+    margin: 0 2px;
+  }
 `;
