@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import ColorPicker from '../ColorPicker/ColorPicker';
+
 const SettingsCardComponent = (props) => {
   const { label, settings } = props;
   const counterLabel = label.toLowerCase() !== 'repo update' ? 'Counts' : 'Days';
@@ -15,13 +17,13 @@ const SettingsCardComponent = (props) => {
           Safe
         </div>
         <OptionsArea>
-          <ColorPreview color={settings.safeColor} />
+          <ColorPicker color={settings.safeColor} id={`${label}-safe`} {...props} />
         </OptionsArea>
         <div className="bold">
           Warning
         </div>
         <OptionsArea>
-          <ColorPreview color={settings.warningColor} />
+          <ColorPicker color={settings.warningColor} id={`${label}-warning`} {...props} />
           <div>
             {`${counterLabel}: ${settings.warningCount}`}
           </div>
@@ -30,7 +32,7 @@ const SettingsCardComponent = (props) => {
           Danger
         </div>
         <OptionsArea>
-          <ColorPreview color={settings.dangerColor} />
+          <ColorPicker color={settings.dangerColor} id={`${label}-danger`} {...props} />
           <div>
             {`${counterLabel}: ${settings.dangerCount}`}
           </div>
@@ -63,7 +65,7 @@ const SettingsListArea = styled.div`
 `;
 const OptionsArea = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 `;
 // const ColorPicker = styled.span`
 //   margin-left: 10px;
@@ -74,11 +76,6 @@ const OptionsArea = styled.div`
 //     display: inline-block;
 //   }
 // `;
-const ColorPreview = styled.div`
-  display: inline-block;
-  background: ${({ color }) => `${color}`};
-  height: 12px;
-  width: 30px;
-  margin-top: 4px;
-  cursor: pointer;
-`;
+// const SettingsCardButtonArea = styled.div`
+//   float: right;
+// `;

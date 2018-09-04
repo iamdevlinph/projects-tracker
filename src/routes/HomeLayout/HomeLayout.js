@@ -71,6 +71,7 @@ const mapStateToProps = state => (
     settings: state.settings.settings,
     user: state.auth.user,
     loggedIn: state.auth.loggedIn,
+    activeColorPicker: state.settings.activeColorPicker,
   }
 );
 

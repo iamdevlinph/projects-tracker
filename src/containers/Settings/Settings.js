@@ -8,7 +8,9 @@ import SettingsUtil from './SettingsUtil';
 
 class SettingsContainer extends Component {
   render() {
-    const { settings } = this.props;
+    const {
+      settings, showColorPicker, activeColorPicker, previewColor,
+    } = this.props;
     const display = !settings
       ? (
         <div>
@@ -39,9 +41,9 @@ class SettingsContainer extends Component {
               <Card data={SettingsUtil.generateDangerData(settings)} settings={settings} />
             </PreviewArea>
             <OptionsArea>
-              <SettingsCard label="Repo Update" settings={settings.update} />
-              <SettingsCard label="Issues" settings={settings.issues} />
-              <SettingsCard label="Pull Requests" settings={settings.pulls} />
+              <SettingsCard label="Repo Update" settings={settings.update} showColorPicker={showColorPicker} activeColorPicker={activeColorPicker} previewColor={previewColor} />
+              <SettingsCard label="Issues" settings={settings.issues} showColorPicker={showColorPicker} activeColorPicker={activeColorPicker} previewColor={previewColor} />
+              <SettingsCard label="Pull Requests" settings={settings.pulls} showColorPicker={showColorPicker} activeColorPicker={activeColorPicker} previewColor={previewColor} />
             </OptionsArea>
           </SettingsSection>
         </SettingsArea>
@@ -52,10 +54,14 @@ class SettingsContainer extends Component {
 
 SettingsContainer.propTypes = {
   settings: PropTypes.object,
+  showColorPicker: PropTypes.func.isRequired,
+  previewColor: PropTypes.func.isRequired,
+  activeColorPicker: PropTypes.string,
 };
 
 SettingsContainer.defaultProps = {
   settings: null,
+  activeColorPicker: '',
 };
 
 export default SettingsContainer;
