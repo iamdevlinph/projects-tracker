@@ -74,7 +74,17 @@ export default (state = initialState, action) => {
     }
     case types.PREVIEW_COUNT: {
       const target = action.target.split('-');
-      const type = target[0].toLowerCase();
+      let type = target[0].toLowerCase();
+      switch (type) {
+        case 'pull requests':
+          type = 'pulls';
+          break;
+        case 'repo update':
+          type = 'update';
+          break;
+        default:
+          type = 'issues';
+      }
       const key = `${target[1]}Count`;
       return {
         ...state,
