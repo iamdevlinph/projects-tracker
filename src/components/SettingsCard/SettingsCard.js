@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
 const SettingsCardComponent = (props) => {
-  const { label, settings } = props;
+  const { label, settings, previewCount } = props;
   const counterLabel = label.toLowerCase() !== 'repo update' ? 'Counts' : 'Days';
   return (
     <SettingsCardArea>
@@ -25,7 +25,8 @@ const SettingsCardComponent = (props) => {
         <OptionsArea>
           <ColorPicker color={settings.warningColor} id={`${label}-warning`} {...props} />
           <div>
-            {`${counterLabel}: ${settings.warningCount}`}
+            {`${counterLabel}: `}
+            <CountInput type="number" value={settings.warningCount} onChange={e => previewCount(`${label}-warning`, e.target.value)} min="2" />
           </div>
         </OptionsArea>
         <div className="bold">
@@ -34,7 +35,8 @@ const SettingsCardComponent = (props) => {
         <OptionsArea>
           <ColorPicker color={settings.dangerColor} id={`${label}-danger`} {...props} />
           <div>
-            {`${counterLabel}: ${settings.dangerCount}`}
+            {`${counterLabel}: `}
+            <CountInput type="number" value={settings.dangerCount} onChange={e => previewCount(`${label}-danger`, e.target.value)} min={settings.warningCount + 1} />
           </div>
         </OptionsArea>
       </SettingsListArea>
@@ -65,17 +67,9 @@ const SettingsListArea = styled.div`
 `;
 const OptionsArea = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 40px 100px 1fr;
 `;
-// const ColorPicker = styled.span`
-//   margin-left: 10px;
-//   & > .color-preview {
-//     background: red;
-//     height: 10px;
-//     width: 10px;
-//     display: inline-block;
-//   }
-// `;
-// const SettingsCardButtonArea = styled.div`
-//   float: right;
-// `;
+const CountInput = styled.input`
+  width: 60px;
+  text-align: center;
+`;

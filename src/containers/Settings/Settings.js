@@ -9,7 +9,7 @@ import SettingsUtil from './SettingsUtil';
 class SettingsContainer extends Component {
   render() {
     const {
-      settings, showColorPicker, activeColorPicker, previewColor,
+      settings, showColorPicker, activeColorPicker, previewColor, previewCount,
     } = this.props;
     const display = !settings
       ? (
@@ -41,9 +41,30 @@ class SettingsContainer extends Component {
               <Card data={SettingsUtil.generateDangerData(settings)} settings={settings} />
             </PreviewArea>
             <OptionsArea>
-              <SettingsCard label="Repo Update" settings={settings.update} showColorPicker={showColorPicker} activeColorPicker={activeColorPicker} previewColor={previewColor} />
-              <SettingsCard label="Issues" settings={settings.issues} showColorPicker={showColorPicker} activeColorPicker={activeColorPicker} previewColor={previewColor} />
-              <SettingsCard label="Pull Requests" settings={settings.pulls} showColorPicker={showColorPicker} activeColorPicker={activeColorPicker} previewColor={previewColor} />
+              <SettingsCard
+                label="Repo Update"
+                settings={settings.update}
+                showColorPicker={showColorPicker}
+                activeColorPicker={activeColorPicker}
+                previewColor={previewColor}
+                previewCount={previewCount}
+              />
+              <SettingsCard
+                label="Issues"
+                settings={settings.issues}
+                showColorPicker={showColorPicker}
+                activeColorPicker={activeColorPicker}
+                previewColor={previewColor}
+                previewCount={previewCount}
+              />
+              <SettingsCard
+                label="Pull Requests"
+                settings={settings.pulls}
+                showColorPicker={showColorPicker}
+                activeColorPicker={activeColorPicker}
+                previewColor={previewColor}
+                previewCount={previewCount}
+              />
             </OptionsArea>
           </SettingsSection>
         </SettingsArea>
@@ -57,6 +78,7 @@ SettingsContainer.propTypes = {
   showColorPicker: PropTypes.func.isRequired,
   previewColor: PropTypes.func.isRequired,
   activeColorPicker: PropTypes.string,
+  previewCount: PropTypes.func.isRequired,
 };
 
 SettingsContainer.defaultProps = {
