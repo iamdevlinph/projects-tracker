@@ -1,3 +1,5 @@
+import { localStorage } from '../../services';
+
 export const types = {
   FETCH_SETTINGS_REQUEST: 'SETTINGS/FETCH_SETTINGS_REQUEST',
   FETCH_SETTINGS_SUCCESS: 'SETTINGS/FETCH_SETTINGS_SUCCESS',
@@ -5,6 +7,7 @@ export const types = {
   SHOW_COLOR_PICKER: 'SETTINGS/SHOW_COLOR_PICKER',
   PREVIEW_COLOR: 'SETTINGS/PREVIEW_COLOR',
   PREVIEW_COUNT: 'SETTINGS/PREVIEW_COUNT',
+  RESET_SETTINGS: 'SETTINGS/RESET_SETTINGS',
 };
 
 export const initialState = {
@@ -78,6 +81,13 @@ export default (state = initialState, action) => {
         settings: validateCount(state.settings, type, key, +action.count),
       };
     }
+    case types.RESET_SETTINGS: {
+      const cacheSettings = localStorage.getItem('settingsCache').data;
+      return {
+        ...state,
+        settings: cacheSettings,
+      };
+    }
     default:
       return state;
   }
@@ -88,4 +98,5 @@ export const actions = {
   showColorPicker: target => ({ type: types.SHOW_COLOR_PICKER, target }),
   previewColor: (target, color) => ({ type: types.PREVIEW_COLOR, target, color }),
   previewCount: (target, count) => ({ type: types.PREVIEW_COUNT, target, count }),
+  resetSettings: () => ({ type: types.RESET_SETTINGS }),
 };

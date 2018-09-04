@@ -7,6 +7,11 @@ import SettingsUtil from './SettingsUtil';
 
 
 class SettingsContainer extends Component {
+  componentWillUnmount() {
+    const { resetSettings } = this.props;
+    resetSettings();
+  }
+
   render() {
     const {
       settings, showColorPicker, activeColorPicker, previewColor, previewCount,
@@ -79,6 +84,7 @@ SettingsContainer.propTypes = {
   previewColor: PropTypes.func.isRequired,
   activeColorPicker: PropTypes.string,
   previewCount: PropTypes.func.isRequired,
+  resetSettings: PropTypes.func.isRequired,
 };
 
 SettingsContainer.defaultProps = {
