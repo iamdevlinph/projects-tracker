@@ -1,59 +1,57 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Card, Filter } from '../../components';
 
-class HomeContainer extends Component {
-  render() {
-    const {
-      projects, settings, sortList, sort, searchList,
-    } = this.props;
-    const projectCards = (projects && settings) && projects.map((project) => {
-      let el = null;
-      el = (
-        <Card key={project.key} data={project} settings={settings} />
+const HomeContainer = (props) => {
+  const {
+    projects, settings, sortList, sort, searchList,
+  } = props;
+  const projectCards = (projects && settings) && projects.map((project) => {
+    let el = null;
+    el = (
+      <Card key={project.key} data={project} settings={settings} />
+    );
+    return el;
+  });
+  let projectAreaDisplay;
+  if (projects && settings) {
+    projectAreaDisplay = projectCards.length > 0
+      ? (
+        <ProjectList>
+          {projectCards}
+        </ProjectList>
+      )
+      : (
+        <ProjectEmptyList>
+          No projects
+        </ProjectEmptyList>
       );
-      return el;
-    });
-    let projectAreaDisplay;
-    if (projects && settings) {
-      projectAreaDisplay = projectCards.length > 0
-        ? (
-          <ProjectList>
-            {projectCards}
-          </ProjectList>
-        )
-        : (
-          <ProjectEmptyList>
-            No projects
-          </ProjectEmptyList>
-        );
-    } else {
-      projectAreaDisplay = (
-        <div>
-          Fetching projects
-        </div>
-      );
-    }
-
-    return (
-      <HomeArea>
-        <FilterArea>
-          <Filter
-            disabled={!(projects && settings)}
-            sortFunc={sortList}
-            sort={sort}
-            searchList={searchList}
-          />
-        </FilterArea>
-        <ProjectListArea>
-          {projectAreaDisplay}
-        </ProjectListArea>
-      </HomeArea>
+  } else {
+    projectAreaDisplay = (
+      <div>
+        Fetching projects
+      </div>
     );
   }
-}
+
+  return (
+    <HomeArea>
+      <FilterArea>
+        <Filter
+          disabled={!(projects && settings)}
+          sortFunc={sortList}
+          sort={sort}
+          searchList={searchList}
+        />
+      </FilterArea>
+      <ProjectListArea>
+        {projectAreaDisplay}
+      </ProjectListArea>
+    </HomeArea>
+  );
+};
 
 HomeContainer.propTypes = {
   projects: PropTypes.array,
