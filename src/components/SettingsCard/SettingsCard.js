@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import ColorPicker from '../ColorPicker/ColorPicker';
@@ -42,11 +41,6 @@ const SettingsCardComponent = (props) => {
       </SettingsListArea>
     </SettingsCardArea>
   );
-};
-
-SettingsCardComponent.propTypes = {
-  label: PropTypes.string.isRequired,
-  settings: PropTypes.object.isRequired,
 };
 
 export default SettingsCardComponent;
