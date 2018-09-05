@@ -1,3 +1,5 @@
+/* global VERSION */
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,6 +12,7 @@ const NavbarComponent = props => (
       <h1>
         <a href="/track">
           Projects Tracker
+          <VersionNumber>{VERSION}</VersionNumber>
         </a>
       </h1>
     </BannerArea>
@@ -70,4 +73,8 @@ const LinksArea = styled.div`
       text-decoration: underline;
     }
   }
+`;
+const VersionNumber = styled.span`
+  font-size: 12px;
+  margin-left: 5px;
 `;

@@ -1,7 +1,6 @@
 /* global VERSION */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -51,18 +50,6 @@ class HomeLayout extends Component {
     );
   }
 }
-
-HomeLayout.propTypes = {
-  requestList: PropTypes.func.isRequired,
-  requestSettings: PropTypes.func.isRequired,
-  initAuth: PropTypes.func.isRequired,
-  children: PropTypes.object.isRequired,
-  user: PropTypes.object,
-};
-
-HomeLayout.defaultProps = {
-  user: null,
-};
 
 const mapStateToProps = state => (
   {
