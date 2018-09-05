@@ -3,7 +3,7 @@ import { ChromePicker } from 'react-color';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const PHOTOSHOP_PICKER_WIDTH = 515;
+const PHOTOSHOP_PICKER_WIDTH = 235;
 
 const state = {
   pickerX: null,
