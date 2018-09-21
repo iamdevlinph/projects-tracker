@@ -20,17 +20,13 @@ const NavbarComponent = props => (
       <NavLink to="/track" activeClassName="active-link">
         Home
       </NavLink>
-      {' | '}
       <NavLink to="/manage" activeClassName="active-link">
         Manage
       </NavLink>
-      {' | '}
       <NavLink to="/settings" activeClassName="active-link">
         Settings
       </NavLink>
-      {' | '}
-      <AccountDropdown {...props} />
-      {' | '}
+      <AccountDropdown className="dropdown" {...props} />
       <a href="https://github.com/iamdevlinph/projects-tracker" target="blank" className="bold">
         Github
         {' '}
@@ -72,6 +68,13 @@ const LinksArea = styled.div`
     &.active-link {
       text-decoration: underline;
     }
+    border-right: 1px solid black;
+    padding: 0 4px;
+  }
+  .dropdown i {
+    border-right: 1px solid black;
+    padding: 0 4px;
+    line-height: 18px;
   }
 `;
 const VersionNumber = styled.span`
