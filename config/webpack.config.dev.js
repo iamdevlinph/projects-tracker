@@ -352,6 +352,11 @@ module.exports = {
       fileName: 'asset-manifest.json',
       publicPath: publicPath,
     }),
+    // react-kit specific
+    // Make the package version number available globally
+    new webpack.DefinePlugin({
+      VERSION: `'${paths.version}'`
+    })
   ],
 
   // Some libraries import Node modules but don't use them in the browser.

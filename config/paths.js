@@ -22,6 +22,12 @@ function ensureSlash(inputPath, needsSlash) {
   }
 }
 
+// react-kit specific
+// get package version number
+function getVersionNumber(appPackageJson) {
+  return require(appPackageJson).version;
+};
+
 const getPublicUrl = appPackageJson =>
   envPublicUrl || require(appPackageJson).homepage;
 
@@ -54,4 +60,6 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
+  // react-kit specific
+  version: getVersionNumber(resolveApp('package.json'))
 };
