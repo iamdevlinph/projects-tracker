@@ -11,5 +11,4 @@ const NotFoundContainer = () => (
   </div>
 );
 
-
 export default NotFoundContainer;

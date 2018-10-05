@@ -11,7 +11,6 @@ export default () => (
   </Provider>
 );
 
-
 // listen to store changes
 // store.subscribe(() => {
 //   console.log(store.getState());

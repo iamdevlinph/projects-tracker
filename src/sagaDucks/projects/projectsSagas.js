@@ -6,7 +6,6 @@ import { firebaseFuncs, localStorage, githubApi } from '../../services';
 
 import { types as projectsTypes } from './projects';
 
-
 function* willFetchProjects() {
   try {
     const projectsCache = localStorage.isCached('projectsCache');
