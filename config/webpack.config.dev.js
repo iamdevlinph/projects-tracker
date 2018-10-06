@@ -355,7 +355,8 @@ module.exports = {
     // react-kit specific
     // Make the package version number available globally
     new webpack.DefinePlugin({
-      VERSION: `'${paths.version}'`
+      VERSION: `'${paths.version}'`,
+      ENV: 'development'
     })
   ],
 

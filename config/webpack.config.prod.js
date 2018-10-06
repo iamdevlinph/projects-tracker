@@ -450,7 +450,8 @@ module.exports = {
     // react-kit specific
     // Make the package version number available globally
     new webpack.DefinePlugin({
-      VERSION: `'${paths.version}'`
+      VERSION: `'${paths.version}'`,
+      ENV: 'production'
     })
   ],
   // Some libraries import Node modules but don't use them in the browser.
