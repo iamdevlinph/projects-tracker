@@ -24,10 +24,12 @@ const ButtonComponent = (props) => {
   return (
     <ButtonHolder className={className} withGap={withGap}>
       <Button onClick={() => onClick()} disabled={disabled} color={color} shadow={shadow}>
-        <ButtonContent>
-          <span>
-            {label}
-          </span>
+        <ButtonContent label={label}>
+          {label && (
+            <span>
+              {label}
+            </span>
+          )}
           {icon || null}
         </ButtonContent>
       </Button>
@@ -36,7 +38,7 @@ const ButtonComponent = (props) => {
 };
 
 ButtonComponent.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   icon: PropTypes.object,
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
@@ -51,6 +53,7 @@ ButtonComponent.defaultProps = {
   icon: null,
   className: '',
   withGap: false,
+  label: '',
 };
 
 export default ButtonComponent;
@@ -92,7 +95,7 @@ const ButtonContent = styled.div`
   i {
     float: right;
     line-height: 6px;
-    margin-left: 5px;
+    margin-left: ${({ label }) => (label ? '5px' : '')};
   }
 `;
 const ButtonHolder = styled.div`
