@@ -6,7 +6,7 @@ import { ColorUtil } from 'common-utils-pkg';
 
 const ButtonComponent = (props) => {
   const {
-    label, icon, onClick, disabled,
+    label, icon, onClick, disabled, className, withGap,
   } = props;
   const validHexColor = (color) => {
     let returnColor = '#348AA7'; // default
@@ -22,14 +22,16 @@ const ButtonComponent = (props) => {
   color = validHexColor(color);
   const shadow = ColorUtil.brightness(color, -50);
   return (
-    <Button onClick={() => onClick()} disabled={disabled} color={color} shadow={shadow}>
-      <ButtonContent>
-        <span>
-          {label}
-        </span>
-        {icon || null}
-      </ButtonContent>
-    </Button>
+    <ButtonHolder className={className} withGap={withGap}>
+      <Button onClick={() => onClick()} disabled={disabled} color={color} shadow={shadow}>
+        <ButtonContent>
+          <span>
+            {label}
+          </span>
+          {icon || null}
+        </ButtonContent>
+      </Button>
+    </ButtonHolder>
   );
 };
 
@@ -39,12 +41,16 @@ ButtonComponent.propTypes = {
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   color: PropTypes.string,
+  className: PropTypes.string,
+  withGap: PropTypes.bool,
 };
 
 ButtonComponent.defaultProps = {
   disabled: false,
   color: '#348AA7',
   icon: null,
+  className: '',
+  withGap: false,
 };
 
 export default ButtonComponent;
@@ -78,14 +84,19 @@ const Button = styled.button`
   `}
 `;
 const ButtonContent = styled.div`
-    display: block;
+  display: block;
+  line-height: 6px;
+  span {
+    float: left;
+  }
+  i {
+    float: right;
     line-height: 6px;
-    span {
-      float: left;
-    }
-    i {
-      float: right;
-      line-height: 6px;
-      margin-left: 5px;
-    }
+    margin-left: 5px;
+  }
+`;
+const ButtonHolder = styled.div`
+  height: 30px;
+  display: inline-block;
+  margin: ${({ withGap }) => (withGap ? '0 2px' : '')};
 `;
