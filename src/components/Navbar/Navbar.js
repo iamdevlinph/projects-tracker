@@ -6,39 +6,40 @@ import styled from 'styled-components';
 
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
 
-const NavbarComponent = props => (
-  <NavbarChunk>
-    <BannerArea>
-      <h1>
-        <a href="/track">
-          Projects Tracker
-          <VersionNumber>{VERSION}</VersionNumber>
+const NavbarComponent = (props) => {
+  const { loggedIn } = props;
+  return (
+    <NavbarChunk>
+      <BannerArea>
+        <h1>
+          <a href="/track">
+            Projects Tracker
+            <VersionNumber>{VERSION}</VersionNumber>
+          </a>
+        </h1>
+      </BannerArea>
+      <LinksArea>
+        <NavLink to="/track" activeClassName="active-link">
+          Home
+        </NavLink>
+        {loggedIn ? (
+          <NavLink to="/manage" activeClassName="active-link">
+            Manage
+          </NavLink>
+        ) : null}
+        <NavLink to="/settings" activeClassName="active-link">
+          Settings
+        </NavLink>
+        <AccountDropdown className="dropdown" {...props} />
+        <a href="https://github.com/iamdevlinph/projects-tracker" target="blank" className="bold">
+          Github
+          {' '}
+          <i className="fas fa-external-link-alt" />
         </a>
-      </h1>
-    </BannerArea>
-    <LinksArea>
-      <NavLink to="/track" activeClassName="active-link">
-        Home
-      </NavLink>
-      {' | '}
-      <NavLink to="/manage" activeClassName="active-link">
-        Manage
-      </NavLink>
-      {' | '}
-      <NavLink to="/settings" activeClassName="active-link">
-        Settings
-      </NavLink>
-      {' | '}
-      <AccountDropdown {...props} />
-      {' | '}
-      <a href="https://github.com/iamdevlinph/projects-tracker" target="blank" className="bold">
-        Github
-        {' '}
-        <i className="fas fa-external-link-alt" />
-      </a>
-    </LinksArea>
-  </NavbarChunk>
-);
+      </LinksArea>
+    </NavbarChunk>
+  );
+};
 
 export default NavbarComponent;
 
@@ -72,6 +73,13 @@ const LinksArea = styled.div`
     &.active-link {
       text-decoration: underline;
     }
+    border-right: 1px solid black;
+    padding: 0 4px;
+  }
+  .dropdown i {
+    border-right: 1px solid black;
+    padding: 0 4px;
+    line-height: 18px;
   }
 `;
 const VersionNumber = styled.span`

@@ -10,7 +10,7 @@ const notExpectedUser = () => {
   });
 };
 
-const error = (title, text) => {
+const error = (title, text = null) => {
   swal({
     title,
     text,
@@ -18,9 +18,18 @@ const error = (title, text) => {
   });
 };
 
+const success = (title, text = null) => {
+  swal({
+    title,
+    text,
+    type: 'success',
+  });
+};
+
 const swalService = {
   notExpectedUser,
   error,
+  success,
 };
 
 export default swalService;
