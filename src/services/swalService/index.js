@@ -26,9 +26,9 @@ const success = (title, text = null) => {
   });
 };
 
-const confirm = (title, text = null, confirmButtonText = 'Yes') => swal({
+const confirm = (title, html = null, confirmButtonText = 'Yes') => swal({
   title,
-  text,
+  html,
   type: 'warning',
   showCancelButton: true,
   confirmButtonText,
