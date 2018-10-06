@@ -26,10 +26,19 @@ const success = (title, text = null) => {
   });
 };
 
+const confirm = (title, text = null, confirmButtonText = 'Yes') => swal({
+  title,
+  text,
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonText,
+});
+
 const swalService = {
   notExpectedUser,
   error,
   success,
+  confirm,
 };
 
 export default swalService;
