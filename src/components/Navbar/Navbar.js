@@ -12,7 +12,7 @@ const NavbarComponent = (props) => {
     <NavbarChunk>
       <BannerArea>
         <h1>
-          <a href="/track">
+          <a href="/">
             Projects Tracker
             <VersionNumber>{VERSION}</VersionNumber>
           </a>
