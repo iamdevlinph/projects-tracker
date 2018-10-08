@@ -74,8 +74,8 @@ class SettingsContainer extends Component {
             {loggedIn
               ? (
                 <SettingsButtonsArea>
-                  <Button label="Reset" onClick={() => resetSettings()} color="#f96616" withGap />
-                  <Button label="Save" onClick={() => saveSettings(settings)} color="#08af4c" withGap />
+                  <Button label="Reset" onClick={() => resetSettings()} color="#f96616" withGap float="right" />
+                  <Button label="Save" onClick={() => saveSettings(settings)} color="#08af4c" withGap float="right" />
                 </SettingsButtonsArea>
               )
               : null}

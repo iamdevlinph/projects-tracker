@@ -6,7 +6,7 @@ import { ColorUtil } from 'common-utils-pkg';
 
 const ButtonComponent = (props) => {
   const {
-    label, icon, onClick, disabled, className, withGap,
+    label, icon, onClick, disabled, className, withGap, float,
   } = props;
   const validHexColor = (color) => {
     let returnColor = '#348AA7'; // default
@@ -23,7 +23,13 @@ const ButtonComponent = (props) => {
   const shadow = ColorUtil.brightness(color, -50);
   return (
     <ButtonHolder className={className} withGap={withGap}>
-      <Button onClick={() => onClick()} disabled={disabled} color={color} shadow={shadow}>
+      <Button
+        onClick={() => onClick()}
+        disabled={disabled}
+        color={color}
+        shadow={shadow}
+        float={float}
+      >
         <ButtonContent label={label}>
           {label && (
             <span>
@@ -45,6 +51,7 @@ ButtonComponent.propTypes = {
   color: PropTypes.string,
   className: PropTypes.string,
   withGap: PropTypes.bool,
+  float: PropTypes.string,
 };
 
 ButtonComponent.defaultProps = {
@@ -54,6 +61,7 @@ ButtonComponent.defaultProps = {
   className: '',
   withGap: false,
   label: '',
+  float: 'left',
 };
 
 export default ButtonComponent;
@@ -70,6 +78,7 @@ const Button = styled.button`
   color: white;
   font-weight: 400;
   font-size: 15px;
+  float: ${({ float }) => `${float}`};
   box-shadow: ${({ disabled, shadow }) => (disabled ? '0 5px 0px #676767' : `0 5px 0px ${shadow}`)};
   border-bottom: ${({ disabled, color }) => (disabled ? '1px solid #676767' : `1px solid ${color}`)};
   ${({ disabled, shadow }) => !disabled && `
