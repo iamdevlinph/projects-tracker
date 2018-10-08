@@ -7,8 +7,12 @@ import { ProjectsTbl } from '../../components';
 class ManageContainer extends Component {
   render() {
     const {
-      projects, saveProject, loggedIn, deleteProject,
+      projects, loggedIn, deleteProject,
     } = this.props;
+    const options = {
+      showPagination: false,
+      pageSize: projects.length,
+    };
     return (
       <ManageArea>
         <AddProject>
@@ -17,9 +21,9 @@ class ManageContainer extends Component {
         <ProjectsList>
           <ProjectsTbl
             data={projects}
-            saveProject={saveProject}
             deleteProject={deleteProject}
             loggedIn={loggedIn}
+            options={options}
           />
         </ProjectsList>
       </ManageArea>
@@ -29,7 +33,6 @@ class ManageContainer extends Component {
 
 ManageContainer.propTypes = {
   projects: PropTypes.array,
-  saveProject: PropTypes.func.isRequired,
   deleteProject: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool,
 };
