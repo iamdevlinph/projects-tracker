@@ -10,10 +10,10 @@ const notExpectedUser = () => {
   });
 };
 
-const error = (title, text = null) => {
+const error = (title, html = null) => {
   swal({
     title,
-    text,
+    html,
     type: 'error',
   });
 };
