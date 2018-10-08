@@ -18,3 +18,7 @@ h3 {
 .red-text {
   color: red;
 }
+
+.center-text {
+  text-align: center;
+}

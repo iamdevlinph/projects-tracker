@@ -32,11 +32,24 @@ class ProjectsTableComponent extends Component {
     );
   };
 
+  orderNo = e => (
+    <span>{e.viewIndex + 1}</span>
+  );
+
   render() {
     const {
       className, options, data, loggedIn,
     } = this.props;
     const columns = [
+      {
+        accessor: 'order',
+        id: 'order',
+        resizable: false,
+        sortable: false,
+        width: 40,
+        className: 'center-text bold',
+        Cell: this.orderNo,
+      },
       {
         Header: 'Author',
         accessor: 'authorName',
