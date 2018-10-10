@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -23,39 +23,49 @@ class ManageContainer extends Component {
     } = this.props;
     const options = {
       showPagination: false,
-      pageSize: projects.length,
+      pageSize: projects ? projects.length : 10,
     };
     const { authorName, repoName } = this.state;
     return (
       <ManageArea>
-        <AddProject>
-          <h3>Add Repository</h3>
-          <span>Author Name</span>
-          <input
-            type="text"
-            onChange={e => this.handleInputChange(e, 'authorName')}
-          />
-          <span>Repository Name</span>
-          <input
-            type="text"
-            onChange={e => this.handleInputChange(e, 'repoName')}
-          />
-          <Button
-            onClick={() => saveProject(authorName, repoName)}
-            label="Save"
-            icon={<i className="fas fa-plus" />}
-            color="08AF4C"
-            disabled={authorName === '' || repoName === ''}
-          />
-        </AddProject>
-        <ProjectsList>
-          <ProjectsTbl
-            data={projects}
-            deleteProject={deleteProject}
-            loggedIn={loggedIn}
-            options={options}
-          />
-        </ProjectsList>
+        {projects
+          ? (
+            <Fragment>
+              <AddProject>
+                <h3>Add Github Repository</h3>
+                <span>Author Name</span>
+                <input
+                  type="text"
+                  onChange={e => this.handleInputChange(e, 'authorName')}
+                />
+                <span>Repository Name</span>
+                <input
+                  type="text"
+                  onChange={e => this.handleInputChange(e, 'repoName')}
+                />
+                <Button
+                  onClick={() => saveProject(authorName, repoName)}
+                  label="Save"
+                  icon={<i className="fas fa-plus" />}
+                  color="08AF4C"
+                  disabled={authorName === '' || repoName === ''}
+                />
+              </AddProject>
+              <ProjectsList>
+                <ProjectsTbl
+                  data={projects}
+                  deleteProject={deleteProject}
+                  loggedIn={loggedIn}
+                  options={options}
+                />
+              </ProjectsList>
+            </Fragment>
+          ) : (
+            <div>
+              Fetching projects
+            </div>
+          )
+        }
       </ManageArea>
     );
   }
