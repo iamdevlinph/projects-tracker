@@ -10,6 +10,9 @@ export const types = {
   FETCH_REPO_INFO_FAILED: 'PROJECTS/FETCH_REPO_INFO_FAILED',
   SORT_PROJECTS: 'PROJECTS/SORT_PROJECTS',
   SEARCH_PROJECTS: 'PROJECTS/SEARCH_PROJECTS',
+  SAVE_PROJECT_REQUEST: 'PROJECTS/SAVE_PROJECT_REQUEST',
+  SAVE_PROJECT_SUCCESS: 'PROJECTS/SAVE_PROJECT_SUCCESS',
+  SAVE_PROJECT_FAILED: 'PROJECTS/SAVE_PROJECT_FAILED',
 };
 
 export const initialState = {
@@ -28,7 +31,7 @@ const sortProjects = (projects, action) => {
 };
 
 const searchProjects = (keyword) => {
-  const projects = localStorage.getItem('repoCache').data;
+  const projects = localStorage.getItem('projectsCache').data;
   const keywordSearch = keyword.toLowerCase().trim();
   return _.filter(projects,
     val => val.authorName.toLowerCase().includes(keywordSearch)
@@ -36,12 +39,14 @@ const searchProjects = (keyword) => {
       || val.description.toLowerCase().includes(keywordSearch));
 };
 
+const overrideCache = (cache, data) => cache.map(val => localStorage.setItem(val, data));
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_REPO_INFO_SUCCESS:
       return {
         ...state,
-        list: action.repositories,
+        list: action.projects,
       };
     case types.SORT_PROJECTS:
       return {
@@ -57,6 +62,18 @@ export default (state = initialState, action) => {
         ...state,
         list: sortProjects(searchProjects(action.keyword.target.value), state.sort),
       };
+    case types.SAVE_PROJECT_SUCCESS: {
+      const stateSave = {
+        ...state,
+        list: [
+          ...state.list,
+          action.repoObj,
+        ],
+      };
+      stateSave.list = _.orderBy(stateSave.list, ['repoName'], ['asc']);
+      overrideCache(['projectsCache'], stateSave.list);
+      return stateSave;
+    }
     default:
       return state;
   }
@@ -66,4 +83,7 @@ export const actions = {
   requestList: () => ({ type: types.FETCH_PROJECTS_REQUEST }),
   sortList: (field, isAsc) => ({ type: types.SORT_PROJECTS, field, isAsc }),
   searchList: keyword => ({ type: types.SEARCH_PROJECTS, keyword }),
+  saveProject: (authorName, repoName) => ({
+    type: types.SAVE_PROJECT_REQUEST, authorName, repoName,
+  }),
 };
