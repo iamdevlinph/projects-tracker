@@ -17,6 +17,14 @@ class ManageContainer extends Component {
     this.setState({ [field]: e.target.value });
   }
 
+  handleKeyDown = (e) => {
+    const { authorName, repoName } = this.state;
+    const { saveProject } = this.props;
+    if (e.which === 13 && !(authorName === '' || repoName === '')) {
+      saveProject(authorName, repoName);
+    }
+  }
+
   render() {
     const {
       projects, loggedIn, deleteProject, saveProject,
@@ -37,11 +45,13 @@ class ManageContainer extends Component {
                 <input
                   type="text"
                   onChange={e => this.handleInputChange(e, 'authorName')}
+                  onKeyUp={e => this.handleKeyDown(e)}
                 />
                 <span>Repository Name</span>
                 <input
                   type="text"
                   onChange={e => this.handleInputChange(e, 'repoName')}
+                  onKeyUp={e => this.handleKeyDown(e)}
                 />
                 <Button
                   onClick={() => saveProject(authorName, repoName)}
