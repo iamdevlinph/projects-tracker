@@ -2,9 +2,9 @@ language: node_js
 node_js:
 - '8'
 before_install:
-- cd functions && npm i
+- cd /home/travis/build/iamdevlinph/projects-tracker/functions/ && npm i
 install:
-- npm i
+- cd /home/travis/build/iamdevlinph/projects-tracker/ && npm i
 script:
 - npm run lint
 - npm run build
