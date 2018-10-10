@@ -23,8 +23,7 @@ function* willFetchProjects() {
       projects = projectsCache;
     }
 
-    // yield put({ type: projectsTypes.FETCH_PROJECTS_SUCCESS, projects });
-    yield put({ type: projectsTypes.FETCH_REPO_INFO_SUCCESS, projects });
+    yield put({ type: projectsTypes.FETCH_PROJECTS_SUCCESS, projects });
   } catch (e) {
     console.error(`${projectsTypes.FETCH_PROJECTS_FAILED} ${e}`);
   }
@@ -92,9 +91,25 @@ function* willSaveProject(action) {
   }
 }
 
+function* willDeleteProject(action) {
+  try {
+    const isDelete = yield (swalService.confirm('Delete Project', `Are you sure you want to delete <strong class="red-text">${action.fullName}</strong>?\nThis change cannot be undone.`));
+    if (isDelete.value) {
+      yield call(
+        rsf.firestore.deleteDocument, `projects-v2/${action.projectKey}`,
+      );
+      yield put({ type: projectsTypes.DELETE_PROJECT_SUCCESS, projectKey: action.projectKey });
+      swalService.success('Deleted project', `Deleted ${action.fullName}`);
+    }
+  } catch (e) {
+    console.error(`${projectsTypes.DELETE_PROJECT_FAILED} ${e}`);
+  }
+}
+
 const projectsSagas = [
   takeLatest(projectsTypes.FETCH_PROJECTS_REQUEST, willFetchProjects),
   takeLatest(projectsTypes.SAVE_PROJECT_REQUEST, willSaveProject),
+  takeLatest(projectsTypes.DELETE_PROJECT_REQUEST, willDeleteProject),
 ];
 
 export default projectsSagas;
