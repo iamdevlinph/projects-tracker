@@ -1,6 +1,8 @@
 language: node_js
 node_js:
 - '8'
+before_install:
+- cd functions && npm i
 install:
 - npm i
 script:
@@ -12,6 +14,7 @@ branches:
 cache:
   directories:
   - node_modules
+  - functions/node_modules
 deploy:
 - provider: pages
   local-dir: build
