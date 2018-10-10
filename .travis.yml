@@ -1,6 +1,9 @@
 language: node_js
 node_js:
 - '8'
+before_install:
+# run npm i inside functions folder then go back to previous path
+- cd functions && npm i && cd -
 install:
 - npm i
 script:
@@ -12,6 +15,7 @@ branches:
 cache:
   directories:
   - node_modules
+  - functions/node_modules
 deploy:
 - provider: pages
   local-dir: build

@@ -10,16 +10,8 @@ const nodeGetRepoInfo = (authorName, repoName) => fetch('https://projects-tracke
   body: postBody({ authorName, repoName }),
 }).then(res => res.json());
 
-const getRepoInfo = async (projects) => {
-  const getRepoInfoPromises = [];
-  let data;
-  projects.forEach((project) => {
-    getRepoInfoPromises.push(nodeGetRepoInfo(project.authorName, project.repoName));
-  });
-  await Promise.all(getRepoInfoPromises).then((res) => {
-    data = res;
-  });
-  return data;
-};
+const getRepoInfo = (authorName, repoName) => (
+  nodeGetRepoInfo(authorName, repoName).then(res => res)
+);
 
 export default getRepoInfo;

@@ -74,8 +74,8 @@ class SettingsContainer extends Component {
             {loggedIn
               ? (
                 <SettingsButtonsArea>
-                  <Button label="Reset" onClick={() => resetSettings()} color="#f96616" />
-                  <Button label="Save" onClick={() => saveSettings(settings)} color="0de61f" />
+                  <Button label="Reset" onClick={() => resetSettings()} color="#f96616" withGap float="right" />
+                  <Button label="Save" onClick={() => saveSettings(settings)} color="#08af4c" withGap float="right" />
                 </SettingsButtonsArea>
               )
               : null}
@@ -136,7 +136,4 @@ const SettingsButtonsArea = styled.div`
   display: flex;
   margin-top: 10px;
   float: right;
-  & button {
-    margin: 0 2px;
-  }
 `;

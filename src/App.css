@@ -14,3 +14,11 @@ body {
 h3 {
   margin-top: 0px;
 }
+
+.red-text {
+  color: red;
+}
+
+.center-text {
+  text-align: center;
+}

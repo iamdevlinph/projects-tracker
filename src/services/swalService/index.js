@@ -10,10 +10,10 @@ const notExpectedUser = () => {
   });
 };
 
-const error = (title, text = null) => {
+const error = (title, html = null) => {
   swal({
     title,
-    text,
+    html,
     type: 'error',
   });
 };
@@ -26,10 +26,19 @@ const success = (title, text = null) => {
   });
 };
 
+const confirm = (title, html = null, confirmButtonText = 'Yes') => swal({
+  title,
+  html,
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonText,
+});
+
 const swalService = {
   notExpectedUser,
   error,
   success,
+  confirm,
 };
 
 export default swalService;

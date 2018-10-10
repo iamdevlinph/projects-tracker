@@ -6,7 +6,7 @@ import { ColorUtil } from 'common-utils-pkg';
 
 const ButtonComponent = (props) => {
   const {
-    label, icon, onClick, disabled,
+    label, icon, onClick, disabled, className, withGap, float,
   } = props;
   const validHexColor = (color) => {
     let returnColor = '#348AA7'; // default
@@ -22,29 +22,46 @@ const ButtonComponent = (props) => {
   color = validHexColor(color);
   const shadow = ColorUtil.brightness(color, -50);
   return (
-    <Button onClick={() => onClick()} disabled={disabled} color={color} shadow={shadow}>
-      <ButtonContent>
-        <span>
-          {label}
-        </span>
-        {icon || null}
-      </ButtonContent>
-    </Button>
+    <ButtonHolder className={className} withGap={withGap}>
+      <Button
+        onClick={() => onClick()}
+        disabled={disabled}
+        color={color}
+        shadow={shadow}
+        float={float}
+      >
+        <ButtonContent label={label}>
+          {label && (
+            <span>
+              {label}
+            </span>
+          )}
+          {icon || null}
+        </ButtonContent>
+      </Button>
+    </ButtonHolder>
   );
 };
 
 ButtonComponent.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   icon: PropTypes.object,
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   color: PropTypes.string,
+  className: PropTypes.string,
+  withGap: PropTypes.bool,
+  float: PropTypes.string,
 };
 
 ButtonComponent.defaultProps = {
   disabled: false,
   color: '#348AA7',
   icon: null,
+  className: '',
+  withGap: false,
+  label: '',
+  float: 'left',
 };
 
 export default ButtonComponent;
@@ -61,6 +78,7 @@ const Button = styled.button`
   color: white;
   font-weight: 400;
   font-size: 15px;
+  float: ${({ float }) => `${float}`};
   box-shadow: ${({ disabled, shadow }) => (disabled ? '0 5px 0px #676767' : `0 5px 0px ${shadow}`)};
   border-bottom: ${({ disabled, color }) => (disabled ? '1px solid #676767' : `1px solid ${color}`)};
   ${({ disabled, shadow }) => !disabled && `
@@ -78,14 +96,19 @@ const Button = styled.button`
   `}
 `;
 const ButtonContent = styled.div`
-    display: block;
+  display: block;
+  line-height: 6px;
+  span {
+    float: left;
+  }
+  i {
+    float: right;
     line-height: 6px;
-    span {
-      float: left;
-    }
-    i {
-      float: right;
-      line-height: 6px;
-      margin-left: 5px;
-    }
+    margin-left: ${({ label }) => (label ? '5px' : '')};
+  }
+`;
+const ButtonHolder = styled.div`
+  height: 30px;
+  display: inline-block;
+  margin: ${({ withGap }) => (withGap ? '0 2px' : '')};
 `;
