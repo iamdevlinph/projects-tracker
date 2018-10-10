@@ -16,7 +16,8 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 
 exports.getProjects = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
-    db.collection('projects').orderBy('repoName').get()
+    // db.collection('projects').orderBy('repoName').get()
+    db.collection('projects-v2').orderBy('repoName').get()
       .then((snapshot) => {
         const projects = [];
         snapshot.forEach((project) => {
