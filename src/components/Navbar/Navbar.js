@@ -13,7 +13,7 @@ const NavbarComponent = (props) => {
       <BannerArea>
         <h1>
           <a href="/">
-            Projects Tracker
+            Github Projects Tracker
             <VersionNumber>{VERSION}</VersionNumber>
           </a>
         </h1>
