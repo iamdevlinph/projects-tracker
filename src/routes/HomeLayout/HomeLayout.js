@@ -53,6 +53,7 @@ class HomeLayout extends Component {
 
 const mapStateToProps = state => (
   {
+    ajaxInProgress: state.common.ajaxInProgress,
     projects: state.projects.list,
     sort: state.projects.sort,
     settings: state.settings.settings,

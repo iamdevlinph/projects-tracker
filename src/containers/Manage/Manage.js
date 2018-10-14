@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { ProjectsTbl, Button } from '../../components';
+import { ProjectsTbl, Button, LoaderOverlay } from '../../components';
 
 class ManageContainer extends Component {
   constructor() {
@@ -27,7 +27,7 @@ class ManageContainer extends Component {
 
   render() {
     const {
-      projects, loggedIn, deleteProject, saveProject,
+      projects, loggedIn, deleteProject, saveProject, ajaxInProgress,
     } = this.props;
     const options = {
       showPagination: false,
@@ -39,6 +39,11 @@ class ManageContainer extends Component {
         {projects
           ? (
             <Fragment>
+              {ajaxInProgress > 0
+                && (
+                  <LoaderOverlay />
+                )
+              }
               <AddProject>
                 <h3>Add Github Repository</h3>
                 <span>Author Name</span>
@@ -86,6 +91,7 @@ ManageContainer.propTypes = {
   deleteProject: PropTypes.func.isRequired,
   saveProject: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool,
+  ajaxInProgress: PropTypes.number.isRequired,
 };
 
 ManageContainer.defaultProps = {

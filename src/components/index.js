@@ -10,3 +10,4 @@ export { default as SettingsCard } from './SettingsCard/SettingsCard';
 export { default as AccountDropdown } from './AccountDropdown/AccountDropdown';
 export { default as ColorPicker } from './ColorPicker/ColorPicker';
 export { default as ProjectsTbl } from './ProjectsTbl/ProjectsTbl';
+export { default as LoaderOverlay } from './LoaderOverlay/LoaderOverlay';
