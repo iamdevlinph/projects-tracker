@@ -7,6 +7,7 @@ import {
 } from '../../services';
 
 import { types as projectsTypes } from './projects';
+import { types as commonTypes } from '../common/common';
 import rsf from '../rsf';
 
 import { getProjects } from './projectsSelectors';
@@ -55,6 +56,7 @@ const mapData = (repo) => {
 };
 
 function* willSaveProject(action) {
+  yield put({ type: commonTypes.AJAX_INC });
   try {
     const projects = yield select(getProjects);
     const projectFullName = `${action.authorName}/${action.repoName}`;
@@ -88,10 +90,13 @@ function* willSaveProject(action) {
     }
   } catch (e) {
     console.error(`${projectsTypes.SAVE_PROJECT_FAILED} ${e}`);
+  } finally {
+    yield put({ type: commonTypes.AJAX_DEC });
   }
 }
 
 function* willDeleteProject(action) {
+  yield put({ type: commonTypes.AJAX_INC });
   try {
     const isDelete = yield (swalService.confirm('Delete Project', `Are you sure you want to delete <strong class="red-text">${action.fullName}</strong>?\nThis change cannot be undone.`));
     if (isDelete.value) {
@@ -103,6 +108,8 @@ function* willDeleteProject(action) {
     }
   } catch (e) {
     console.error(`${projectsTypes.DELETE_PROJECT_FAILED} ${e}`);
+  } finally {
+    yield put({ type: commonTypes.AJAX_DEC });
   }
 }
 
