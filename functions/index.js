@@ -23,7 +23,6 @@ exports.getProjects = functions.https.onRequest((req, res) => {
         snapshot.forEach((project) => {
           const projectObj = project.data();
           projectObj.key = project.id;
-          projectObj.fullName = `${projectObj.authorName}/${projectObj.repoName}`;
           projects.push(projectObj);
         });
         res.status(200).json(projects);
