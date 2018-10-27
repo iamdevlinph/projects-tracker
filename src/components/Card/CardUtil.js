@@ -19,8 +19,22 @@ const getStatusColor = (data, settings) => {
   return repoUpdateStatusColor;
 };
 
+const daysAgo = (days) => {
+  // add 1 to include the start day
+  const diff = moment(days).diff(moment().format(), 'days');
+  let returnDays;
+  if (diff === 0) {
+    returnDays = 'Today';
+  } else {
+    const newDiff = Math.abs(diff) + 1;
+    returnDays = `${newDiff} days ago`;
+  }
+  return returnDays;
+};
+
 const CardUtil = {
   getStatusColor,
+  daysAgo,
 };
 
 export default CardUtil;
