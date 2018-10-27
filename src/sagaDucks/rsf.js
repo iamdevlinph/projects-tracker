@@ -16,3 +16,13 @@ const settings = { timestampsInSnapshots: true };
 firebase.firestore().settings(settings);
 
 export default rsf;
+
+export const onAuthStateChanged = () => new Promise((resolve, reject) => {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      resolve(user);
+    } else {
+      reject(new Error('No user found.'));
+    }
+  });
+});

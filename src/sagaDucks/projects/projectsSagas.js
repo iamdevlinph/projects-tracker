@@ -9,9 +9,9 @@ import {
 
 import { types as projectsTypes } from './projects';
 import { types as commonTypes } from '../common/common';
-import rsf from '../rsf';
+import rsf, { onAuthStateChanged } from '../rsf';
 
-import { getProjects } from './projectsSelectors';
+import { getProjects } from '../selectors';
 
 const mapData = (repo) => {
   const { owner } = repo.data.repository;
@@ -41,11 +41,16 @@ const mapData = (repo) => {
 
 // update data on firestore
 function* updateFirestoreRepo(proj) {
-  yield call(
-    rsf.firestore.setDocument,
-    `projects-v2/${proj.key}`,
-    { ...proj },
-  );
+  try {
+    yield call(onAuthStateChanged);
+    yield call(
+      rsf.firestore.setDocument,
+      `projects-v2/${proj.key}`,
+      { ...proj },
+    );
+  } catch (e) {
+    console.error('Don\'t save to firestore');
+  }
 }
 
 function* isRepoDataUpdated(projects) {

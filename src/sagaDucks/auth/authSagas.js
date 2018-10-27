@@ -1,23 +1,11 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { put, takeLatest, call } from 'redux-saga/effects';
-import rsf from '../rsf';
+import rsf, { onAuthStateChanged } from '../rsf';
 import { types as authTypes } from './auth';
 import { localStorage } from '../../services';
 
 const authProvider = new firebase.auth.GoogleAuthProvider();
-
-function onAuthStateChanged() {
-  return new Promise((resolve, reject) => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        resolve(user);
-      } else {
-        reject(new Error('Ops!'));
-      }
-    });
-  });
-}
 
 function* willLogin() {
   try {
