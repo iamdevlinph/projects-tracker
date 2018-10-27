@@ -2,6 +2,7 @@ import {
   put, takeLatest, call, select,
 } from 'redux-saga/effects';
 import _ from 'lodash';
+// import { all } from 'rsvp';
 import {
   firebaseFuncs, localStorage, githubApi, swalService,
 } from '../../services';
@@ -11,24 +12,6 @@ import { types as commonTypes } from '../common/common';
 import rsf from '../rsf';
 
 import { getProjects } from './projectsSelectors';
-
-function* willFetchProjects() {
-  try {
-    const projectsCache = localStorage.isCached('projectsCache');
-    let projects;
-
-    if (!projectsCache) {
-      projects = yield call(firebaseFuncs.getProjects);
-      localStorage.setItem('projectsCache', projects);
-    } else {
-      projects = projectsCache;
-    }
-
-    yield put({ type: projectsTypes.FETCH_PROJECTS_SUCCESS, projects });
-  } catch (e) {
-    console.error(`${projectsTypes.FETCH_PROJECTS_FAILED} ${e}`);
-  }
-}
 
 const mapData = (repo) => {
   const { owner } = repo.data.repository;
@@ -41,6 +24,7 @@ const mapData = (repo) => {
     description: repoInfoObj.description,
     fullName: repoInfoObj.nameWithOwner,
     repoUrl: repoInfoObj.url,
+    updatedAt: repoInfoObj.updatedAt,
     homepageUrl: repoInfoObj.homepageUrl,
     authorName: owner.login,
     authorAvatar: owner.avatarUrl,
@@ -54,6 +38,66 @@ const mapData = (repo) => {
     lastCommitUrl: commitInfo.commitUrl,
   };
 };
+
+// update data on firestore
+function* updateFirestoreRepo(proj) {
+  yield call(
+    rsf.firestore.setDocument,
+    `projects-v2/${proj.key}`,
+    { ...proj },
+  );
+}
+
+function* isRepoDataUpdated(projects) {
+  // get the latest update of the repos
+  const getUpdatedAt = yield projects.map(proj => call(githubApi.isRepoUpdated, proj));
+  // get the outdated repos
+  const outDated = getUpdatedAt.filter(proj => !proj.isUpdated);
+  // iterate and get the latest repoInfo
+  const updated = yield outDated.map(
+    proj => call(githubApi.getRepoInfo, proj.authorName, proj.repoName),
+  );
+  // clean out the data
+  const mappedUpdated = updated.map(proj => mapData(proj));
+  // merge the udpated data to the original data
+  let allProj = [];
+  if (mappedUpdated.length > 0) {
+    allProj = projects.map((proj) => {
+      const updatedProj = _.find(mappedUpdated, { fullName: proj.fullName });
+      return {
+        ...proj,
+        ...updatedProj,
+      };
+    });
+
+    yield allProj.map(proj => call(updateFirestoreRepo, proj));
+  }
+  return allProj;
+}
+
+function* willFetchProjects() {
+  try {
+    const projectsCache = localStorage.isCached('projectsCache');
+    let projects;
+
+    if (!projectsCache) {
+      projects = yield call(firebaseFuncs.getProjects);
+      localStorage.setItem('projectsCache', projects);
+    } else {
+      projects = projectsCache;
+    }
+
+    const updatedRepoInfo = yield isRepoDataUpdated(projects);
+    if (updatedRepoInfo && updatedRepoInfo.length > 0) {
+      projects = updatedRepoInfo;
+      localStorage.setItem('projectsCache', updatedRepoInfo);
+    }
+
+    yield put({ type: projectsTypes.FETCH_PROJECTS_SUCCESS, projects });
+  } catch (e) {
+    console.error(`${projectsTypes.FETCH_PROJECTS_FAILED} ${e}`);
+  }
+}
 
 function* willSaveProject(action) {
   yield put({ type: commonTypes.AJAX_INC });
