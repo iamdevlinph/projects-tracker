@@ -39,6 +39,15 @@ const mapData = (repo) => {
   };
 };
 
+// update data on firestore
+function* updateFirestoreRepo(proj) {
+  yield call(
+    rsf.firestore.setDocument,
+    `projects-v2/${proj.key}`,
+    { ...proj },
+  );
+}
+
 function* isRepoDataUpdated(projects) {
   // get the latest update of the repos
   const getUpdatedAt = yield projects.map(proj => call(githubApi.isRepoUpdated, proj));
@@ -60,6 +69,8 @@ function* isRepoDataUpdated(projects) {
         ...updatedProj,
       };
     });
+
+    yield allProj.map(proj => call(updateFirestoreRepo, proj));
   }
   return allProj;
 }
