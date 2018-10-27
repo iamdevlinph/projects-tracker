@@ -34,7 +34,10 @@ const CardComponent = (props) => {
         </RepoDesc>
       </RepoArea>
       <CommitArea>
-        {data.lastCommitMsgPlaceholder ? data.lastCommitMsgPlaceholder : moment(data.lastCommitDate).format('DD MMM YYYY')}
+        <div>{data.lastCommitMsgPlaceholder ? data.lastCommitMsgPlaceholder : moment(data.lastCommitDate).format('DD MMM YYYY')}</div>
+        <div className="commit-days-ago">
+          {CardUtil.daysAgo(moment(data.lastCommitDate))}
+        </div>
       </CommitArea>
       <IssuesArea>
         <Badge label="issues" data={data.issuesCount} repoUrl={data.repoUrl} settings={settings.issues} />
@@ -101,6 +104,12 @@ const RepoDesc = styled.div`
 const CommitArea = styled.div`
   font-family: 'Roboto Mono', monospace;
   grid-area: commit;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  text-align: center;
+  .commit-days-ago {
+    font-size: 9px;
+  }
 `;
 const IssuesArea = styled.div`
   grid-area: issues;
