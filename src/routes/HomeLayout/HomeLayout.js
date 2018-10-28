@@ -10,7 +10,7 @@ import { actions as settingsActions } from '../../sagaDucks/settings/settings';
 import { actions as authActions } from '../../sagaDucks/auth/auth';
 import { actions as projectsActions } from '../../sagaDucks/projects/projects';
 import { Navbar, LoaderOverlay } from '../../components';
-import { localStorage, swalService } from '../../services';
+import { localStorage } from '../../services';
 
 class HomeLayout extends Component {
   constructor(props) {
@@ -36,13 +36,8 @@ class HomeLayout extends Component {
 
   render() {
     const {
-      children, user, authenticated,
+      children, authenticated,
     } = this.props;
-    const informedUserCache = localStorage.isCached('informedUserCache');
-    if (user && user.email !== 'iamdevlinph@gmail.com' && (!informedUserCache || !informedUserCache.flag)) {
-      swalService.notExpectedUser();
-      localStorage.setItem('informedUserCache', { flag: true });
-    }
     let page;
     if (typeof authenticated === 'undefined') {
       page = (<LoaderOverlay />);
