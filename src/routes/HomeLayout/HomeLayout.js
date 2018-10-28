@@ -45,7 +45,7 @@ class HomeLayout extends Component {
         ? (
           <Redirect to="/" />
         ) : (
-          <NoSidebarArea>
+          <HomeLayoutArea>
             <NavbarArea>
               <Navbar {...this.props} />
             </NavbarArea>
@@ -54,7 +54,7 @@ class HomeLayout extends Component {
                 ...this.props,
               }))}
             </MainArea>
-          </NoSidebarArea>
+          </HomeLayoutArea>
         );
     }
     return (page);
@@ -84,7 +84,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeLayout);
 
-const NoSidebarArea = styled.div`
+const HomeLayoutArea = styled.div`
   display: grid;
   grid-template-rows: 5px 40px 1fr;
   grid-template-columns: 1fr;
