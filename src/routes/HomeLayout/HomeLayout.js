@@ -4,17 +4,24 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 
 import { actions as settingsActions } from '../../sagaDucks/settings/settings';
 import { actions as authActions } from '../../sagaDucks/auth/auth';
 import { actions as projectsActions } from '../../sagaDucks/projects/projects';
-import { Navbar } from '../../components';
-import { localStorage, swalService } from '../../services';
+import { Navbar, LoaderOverlay } from '../../components';
+import { localStorage } from '../../services';
 
 class HomeLayout extends Component {
+  constructor(props) {
+    super(props);
+    const { initAuth } = props;
+    initAuth();
+  }
+
   componentWillMount() {
     const {
-      requestList, requestSettings, initAuth,
+      requestList, requestSettings,
     } = this.props;
     // clear cache if local version doesn't match published version
     const versionCache = localStorage.getItem('VERSION');
@@ -22,32 +29,36 @@ class HomeLayout extends Component {
       localStorage.clearAll();
       localStorage.setItem('VERSION', VERSION);
     }
+    // only fetch stuff when authenticated
     requestList();
     requestSettings();
-    initAuth();
   }
 
   render() {
     const {
-      children, user,
+      children, authenticated,
     } = this.props;
-    const informedUserCache = localStorage.isCached('informedUserCache');
-    if (user && user.email !== 'iamdevlinph@gmail.com' && (!informedUserCache || !informedUserCache.flag)) {
-      swalService.notExpectedUser();
-      localStorage.setItem('informedUserCache', { flag: true });
+    let page;
+    if (typeof authenticated === 'undefined') {
+      page = (<LoaderOverlay />);
+    } else {
+      page = !authenticated
+        ? (
+          <Redirect to="/" />
+        ) : (
+          <HomeLayoutArea>
+            <NavbarArea>
+              <Navbar {...this.props} />
+            </NavbarArea>
+            <MainArea>
+              {React.Children.map(children, child => React.cloneElement(child, {
+                ...this.props,
+              }))}
+            </MainArea>
+          </HomeLayoutArea>
+        );
     }
-    return (
-      <NoSidebarArea>
-        <NavbarArea>
-          <Navbar {...this.props} />
-        </NavbarArea>
-        <MainArea>
-          {React.Children.map(children, child => React.cloneElement(child, {
-            ...this.props,
-          }))}
-        </MainArea>
-      </NoSidebarArea>
-    );
+    return (page);
   }
 }
 
@@ -58,6 +69,7 @@ const mapStateToProps = state => (
     sort: state.projects.sort,
     settings: state.settings.settings,
     user: state.auth.user,
+    authenticated: state.auth.authenticated,
     loggedIn: state.auth.loggedIn,
     activeColorPicker: state.settings.activeColorPicker,
   }
@@ -73,7 +85,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeLayout);
 
-const NoSidebarArea = styled.div`
+const HomeLayoutArea = styled.div`
   display: grid;
   grid-template-rows: 5px 40px 1fr;
   grid-template-columns: 1fr;

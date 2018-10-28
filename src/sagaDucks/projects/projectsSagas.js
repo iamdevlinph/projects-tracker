@@ -2,7 +2,6 @@ import {
   put, takeLatest, call, select,
 } from 'redux-saga/effects';
 import _ from 'lodash';
-// import { all } from 'rsvp';
 import {
   firebaseFuncs, localStorage, githubApi, swalService,
 } from '../../services';
@@ -41,11 +40,13 @@ const mapData = (repo) => {
 
 // update data on firestore
 function* updateFirestoreRepo(proj) {
+  const currentUser = yield call(onAuthStateChanged);
+  const userId = currentUser.uid;
   try {
     yield call(onAuthStateChanged);
     yield call(
       rsf.firestore.setDocument,
-      `projects-v2/${proj.key}`,
+      `projects-${userId}/${proj.key}`,
       { ...proj },
     );
   } catch (e) {
@@ -82,11 +83,13 @@ function* isRepoDataUpdated(projects) {
 
 function* willFetchProjects() {
   try {
+    const currentUser = yield call(onAuthStateChanged);
+    const userId = currentUser.uid;
     const projectsCache = localStorage.isCached('projectsCache');
     let projects;
 
     if (!projectsCache) {
-      projects = yield call(firebaseFuncs.getProjects);
+      projects = yield call(firebaseFuncs.getProjects, userId);
       localStorage.setItem('projectsCache', projects);
     } else {
       projects = projectsCache;
@@ -122,11 +125,13 @@ function* willSaveProject(action) {
       swalService.error(`${projectFullName} is not valid`, repoInfo.errors[0].message);
     } else { // no error
       try {
+        const currentUser = yield call(onAuthStateChanged);
+        const userId = currentUser.uid;
         const repoObj = mapData(repoInfo);
         // save repoInfo to firestore
         const firebaseProj = yield call(
           rsf.firestore.addDocument,
-          'projects-v2',
+          `projects-${userId}`,
           { ...repoObj },
         );
         // add firestore key to the object for local use
@@ -147,10 +152,12 @@ function* willSaveProject(action) {
 function* willDeleteProject(action) {
   yield put({ type: commonTypes.AJAX_INC });
   try {
+    const currentUser = yield call(onAuthStateChanged);
+    const userId = currentUser.uid;
     const isDelete = yield (swalService.confirm('Delete Project', `Are you sure you want to delete <strong class="red-text">${action.fullName}</strong>?\nThis change cannot be undone.`));
     if (isDelete.value) {
       yield call(
-        rsf.firestore.deleteDocument, `projects-v2/${action.projectKey}`,
+        rsf.firestore.deleteDocument, `projects-${userId}/${action.projectKey}`,
       );
       yield put({ type: projectsTypes.DELETE_PROJECT_SUCCESS, projectKey: action.projectKey });
       swalService.success('Deleted project', `Deleted ${action.fullName}`);
