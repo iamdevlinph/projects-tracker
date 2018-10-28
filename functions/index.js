@@ -16,35 +16,44 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 
 exports.getProjects = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
-    // db.collection('projects').orderBy('repoName').get()
-    db.collection('projects-v2').orderBy('repoName').get()
-      .then((snapshot) => {
-        const projects = [];
-        snapshot.forEach((project) => {
-          const projectObj = project.data();
-          projectObj.key = project.id;
-          projects.push(projectObj);
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+      const userId = req.headers.authorization.split('Bearer ')[1];
+      db.collection(`projects-${userId}`).orderBy('repoName').get()
+        .then((snapshot) => {
+          const projects = [];
+          snapshot.forEach((project) => {
+            const projectObj = project.data();
+            projectObj.key = project.id;
+            projects.push(projectObj);
+          });
+          res.status(200).json(projects);
+        })
+        .catch((err) => {
+          res.status(500).send(err);
         });
-        res.status(200).json(projects);
-      })
-      .catch((err) => {
-        res.status(500).send(err);
-      });
+    } else {
+      res.status(403).send('Unaothorized');
+    }
   });
 });
 
 exports.getSettings = functions.https.onRequest((req, res) => {
   cors(req, res, () => {
-    const data = {};
-    db.collection('settings').get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          // ignore colors
-          if (doc.id === 'colors') return;
-          data[doc.id] = doc.data();
-        });
-        res.status(200).json(data);
-      })
-      .catch(err => res.status(500).send(err));
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+      const userId = req.headers.authorization.split('Bearer ')[1];
+      const data = {};
+      db.collection(`settings-${userId}`).get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            // ignore colors
+            if (doc.id === 'colors') return;
+            data[doc.id] = doc.data();
+          });
+          res.status(200).json(data);
+        })
+        .catch(err => res.status(500).send(err));
+    } else {
+      res.status(403).send('Unaothorized');
+    }
   });
 });

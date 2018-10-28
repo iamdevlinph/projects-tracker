@@ -13,8 +13,18 @@ const makeApiUrl = (func) => {
 };
 
 const helloWorld = () => fetch(makeApiUrl('helloWorld')).then(res => res.json());
-const getProjects = () => fetch(makeApiUrl('getProjects')).then(res => res.json());
-const getSettings = () => fetch(makeApiUrl('getSettings')).then(res => res.json());
+const getProjects = userId => fetch(makeApiUrl('getProjects'), {
+  method: 'get',
+  headers: {
+    Authorization: `Bearer ${userId}`,
+  },
+}).then(res => res.json());
+const getSettings = userId => fetch(makeApiUrl('getSettings'), {
+  method: 'get',
+  headers: {
+    Authorization: `Bearer ${userId}`,
+  },
+}).then(res => res.json());
 
 const firebaseFuncs = {
   helloWorld,
