@@ -26,6 +26,7 @@ export default (state = initialState, action) => {
           displayName: currentUser.displayName,
           email: currentUser.email,
           uid: currentUser.uid,
+          photoURL: currentUser.photoURL,
         },
         loggedIn: true,
         authenticated: true,

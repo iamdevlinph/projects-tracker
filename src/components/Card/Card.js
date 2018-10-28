@@ -7,13 +7,13 @@ import Badge from '../Badge/Badge';
 import CardUtil from './CardUtil';
 
 const CardComponent = (props) => {
-  const { data, settings } = props;
+  const { data, settings, defaultAvatar } = props;
   const statusColor = CardUtil.getStatusColor(data, settings);
   const allowUrlClick = url => url !== '#';
   return (
     <CardChunk status={statusColor}>
       <AvatarArea>
-        <img src={data.authorAvatar} alt="avatar" />
+        <img src={defaultAvatar || data.authorAvatar} alt="avatar" />
       </AvatarArea>
       <RepoArea>
         <RepoName>
@@ -52,6 +52,11 @@ const CardComponent = (props) => {
 CardComponent.propTypes = {
   data: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
+  defaultAvatar: PropTypes.string,
+};
+
+CardComponent.defaultProps = {
+  defaultAvatar: '',
 };
 
 export default CardComponent;

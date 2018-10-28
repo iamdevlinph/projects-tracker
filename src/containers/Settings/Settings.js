@@ -14,7 +14,7 @@ class SettingsContainer extends Component {
   render() {
     const {
       settings, showColorPicker, activeColorPicker, loggedIn,
-      previewColor, previewCount, resetSettings, saveSettings,
+      previewColor, previewCount, resetSettings, saveSettings, user,
     } = this.props;
     const display = !settings
       ? (
@@ -31,19 +31,35 @@ class SettingsContainer extends Component {
               <span>
                 Default
               </span>
-              <Card data={SettingsUtil.generateDefaultData()} settings={settings} />
+              <Card
+                data={SettingsUtil.generateDefaultData()}
+                settings={settings}
+                defaultAvatar={user.photoURL}
+              />
               <span>
                 Safe
               </span>
-              <Card data={SettingsUtil.generateSafeData()} settings={settings} />
+              <Card
+                data={SettingsUtil.generateSafeData()}
+                settings={settings}
+                defaultAvatar={user.photoURL}
+              />
               <span>
                 Warning
               </span>
-              <Card data={SettingsUtil.generateWarningData(settings)} settings={settings} />
+              <Card
+                data={SettingsUtil.generateWarningData(settings)}
+                settings={settings}
+                defaultAvatar={user.photoURL}
+              />
               <span>
                 Danger
               </span>
-              <Card data={SettingsUtil.generateDangerData(settings)} settings={settings} />
+              <Card
+                data={SettingsUtil.generateDangerData(settings)}
+                settings={settings}
+                defaultAvatar={user.photoURL}
+              />
             </PreviewArea>
             <OptionsArea>
               <SettingsCard
@@ -95,6 +111,7 @@ SettingsContainer.propTypes = {
   resetSettings: PropTypes.func.isRequired,
   saveSettings: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 SettingsContainer.defaultProps = {
