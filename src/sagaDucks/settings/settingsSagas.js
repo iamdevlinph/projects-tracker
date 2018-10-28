@@ -2,12 +2,13 @@ import {
   put, takeLatest, call,
 } from 'redux-saga/effects';
 import { firebaseFuncs, localStorage, swalService } from '../../services';
-import rsf from '../rsf';
+import rsf, { onAuthStateChanged } from '../rsf';
 
 import { types as settingsTypes } from './settings';
 
 function* willFetchSettings() {
   try {
+    yield call(onAuthStateChanged);
     const settingsCache = localStorage.isCached('settingsCache');
     let settings;
 

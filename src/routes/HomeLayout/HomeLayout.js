@@ -21,7 +21,7 @@ class HomeLayout extends Component {
 
   componentWillMount() {
     const {
-      requestList, requestSettings, authenticated,
+      requestList, requestSettings,
     } = this.props;
     // clear cache if local version doesn't match published version
     const versionCache = localStorage.getItem('VERSION');
@@ -30,10 +30,8 @@ class HomeLayout extends Component {
       localStorage.setItem('VERSION', VERSION);
     }
     // only fetch stuff when authenticated
-    if (authenticated) {
-      requestList();
-      requestSettings();
-    }
+    requestList();
+    requestSettings();
   }
 
   render() {

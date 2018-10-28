@@ -2,7 +2,6 @@ import {
   put, takeLatest, call, select,
 } from 'redux-saga/effects';
 import _ from 'lodash';
-// import { all } from 'rsvp';
 import {
   firebaseFuncs, localStorage, githubApi, swalService,
 } from '../../services';
@@ -82,6 +81,7 @@ function* isRepoDataUpdated(projects) {
 
 function* willFetchProjects() {
   try {
+    yield call(onAuthStateChanged);
     const projectsCache = localStorage.isCached('projectsCache');
     let projects;
 
