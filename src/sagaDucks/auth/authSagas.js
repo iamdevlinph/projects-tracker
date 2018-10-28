@@ -21,7 +21,7 @@ function* willLogOut() {
   try {
     yield call(rsf.auth.signOut);
     yield put({ type: authTypes.LOGOUT_SUCCESS });
-    localStorage.removeItem('informedUserCache');
+    localStorage.clearAll();
     window.location.reload();
   } catch (e) {
     console.error(`${authTypes.LOGOUT_FAILED} ${e}`);
