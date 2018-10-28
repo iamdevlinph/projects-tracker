@@ -6,6 +6,14 @@ import rsf, { onAuthStateChanged } from '../rsf';
 
 import { types as settingsTypes } from './settings';
 
+const defaultSettings = {
+  safeColor: '#2AD806',
+  warningColor: '#FD8F53',
+  warningCount: 3,
+  dangerColor: '#FF0505',
+  dangerCount: 5,
+};
+
 function* willFetchSettings() {
   try {
     const currentUser = yield call(onAuthStateChanged);
@@ -14,6 +22,25 @@ function* willFetchSettings() {
     let settings;
 
     if (!settingsCache) {
+      const hasSettings = yield call(firebaseFuncs.userHasSettings, userId);
+      // if no settings then create the default settings
+      if (!hasSettings) {
+        yield call(
+          rsf.firestore.setDocument,
+          `settings-${userId}/pulls`,
+          { ...defaultSettings },
+        );
+        yield call(
+          rsf.firestore.setDocument,
+          `settings-${userId}/issues`,
+          { ...defaultSettings },
+        );
+        yield call(
+          rsf.firestore.setDocument,
+          `settings-${userId}/update`,
+          { ...defaultSettings },
+        );
+      }
       settings = yield call(firebaseFuncs.getSettings, userId);
       localStorage.setItem('settingsCache', settings);
     } else {
