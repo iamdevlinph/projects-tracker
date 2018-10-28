@@ -7,7 +7,9 @@ import Badge from '../Badge/Badge';
 import CardUtil from './CardUtil';
 
 const CardComponent = (props) => {
-  const { data, settings, defaultAvatar } = props;
+  const {
+    data, settings, defaultAvatar, fromSettingsPage,
+  } = props;
   const statusColor = CardUtil.getStatusColor(data, settings);
   const allowUrlClick = url => url !== '#';
   return (
@@ -35,9 +37,11 @@ const CardComponent = (props) => {
       </RepoArea>
       <CommitArea>
         <div>{data.lastCommitMsgPlaceholder ? data.lastCommitMsgPlaceholder : moment(data.lastCommitDate).format('DD MMM YYYY')}</div>
-        <div className="commit-days-ago">
-          {CardUtil.daysAgo(moment(data.lastCommitDate))}
-        </div>
+        {!fromSettingsPage && (
+          <div className="commit-days-ago">
+            {CardUtil.daysAgo(moment(data.lastCommitDate))}
+          </div>
+        )}
       </CommitArea>
       <IssuesArea>
         <Badge label="issues" data={data.issuesCount} repoUrl={data.repoUrl} settings={settings.issues} />
@@ -53,10 +57,12 @@ CardComponent.propTypes = {
   data: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   defaultAvatar: PropTypes.string,
+  fromSettingsPage: PropTypes.bool,
 };
 
 CardComponent.defaultProps = {
   defaultAvatar: '',
+  fromSettingsPage: false,
 };
 
 export default CardComponent;
@@ -67,7 +73,7 @@ const CardChunk = styled.div`
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgba(0, 0, 0, 0.24) 0px 1.5px 1px 0px;
   border-left: ${({ status }) => `5px solid ${status}`};
   display: grid;
-  grid-template-columns: 40px 3fr 1fr 120px 120px;
+  grid-template-columns: 40px 3fr max-content 120px 120px;
   column-gap: 10px;
   grid-template-areas:
     "avatar repo commit issues pull";

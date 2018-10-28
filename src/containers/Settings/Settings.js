@@ -35,6 +35,7 @@ class SettingsContainer extends Component {
                 data={SettingsUtil.generateDefaultData()}
                 settings={settings}
                 defaultAvatar={user.photoURL}
+                fromSettingsPage
               />
               <span>
                 Safe
@@ -43,6 +44,7 @@ class SettingsContainer extends Component {
                 data={SettingsUtil.generateSafeData()}
                 settings={settings}
                 defaultAvatar={user.photoURL}
+                fromSettingsPage
               />
               <span>
                 Warning
@@ -51,6 +53,7 @@ class SettingsContainer extends Component {
                 data={SettingsUtil.generateWarningData(settings)}
                 settings={settings}
                 defaultAvatar={user.photoURL}
+                fromSettingsPage
               />
               <span>
                 Danger
@@ -59,6 +62,7 @@ class SettingsContainer extends Component {
                 data={SettingsUtil.generateDangerData(settings)}
                 settings={settings}
                 defaultAvatar={user.photoURL}
+                fromSettingsPage
               />
             </PreviewArea>
             <OptionsArea>
