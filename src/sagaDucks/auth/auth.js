@@ -13,6 +13,7 @@ export const types = {
 export const initialState = {
   user: null,
   loggedIn: false,
+  authenticated: undefined,
 };
 
 export default (state = initialState, action) => {
@@ -26,9 +27,15 @@ export default (state = initialState, action) => {
           email: currentUser.email,
         },
         loggedIn: true,
+        authenticated: true,
       };
     case types.LOGOUT_SUCCESS:
       return initialState;
+    case types.INIT_AUTH_FAILED:
+      return {
+        ...state,
+        authenticated: false,
+      };
     default:
       return state;
   }

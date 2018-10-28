@@ -4,11 +4,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 
 import { actions as settingsActions } from '../../sagaDucks/settings/settings';
 import { actions as authActions } from '../../sagaDucks/auth/auth';
 import { actions as projectsActions } from '../../sagaDucks/projects/projects';
-import { Navbar } from '../../components';
+import { Navbar, LoaderOverlay } from '../../components';
 import { localStorage, swalService } from '../../services';
 
 class HomeLayout extends Component {
@@ -29,25 +30,34 @@ class HomeLayout extends Component {
 
   render() {
     const {
-      children, user,
+      children, user, authenticated,
     } = this.props;
     const informedUserCache = localStorage.isCached('informedUserCache');
     if (user && user.email !== 'iamdevlinph@gmail.com' && (!informedUserCache || !informedUserCache.flag)) {
       swalService.notExpectedUser();
       localStorage.setItem('informedUserCache', { flag: true });
     }
-    return (
-      <NoSidebarArea>
-        <NavbarArea>
-          <Navbar {...this.props} />
-        </NavbarArea>
-        <MainArea>
-          {React.Children.map(children, child => React.cloneElement(child, {
-            ...this.props,
-          }))}
-        </MainArea>
-      </NoSidebarArea>
-    );
+    let page;
+    if (typeof authenticated === 'undefined') {
+      page = (<LoaderOverlay />);
+    } else {
+      page = !authenticated
+        ? (
+          <Redirect to="/" />
+        ) : (
+          <NoSidebarArea>
+            <NavbarArea>
+              <Navbar {...this.props} />
+            </NavbarArea>
+            <MainArea>
+              {React.Children.map(children, child => React.cloneElement(child, {
+                ...this.props,
+              }))}
+            </MainArea>
+          </NoSidebarArea>
+        );
+    }
+    return (page);
   }
 }
 
@@ -58,6 +68,7 @@ const mapStateToProps = state => (
     sort: state.projects.sort,
     settings: state.settings.settings,
     user: state.auth.user,
+    authenticated: state.auth.authenticated,
     loggedIn: state.auth.loggedIn,
     activeColorPicker: state.settings.activeColorPicker,
   }
