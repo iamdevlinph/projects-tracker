@@ -8,8 +8,9 @@ import { Redirect } from 'react-router-dom';
 import { actions as authActions } from '../../sagaDucks/auth/auth';
 
 class LoginLayout extends Component {
-  componentWillMount() {
-    const { initAuth } = this.props;
+  constructor(props) {
+    super(props);
+    const { initAuth } = props;
     initAuth();
   }
 

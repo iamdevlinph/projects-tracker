@@ -13,9 +13,15 @@ import { Navbar, LoaderOverlay } from '../../components';
 import { localStorage, swalService } from '../../services';
 
 class HomeLayout extends Component {
+  constructor(props) {
+    super(props);
+    const { initAuth } = props;
+    initAuth();
+  }
+
   componentWillMount() {
     const {
-      requestList, requestSettings, initAuth,
+      requestList, requestSettings, authenticated,
     } = this.props;
     // clear cache if local version doesn't match published version
     const versionCache = localStorage.getItem('VERSION');
@@ -23,9 +29,11 @@ class HomeLayout extends Component {
       localStorage.clearAll();
       localStorage.setItem('VERSION', VERSION);
     }
-    requestList();
-    requestSettings();
-    initAuth();
+    // only fetch stuff when authenticated
+    if (authenticated) {
+      requestList();
+      requestSettings();
+    }
   }
 
   render() {
