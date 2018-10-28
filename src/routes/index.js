@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  HashRouter, Route, Switch, Redirect,
+  HashRouter, Route, Switch,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import HomeLayout from './HomeLayout/HomeLayout';
+import LoginLayout from './LoginLayout/LoginLayout';
 import loadableCons from './loadableCons';
 
 const AppRoute = ({ container: Container, layout: Layout, ...rest }) => (
@@ -21,9 +22,7 @@ const AppRoute = ({ container: Container, layout: Layout, ...rest }) => (
 export default () => (
   <HashRouter>
     <Switch>
-      <Route exact path="/">
-        <Redirect to="/track" />
-      </Route>
+      <AppRoute exact path="/" layout={LoginLayout} container={loadableCons.Login} />
       <AppRoute exact path="/track" layout={HomeLayout} container={loadableCons.Home} />
       <AppRoute exact path="/manage" layout={HomeLayout} container={loadableCons.Manage} />
       <AppRoute exact path="/settings" layout={HomeLayout} container={loadableCons.Settings} />

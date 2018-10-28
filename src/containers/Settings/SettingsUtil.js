@@ -1,7 +1,6 @@
 import moment from 'moment';
 
 const commonData = {
-  authorAvatar: 'https://avatars2.githubusercontent.com/u/19337229?v=4',
   authorName: 'Author',
   authorUrl: '#',
   repoName: 'Repository',

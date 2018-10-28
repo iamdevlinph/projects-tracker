@@ -2,17 +2,46 @@ import {
   put, takeLatest, call,
 } from 'redux-saga/effects';
 import { firebaseFuncs, localStorage, swalService } from '../../services';
-import rsf from '../rsf';
+import rsf, { onAuthStateChanged } from '../rsf';
 
 import { types as settingsTypes } from './settings';
 
+const defaultSettings = {
+  safeColor: '#2AD806',
+  warningColor: '#FD8F53',
+  warningCount: 3,
+  dangerColor: '#FF0505',
+  dangerCount: 5,
+};
+
 function* willFetchSettings() {
   try {
+    const currentUser = yield call(onAuthStateChanged);
+    const userId = currentUser.uid;
     const settingsCache = localStorage.isCached('settingsCache');
     let settings;
 
     if (!settingsCache) {
-      settings = yield call(firebaseFuncs.getSettings);
+      const hasSettings = yield call(firebaseFuncs.userHasSettings, userId);
+      // if no settings then create the default settings
+      if (!hasSettings) {
+        yield call(
+          rsf.firestore.setDocument,
+          `settings-${userId}/pulls`,
+          { ...defaultSettings },
+        );
+        yield call(
+          rsf.firestore.setDocument,
+          `settings-${userId}/issues`,
+          { ...defaultSettings },
+        );
+        yield call(
+          rsf.firestore.setDocument,
+          `settings-${userId}/update`,
+          { ...defaultSettings },
+        );
+      }
+      settings = yield call(firebaseFuncs.getSettings, userId);
       localStorage.setItem('settingsCache', settings);
     } else {
       settings = settingsCache;
@@ -27,9 +56,11 @@ function* willFetchSettings() {
 function* willSaveSettings(action) {
   const { settings } = action;
   try {
-    yield call(rsf.firestore.updateDocument, 'settings/issues', { ...settings.issues });
-    yield call(rsf.firestore.updateDocument, 'settings/pulls', { ...settings.pulls });
-    yield call(rsf.firestore.updateDocument, 'settings/update', { ...settings.update });
+    const currentUser = yield call(onAuthStateChanged);
+    const userId = currentUser.uid;
+    yield call(rsf.firestore.updateDocument, `settings-${userId}/issues`, { ...settings.issues });
+    yield call(rsf.firestore.updateDocument, `settings-${userId}/pulls`, { ...settings.pulls });
+    yield call(rsf.firestore.updateDocument, `settings-${userId}/update`, { ...settings.update });
     localStorage.setItem('settingsCache', settings);
     yield put({ type: settingsTypes.SAVE_SETTINGS_SUCCESS, settings });
   } catch (e) {
