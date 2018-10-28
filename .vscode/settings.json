@@ -5,6 +5,7 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
+    "**/functions/node_modules": true
   },
   "eslint.autoFixOnSave": true,
   "editor.formatOnSave": true,

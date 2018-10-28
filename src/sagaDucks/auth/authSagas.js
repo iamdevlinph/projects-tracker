@@ -21,7 +21,8 @@ function* willLogOut() {
   try {
     yield call(rsf.auth.signOut);
     yield put({ type: authTypes.LOGOUT_SUCCESS });
-    localStorage.removeItem('informedUserCache');
+    localStorage.clearAll();
+    window.location.reload();
   } catch (e) {
     console.error(`${authTypes.LOGOUT_FAILED} ${e}`);
   }
@@ -36,6 +37,7 @@ function* willInitAuth() {
       yield put({ type: authTypes.LOGOUT_SUCCESS });
     }
   } catch (e) {
+    yield put({ type: authTypes.INIT_AUTH_FAILED });
     console.error(`${authTypes.INIT_AUTH_FAILED} ${e}`);
   }
 }
