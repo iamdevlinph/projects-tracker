@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
 };
 
 export const actions = {
-  requestLogin: () => ({ type: types.LOGIN_REQUEST }),
+  requestLogin: provider => ({ type: types.LOGIN_REQUEST, provider }),
   requestLogOut: () => ({ type: types.LOGOUT_REQUEST }),
   initAuth: () => ({ type: types.INIT_AUTH_REQUEST }),
 };
