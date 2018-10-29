@@ -3,7 +3,7 @@ import 'firebase/auth';
 import { put, takeLatest, call } from 'redux-saga/effects';
 import rsf, { onAuthStateChanged } from '../rsf';
 import { types as authTypes } from './auth';
-import { localStorage } from '../../services';
+import { localStorage, swalService } from '../../services';
 
 const googleAuth = new firebase.auth.GoogleAuthProvider();
 const githubAuth = new firebase.auth.GithubAuthProvider();
@@ -21,6 +21,9 @@ function* willLogin(action) {
     const currentUser = yield call(onAuthStateChanged);
     yield put({ type: authTypes.LOGIN_SUCCESS, currentUser });
   } catch (e) {
+    const title = e.email ? `auth error: ${e.email}` : 'Auth Error';
+    const msg = e.message ? e.message : null;
+    swalService.error(title, msg);
     console.error(`${authTypes.LOGIN_FAILED} ${e}`);
   }
 }
