@@ -1,3 +1,5 @@
+/* global VERSION */
+
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -9,7 +11,11 @@ const LoginContainer = (props) => {
   const { requestLogin } = props;
   return (
     <LoginContainerArea>
-      <h2>Github Projects Tracker</h2>
+      <h2>
+        Github Projects Tracker
+        {' '}
+        <VersionNumber>{`v${VERSION}`}</VersionNumber>
+      </h2>
       <SigninArea>
         <span>Sign In:</span>
         <input
@@ -57,4 +63,8 @@ const SigninArea = styled.div`
     height: 46px;
     box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.2)
   }
+`;
+const VersionNumber = styled.span`
+  font-size: 14px;
+  vertical-align: super;
 `;
