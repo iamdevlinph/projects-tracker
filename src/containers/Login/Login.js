@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const SignInGoogle = require('./img/signin-google.svg');
+const SignInGoogle = require('./img/signin-google.png');
+const SignInGithub = require('./img/signin-github.png');
 
 const LoginContainer = (props) => {
   const { requestLogin } = props;
@@ -17,7 +18,15 @@ const LoginContainer = (props) => {
           src={SignInGoogle}
           alt="Sign in with Google"
           title="Sign in with Google"
-          onClick={() => requestLogin()}
+          onClick={() => requestLogin('google')}
+        />
+        <input
+          type="image"
+          className="signin signin-github-img"
+          src={SignInGithub}
+          alt="Sign in with Github"
+          title="Sign in with Github"
+          onClick={() => requestLogin('github')}
         />
       </SigninArea>
     </LoginContainerArea>
@@ -42,7 +51,10 @@ const SigninArea = styled.div`
     line-height: 40px;
   }
   .signin {
+    outline: none;
     cursor: pointer;
+    width: 46px;
+    height: 46px;
     box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.2)
   }
 `;

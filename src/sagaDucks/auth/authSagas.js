@@ -5,10 +5,18 @@ import rsf, { onAuthStateChanged } from '../rsf';
 import { types as authTypes } from './auth';
 import { localStorage } from '../../services';
 
-const authProvider = new firebase.auth.GoogleAuthProvider();
+const googleAuth = new firebase.auth.GoogleAuthProvider();
+const githubAuth = new firebase.auth.GithubAuthProvider();
 
-function* willLogin() {
+function* willLogin(action) {
   try {
+    let authProvider;
+    switch (action.provider) {
+      case 'github':
+        authProvider = githubAuth; break;
+      default:
+        authProvider = googleAuth; break;
+    }
     yield call(rsf.auth.signInWithPopup, authProvider);
     const currentUser = yield call(onAuthStateChanged);
     yield put({ type: authTypes.LOGIN_SUCCESS, currentUser });
