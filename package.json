@@ -6,13 +6,13 @@
   "dependencies": {
     "@codes-and-coffees/react-pkg": "1.2.1",
     "common-utils-pkg": "1.7.1",
-    "firebase": "5.5.2",
+    "firebase": "5.5.6",
     "lodash": "4.17.11",
     "moment": "2.22.2",
     "react-color": "2.14.1",
     "react-table": "6.8.6",
     "redux-saga-firebase": "0.14.1",
-    "sweetalert2": "7.28.4"
+    "sweetalert2": "7.28.11"
   },
   "devDependencies": {},
   "scripts": {

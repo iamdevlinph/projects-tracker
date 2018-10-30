@@ -1,4 +1,7 @@
 # Projects Tracker
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/iamdevlinph/projects-tracker.svg)](https://greenkeeper.io/)
+
 Track multiple public github repositories in one place.
 
 #### React-Pkg Dependency Status
