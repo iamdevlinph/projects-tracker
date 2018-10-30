@@ -24,10 +24,10 @@ deploy:
   github-token: "$GITHUB_TOKEN"
   keep-history: true
   on:
-    branch: master
+    tags: true
 - provider: firebase
   skip-cleanup: true
   token:
     secure: TUK4vaNJkGprV+8YpKuO2mWy//qHaVrKJ25m9oLjcbZI/PuUF2B7Jx3VRXK0YYUKKHvbS2wVOviXY63BQ5qLezrp1+UB8Eg4CShcR18OCelZJyI55oA/XVKbl+n+nk3eMWfkterKmjV2pKpHDisLnAMTCwGtyubb1B3fCvLqRj4jJEqYxPJMb3Othq9iJW8/vJTfaNofaE/1/sOXWfHWsPdI2fhnEwRWzSY8YffjPorn5wMPGaUgiW5NQmk+fCgW2sVU616QWUbJ1w4brLceIqMLtC8NmY5VoU6QKjfbsWq6iAZKp2IRyMU35B5stbypL3x4jln67ORJkItElmaRClsJVvLkIE7AwNS2cVVSUB+k5/h/PsRqMT43yzPxY4kJJSrBrNpafZH17Ju6ZbDL2hT0h55ks1jR6TbNaQQGEu2xWR2VC9ShrE7w+X5EOmsbgiXkCYUQhqPiqaT78cyZiQsNS4h380av2OJaokB+sS8T1C4K6OTMGBPmelW5QYDU6ESaRa6cEN0AhZJq1mH2Lw2hNTnouj3qde47luRubRsheT/evfOGzOGXZQV5nP7L35Zr1dSRXajeAcNvbOrUJ6IgEG5NSysrKBAVDGa70trO0pqiXrJngJsQOqMPvlUVOswPqEGjfBFGeWnyYsP6g70+y3eJKK6UQOOzgngEcZs=
   on:
-    branch: master
+    tags: true
