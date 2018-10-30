@@ -1,7 +1,7 @@
 {
   "name": "projects-tracker",
   "description": "Track multiple public github repositories in one place.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "dependencies": {
     "@codes-and-coffees/react-pkg": "1.2.1",
