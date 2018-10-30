@@ -10,7 +10,7 @@ Track multiple public github repositories in one place.
 
 #### Repository Status
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/iamdevlinph/projects-tracker.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/iamdevlinph/projects-tracker.svg?style=flat-square)](https://greenkeeper.io/)
 [![build][travis-img]][travis-url]
 [![repo deps][repo-deps-img]][repo-deps-url]
 [![open issues][issues-img]][issues-url]
