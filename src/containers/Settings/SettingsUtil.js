@@ -10,7 +10,7 @@ const commonData = {
 
 const generateDefaultData = () => ({
   ...commonData,
-  lastCommitDate: moment().format(),
+  updatedAt: moment().format(),
   lastCommitMsgPlaceholder: 'Up to date',
   issuesCount: 0,
   prsCount: 0,
@@ -18,7 +18,7 @@ const generateDefaultData = () => ({
 
 const generateSafeData = () => ({
   ...commonData,
-  lastCommitDate: moment().format(),
+  updatedAt: moment().format(),
   lastCommitMsgPlaceholder: 'Up to date',
   issuesCount: 1,
   prsCount: 1,
@@ -26,7 +26,7 @@ const generateSafeData = () => ({
 
 const generateWarningData = settings => ({
   ...commonData,
-  lastCommitDate: moment().subtract(settings.update.warningCount, 'd').format(),
+  updatedAt: moment().subtract(settings.update.warningCount, 'd').format(),
   lastCommitMsgPlaceholder: `Updated ${settings.update.warningCount} days ago`,
   issuesCount: settings.issues.warningCount,
   prsCount: settings.pulls.warningCount,
@@ -34,7 +34,7 @@ const generateWarningData = settings => ({
 
 const generateDangerData = settings => ({
   ...commonData,
-  lastCommitDate: moment().subtract(settings.update.dangerCount, 'd').format(),
+  updatedAt: moment().subtract(settings.update.dangerCount, 'd').format(),
   lastCommitMsgPlaceholder: `Updated ${settings.update.dangerCount} days ago`,
   issuesCount: settings.issues.dangerCount,
   prsCount: settings.pulls.dangerCount,

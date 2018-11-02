@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const getStatusColor = (data, settings) => {
-  const repoLastUpdateSeconds = moment().format('X') - moment(data.lastCommitDate).format('X');
+  const repoLastUpdateSeconds = moment().format('X') - moment(data.updatedAt).format('X');
   const repoLastUpdateDays = (repoLastUpdateSeconds / 86400).toFixed(0);
   let repoUpdateStatusColor;
   const { update } = settings;
