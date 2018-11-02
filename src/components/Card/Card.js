@@ -36,7 +36,7 @@ const CardComponent = (props) => {
         </RepoDesc>
       </RepoArea>
       <CommitArea>
-        <div>{data.lastCommitMsgPlaceholder ? data.lastCommitMsgPlaceholder : moment(data.lastCommitDate).format('DD MMM YYYY')}</div>
+        <div>{data.lastCommitMsgPlaceholder ? data.lastCommitMsgPlaceholder : moment(data.updatedAt).format('DD MMM YYYY')}</div>
         {!fromSettingsPage && (
           <div className="commit-days-ago">
             {CardUtil.daysAgo(moment(data.updatedAt))}
