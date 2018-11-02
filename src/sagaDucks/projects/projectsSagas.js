@@ -65,7 +65,6 @@ function* isRepoDataUpdated(projects) {
   // get the outdated repos
   const outDated = getUpdatedAt.filter(proj => !proj.isUpdated);
   // iterate and get the latest repoInfo
-  console.log(outDated);
   const updated = yield outDated.map(
     proj => call(githubApi.getRepoInfo, proj.authorName, proj.repoName, proj.newestEventCreated),
   );

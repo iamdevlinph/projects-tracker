@@ -8,7 +8,7 @@ module.exports = {
     "jsx-a11y/anchor-is-valid": 0,
     "react/forbid-prop-types": 0, // for object prop type,
     "import/prefer-default-export": 0,
-    "no-console": ["warn", { allow: ["error"] }],
+    "no-console": ["error", { allow: ["error"] }],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }]
   },
   "globals": {
