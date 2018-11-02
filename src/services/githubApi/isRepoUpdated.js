@@ -1,7 +1,7 @@
-const isRepoUpdated = proj => fetch(`https://api.github.com/repos/${proj.authorName}/${proj.repoName}`)
+const isRepoUpdated = proj => fetch(`https://api.github.com/repos/${proj.authorName}/${proj.repoName}/events`)
   .then(res => res.json())
   .then(data => ({
-    isUpdated: proj.updatedAt === data.updated_at,
+    isUpdated: proj.updatedAt === data[0].created_at,
     authorName: proj.authorName,
     repoName: proj.repoName,
   }));
