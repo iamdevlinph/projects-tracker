@@ -13,7 +13,7 @@ const FilterComponent = (props) => {
     <Filter>
       <FilterButton label="Authors" value="authorName" disabled={disabled} sortFunc={sortFunc} sort={sort} />
       <FilterButton label="Repositories" value="repoName" disabled={disabled} sortFunc={sortFunc} sort={sort} />
-      <FilterButton label="Commit Date" value="lastCommitDate" disabled={disabled} sortFunc={sortFunc} sort={sort} />
+      <FilterButton label="Updated Date" value="updatedAt" disabled={disabled} sortFunc={sortFunc} sort={sort} />
       <FilterButton label="Issues" value="issuesCount" disabled={disabled} sortFunc={sortFunc} sort={sort} />
       <FilterButton label="Pull Requests" value="prsCount" disabled={disabled} sortFunc={sortFunc} sort={sort} />
       <FilterSearch text="Search keyword" disabled={disabled} searchList={searchList} />

@@ -12,18 +12,23 @@ import rsf, { onAuthStateChanged } from '../rsf';
 
 import { getProjects } from '../selectors';
 
-const mapData = (repo) => {
+const mapData = (repo, outDated) => {
   const { owner } = repo.data.repository;
   const issueCount = repo.data.repository.issues.totalCount;
   const prCount = repo.data.repository.pullRequests.totalCount;
   const commitInfo = repo.data.repository.defaultBranchRef.target.history.nodes[0];
   const repoInfoObj = repo.data.repository;
+  const updatedAt = outDated
+    // if from outdated then use the activity create_at date
+    ? _.find(outDated, { fullName: repoInfoObj.nameWithOwner }).newestEventCreated
+    // else use the normal updatedAt from graphQL
+    : repoInfoObj.updatedAt;
   return {
     repoName: repoInfoObj.name,
     description: repoInfoObj.description,
     fullName: repoInfoObj.nameWithOwner,
     repoUrl: repoInfoObj.url,
-    updatedAt: repoInfoObj.updatedAt,
+    updatedAt,
     homepageUrl: repoInfoObj.homepageUrl,
     authorName: owner.login,
     authorAvatar: owner.avatarUrl,
@@ -61,10 +66,11 @@ function* isRepoDataUpdated(projects) {
   const outDated = getUpdatedAt.filter(proj => !proj.isUpdated);
   // iterate and get the latest repoInfo
   const updated = yield outDated.map(
-    proj => call(githubApi.getRepoInfo, proj.authorName, proj.repoName),
+    proj => call(githubApi.getRepoInfo, proj.authorName, proj.repoName, proj.newestEventCreated),
   );
+  // console.log(updated);
   // clean out the data
-  const mappedUpdated = updated.map(proj => mapData(proj));
+  const mappedUpdated = updated.map(proj => mapData(proj, outDated));
   // merge the udpated data to the original data
   let allProj = [];
   if (mappedUpdated.length > 0) {
