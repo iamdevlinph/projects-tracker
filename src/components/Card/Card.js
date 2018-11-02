@@ -39,7 +39,7 @@ const CardComponent = (props) => {
         <div>{data.lastCommitMsgPlaceholder ? data.lastCommitMsgPlaceholder : moment(data.lastCommitDate).format('DD MMM YYYY')}</div>
         {!fromSettingsPage && (
           <div className="commit-days-ago">
-            {CardUtil.daysAgo(moment(data.lastCommitDate))}
+            {CardUtil.daysAgo(moment(data.updatedAt))}
           </div>
         )}
       </CommitArea>

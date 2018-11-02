@@ -4,6 +4,8 @@ const isRepoUpdated = proj => fetch(`https://api.github.com/repos/${proj.authorN
     isUpdated: proj.updatedAt === data[0].created_at,
     authorName: proj.authorName,
     repoName: proj.repoName,
+    newestEventCreated: data[0].created_at,
+    fullName: `${proj.authorName}/${proj.repoName}`,
   }));
 
 export default isRepoUpdated;
