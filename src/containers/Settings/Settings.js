@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Card, SettingsCard, Button } from '../../components';
+import {
+  Card, SettingsCard, Button, LoaderOverlay,
+} from '../../components';
 import SettingsUtil from './SettingsUtil';
 
 class SettingsContainer extends Component {
@@ -13,7 +15,7 @@ class SettingsContainer extends Component {
 
   render() {
     const {
-      settings, showColorPicker, activeColorPicker, loggedIn,
+      settings, showColorPicker, activeColorPicker, loggedIn, ajaxInProgress,
       previewColor, previewCount, resetSettings, saveSettings, user,
     } = this.props;
     const display = !settings
@@ -23,6 +25,7 @@ class SettingsContainer extends Component {
         </div>
       ) : (
         <SettingsArea>
+          {ajaxInProgress > 0 && (<LoaderOverlay />)}
           <SettingsSection>
             <h3>
               Preview
@@ -116,6 +119,7 @@ SettingsContainer.propTypes = {
   saveSettings: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
+  ajaxInProgress: PropTypes.bool.isRequired,
 };
 
 SettingsContainer.defaultProps = {

@@ -5,6 +5,7 @@ import { firebaseFuncs, localStorage, swalService } from '../../services';
 import rsf, { onAuthStateChanged } from '../rsf';
 
 import { types as settingsTypes } from './settings';
+import { types as commonTypes } from '../common/common';
 
 const defaultSettings = {
   safeColor: '#2AD806',
@@ -55,6 +56,7 @@ function* willFetchSettings() {
 
 function* willSaveSettings(action) {
   const { settings } = action;
+  yield put({ type: commonTypes.AJAX_INC });
   try {
     const currentUser = yield call(onAuthStateChanged);
     const userId = currentUser.uid;
@@ -63,9 +65,12 @@ function* willSaveSettings(action) {
     yield call(rsf.firestore.updateDocument, `settings-${userId}/update`, { ...settings.update });
     localStorage.setItem('settingsCache', settings);
     yield put({ type: settingsTypes.SAVE_SETTINGS_SUCCESS, settings });
+    swalService.success('Settings updated');
   } catch (e) {
     console.error(`${settingsTypes.SAVE_SETTINGS_FAILED} ${e}`);
     swalService.error('Save settings failed', e);
+  } finally {
+    yield put({ type: commonTypes.AJAX_DEC });
   }
 }
 
