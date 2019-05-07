@@ -6,7 +6,7 @@
   "dependencies": {
     "@codes-and-coffees/react-pkg": "1.2.4",
     "common-utils-pkg": "1.7.4",
-    "firebase": "5.5.7",
+    "firebase": "6.0.0",
     "lodash": "4.17.11",
     "moment": "2.22.2",
     "react-color": "2.14.1",
