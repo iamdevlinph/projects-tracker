@@ -10,7 +10,7 @@
     "lodash": "4.17.11",
     "moment": "2.22.2",
     "react-color": "2.14.1",
-    "react-table": "6.8.6",
+    "react-table": "6.10.2",
     "redux-saga-firebase": "0.14.1",
     "sweetalert2": "7.28.11"
   },
